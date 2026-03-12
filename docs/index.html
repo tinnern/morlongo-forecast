@@ -296,7 +296,7 @@
             gap: 8px;
         }
         .chart-title .wi { color: var(--text-secondary); }
-        .chart-container { height: 200px; }
+        .chart-container { height: 280px; }
 
         /* Collapsible Table */
         .details-section {
@@ -359,7 +359,7 @@
             .day-card { padding: 10px 5px; }
             .day-icon { font-size: 1.4em; }
             .sparkline-container { height: 20px; }
-            .chart-container { height: 150px; }
+            .chart-container { height: 220px; }
         }
     </style>
 </head>
@@ -429,6 +429,21 @@
             </div>
         </div>
 
+        <!-- Daily Forecast -->
+        <div class="daily-forecast" id="dailyForecast"></div>
+
+        <!-- Charts -->
+        <div class="charts-section">
+            <div class="chart-card">
+                <div class="chart-title"><i class="wi wi-thermometer"></i> Temperature (Observed + Forecast)</div>
+                <div class="chart-container"><canvas id="tempChart"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title"><i class="wi wi-rain"></i> Precipitation & <i class="wi wi-strong-wind"></i> Wind</div>
+                <div class="chart-container"><canvas id="precipWindChart"></canvas></div>
+            </div>
+        </div>
+
         <!-- Plant Water Stress -->
         <div class="plant-stress-section">
             <div class="stress-card">
@@ -463,21 +478,6 @@
                 <div class="watering-time" id="wateringTime">--</div>
                 <div class="stress-unit" id="wateringVpd">lowest VPD</div>
                 <div class="stress-label">Optimal time today</div>
-            </div>
-        </div>
-
-        <!-- Daily Forecast -->
-        <div class="daily-forecast" id="dailyForecast"></div>
-
-        <!-- Charts -->
-        <div class="charts-section">
-            <div class="chart-card">
-                <div class="chart-title"><i class="wi wi-thermometer"></i> Temperature (Observed + Forecast)</div>
-                <div class="chart-container"><canvas id="tempChart"></canvas></div>
-            </div>
-            <div class="chart-card">
-                <div class="chart-title"><i class="wi wi-rain"></i> Precipitation & <i class="wi wi-strong-wind"></i> Wind</div>
-                <div class="chart-container"><canvas id="precipWindChart"></canvas></div>
             </div>
         </div>
 
