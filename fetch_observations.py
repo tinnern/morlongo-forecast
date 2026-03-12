@@ -15,6 +15,10 @@ import json
 import requests
 from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
+
+# Timezone
+TZ = ZoneInfo("Europe/Zurich")
 
 # Configuration
 TOKEN_URL = "https://api.netatmo.com/oauth2/token"
@@ -87,7 +91,7 @@ def find_weather_station(data):
 
 def extract_observation(station):
     """Extract current observation from station data."""
-    now = datetime.now()
+    now = datetime.now(TZ)
 
     # Indoor module (main device)
     dashboard = station.get("dashboard_data", {})
@@ -159,13 +163,17 @@ def load_history():
 
 def save_history(history, current_obs):
     """Save observation history, keeping only last N days."""
-    cutoff = datetime.now() - timedelta(days=HISTORY_DAYS)
+    cutoff = datetime.now(TZ) - timedelta(days=HISTORY_DAYS)
 
-    # Filter old observations
-    recent = [
-        obs for obs in history.get("observations", [])
-        if datetime.fromisoformat(obs["time"]) > cutoff
-    ]
+    # Filter old observations (handle both tz-aware and tz-naive timestamps)
+    recent = []
+    for obs in history.get("observations", []):
+        obs_time = datetime.fromisoformat(obs["time"])
+        # If naive, assume it was Europe/Zurich
+        if obs_time.tzinfo is None:
+            obs_time = obs_time.replace(tzinfo=TZ)
+        if obs_time > cutoff:
+            recent.append(obs)
 
     # Add current observation
     recent.append(current_obs)
@@ -193,7 +201,7 @@ def save_history(history, current_obs):
 
 def main():
     print(f"Fetching Netatmo observations...")
-    print(f"Time: {datetime.now().isoformat()}")
+    print(f"Time: {datetime.now(TZ).isoformat()}")
 
     # Get access token
     access_token, new_refresh_token = get_access_token()

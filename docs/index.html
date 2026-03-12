@@ -532,20 +532,32 @@
             const fcSampled = forecastData.hourly.filter((_, i) => i % fcStep === 0);
             const fcTimes = fcSampled.map(h => new Date(h.time));
             const fcTemps = fcSampled.map(h => h.debiased.temperature);
+            const fcPrecip = fcSampled.map(h => h.debiased.rain);
+
+            // Filter observations to last 5 days
+            const fiveDaysAgo = new Date();
+            fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
 
             let obsTimes = [];
             let obsTemps = [];
+            let obsPrecip = [];
 
             if (observationsData?.observations) {
-                const obs = observationsData.observations;
+                const obs = observationsData.observations.filter(o => new Date(o.time) >= fiveDaysAgo);
                 obsTimes = obs.map(o => new Date(o.time));
                 obsTemps = obs.map(o => o.outdoor?.temperature ?? o.indoor?.temperature ?? null);
+                // Get 1h rain from observations
+                obsPrecip = obs.map(o => o.rain?.rain_1h ?? null);
             }
+
+            // Calculate x-axis range: 5 days ago to end of forecast
+            const xMin = fiveDaysAgo;
+            const xMax = fcTimes.length > 0 ? fcTimes[fcTimes.length - 1] : new Date();
 
             const ctxTemp = document.getElementById('tempChart').getContext('2d');
             if (tempChart) tempChart.destroy();
 
-            const datasets = [{
+            const tempDatasets = [{
                 label: 'Forecast',
                 data: fcTimes.map((t, i) => ({ x: t, y: fcTemps[i] })),
                 borderColor: lipari[3],  // medium blue
@@ -557,7 +569,7 @@
             }];
 
             if (obsTimes.length > 0) {
-                datasets.unshift({
+                tempDatasets.unshift({
                     label: 'Observed',
                     data: obsTimes.map((t, i) => ({ x: t, y: obsTemps[i] })),
                     borderColor: lipari[13],  // brown-orange
@@ -571,7 +583,7 @@
 
             tempChart = new Chart(ctxTemp, {
                 type: 'line',
-                data: { datasets },
+                data: { datasets: tempDatasets },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
@@ -581,6 +593,8 @@
                     scales: {
                         x: {
                             type: 'time',
+                            min: xMin,
+                            max: xMax,
                             time: { unit: 'day', displayFormats: { day: 'EEE' } },
                             grid: { display: false }
                         },
@@ -589,38 +603,49 @@
                 }
             });
 
+            // Precipitation & Wind chart with observations
             const ctxPW = document.getElementById('precipWindChart').getContext('2d');
             if (precipWindChart) precipWindChart.destroy();
 
-            const labels = fcSampled.map(h => {
-                const d = new Date(h.time);
-                return d.toLocaleDateString('en-US', { weekday: 'short', hour: '2-digit' });
-            });
+            const precipDatasets = [
+                {
+                    label: 'Precip Forecast (mm)',
+                    data: fcTimes.map((t, i) => ({ x: t, y: fcPrecip[i] })),
+                    backgroundColor: lipari[2] + 'CC',  // blue
+                    borderRadius: 3,
+                    yAxisID: 'y',
+                    type: 'bar',
+                    barPercentage: 0.8
+                },
+                {
+                    label: 'Wind Forecast (km/h)',
+                    data: fcSampled.map(h => ({ x: new Date(h.time), y: h.debiased.wind_speed })),
+                    type: 'line',
+                    borderColor: lipari[12],  // orange
+                    borderWidth: 2,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    yAxisID: 'y1'
+                }
+            ];
+
+            // Add observed precipitation if available
+            const hasObsPrecip = obsPrecip.some(p => p !== null && p > 0);
+            if (hasObsPrecip) {
+                precipDatasets.unshift({
+                    label: 'Precip Observed (mm)',
+                    data: obsTimes.map((t, i) => ({ x: t, y: obsPrecip[i] })),
+                    backgroundColor: lipari[14] + 'CC',  // brown
+                    borderRadius: 3,
+                    yAxisID: 'y',
+                    type: 'bar',
+                    barPercentage: 0.8
+                });
+            }
 
             precipWindChart = new Chart(ctxPW, {
                 type: 'bar',
-                data: {
-                    labels,
-                    datasets: [
-                        {
-                            label: 'Precip (mm)',
-                            data: fcSampled.map(h => h.debiased.rain),
-                            backgroundColor: lipari[2] + 'CC',  // blue
-                            borderRadius: 3,
-                            yAxisID: 'y'
-                        },
-                        {
-                            label: 'Wind (km/h)',
-                            data: fcSampled.map(h => h.debiased.wind_speed),
-                            type: 'line',
-                            borderColor: lipari[12],  // orange
-                            borderWidth: 2,
-                            tension: 0.4,
-                            pointRadius: 0,
-                            yAxisID: 'y1'
-                        }
-                    ]
-                },
+                data: { datasets: precipDatasets },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
@@ -628,7 +653,14 @@
                         legend: { display: true, position: 'top', labels: { boxWidth: 12, font: { size: 11 } } }
                     },
                     scales: {
-                        x: { grid: { display: false } },
+                        x: {
+                            type: 'time',
+                            min: xMin,
+                            max: xMax,
+                            time: { unit: 'day', displayFormats: { day: 'EEE' } },
+                            grid: { display: false },
+                            stacked: false
+                        },
                         y: { position: 'left', title: { display: true, text: 'mm', font: { size: 10 } }, grid: { color: lipari[7] }, min: 0 },
                         y1: { position: 'right', title: { display: true, text: 'km/h', font: { size: 10 } }, grid: { display: false }, min: 0 }
                     }

@@ -11,6 +11,10 @@ import requests
 import xgboost as xgb
 from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
+
+# Timezone
+TZ = ZoneInfo("Europe/Zurich")
 
 # Configuration
 LAT = 46.021245
@@ -132,7 +136,7 @@ def generate_output(times, features, predictions):
             "location": LOCATION_NAME,
             "lat": LAT,
             "lon": LON,
-            "generated_at": datetime.now().isoformat(),
+            "generated_at": datetime.now(TZ).isoformat(),
             "model": "XGBoost debiasing on MeteoSwiss ICON-CH2",
             "forecast_hours": len(times)
         },
@@ -167,7 +171,7 @@ def generate_output(times, features, predictions):
 
 def main():
     print(f"Generating forecast for {LOCATION_NAME} ({LAT}, {LON})")
-    print(f"Time: {datetime.now().isoformat()}")
+    print(f"Time: {datetime.now(TZ).isoformat()}")
 
     # Fetch forecast
     print("Fetching ICON-CH2 forecast...")
