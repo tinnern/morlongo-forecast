@@ -112,6 +112,67 @@
         }
         .no-obs .wi { font-size: 2em; margin-bottom: 10px; opacity: 0.5; }
 
+        /* Plant Stress Indicators */
+        .plant-stress-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stress-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(27, 17, 69, 0.06);
+        }
+        .stress-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--lipari-2);
+            margin-bottom: 10px;
+        }
+        .stress-header .wi { font-size: 1.2em; }
+        .stress-value {
+            font-size: 2.5em;
+            font-weight: 300;
+            color: var(--lipari-0);
+            line-height: 1.1;
+        }
+        .stress-unit {
+            font-size: 0.85em;
+            color: var(--lipari-4);
+            margin-bottom: 12px;
+        }
+        .stress-bar-container {
+            height: 8px;
+            background: var(--lipari-7);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .stress-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        .vpd-bar {
+            background: linear-gradient(90deg, var(--lipari-5) 0%, var(--lipari-12) 50%, var(--lipari-16) 100%);
+        }
+        .water-bar {
+            background: linear-gradient(90deg, var(--lipari-16) 0%, var(--lipari-9) 50%, var(--lipari-3) 100%);
+        }
+        .stress-label {
+            font-size: 0.7em;
+            color: var(--lipari-4);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         /* Daily Forecast */
         .daily-forecast {
             display: grid;
@@ -199,6 +260,9 @@
         @media (max-width: 700px) {
             .current-section { grid-template-columns: 1fr; }
             .current-details { grid-template-columns: repeat(3, 1fr); }
+            .plant-stress-section { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .stress-card { padding: 15px 10px; }
+            .stress-value { font-size: 2em; }
             .daily-forecast { grid-template-columns: repeat(5, 1fr); gap: 6px; }
             .day-card { padding: 10px 5px; }
             .day-icon { font-size: 1.5em; }
@@ -257,6 +321,34 @@
                         <div class="detail-label">24h Rain</div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Plant Water Stress -->
+        <div class="plant-stress-section">
+            <div class="stress-card">
+                <div class="stress-header">
+                    <i class="wi wi-humidity"></i>
+                    <span>VPD Now</span>
+                </div>
+                <div class="stress-value" id="vpdValue">--</div>
+                <div class="stress-unit">kPa</div>
+                <div class="stress-bar-container">
+                    <div class="stress-bar vpd-bar" id="vpdBar"></div>
+                </div>
+                <div class="stress-label">Atmospheric drying power</div>
+            </div>
+            <div class="stress-card">
+                <div class="stress-header">
+                    <i class="wi wi-raindrops"></i>
+                    <span>7-Day Water Balance</span>
+                </div>
+                <div class="stress-value" id="waterBalanceValue">--</div>
+                <div class="stress-unit">mm</div>
+                <div class="stress-bar-container">
+                    <div class="stress-bar water-bar" id="waterBar"></div>
+                </div>
+                <div class="stress-label" id="waterBalanceLabel">Rain minus evaporation</div>
             </div>
         </div>
 
@@ -366,9 +458,75 @@
             renderUpdateTime();
             renderObserved();
             renderCurrentForecast();
+            renderPlantStress();
             renderDailyForecast();
             renderCharts();
             renderHourlyTable();
+        }
+
+        function renderPlantStress() {
+            // Get current VPD from forecast
+            const now = new Date();
+            const currentHour = forecastData.hourly.find(h => new Date(h.time) >= now) || forecastData.hourly[0];
+            const vpd = currentHour?.raw?.vpd;
+
+            if (vpd != null) {
+                document.getElementById('vpdValue').textContent = vpd.toFixed(2);
+                // VPD scale: 0 = 0%, 2.5+ kPa = 100%
+                const vpdPercent = Math.min(100, (vpd / 2.5) * 100);
+                document.getElementById('vpdBar').style.width = vpdPercent + '%';
+            }
+
+            // Calculate 7-day water balance
+            // Past precipitation from observations
+            let obsPrecip = 0;
+            let obsDays = 0;
+            if (observationsData?.observations) {
+                const sevenDaysAgo = new Date();
+                sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+                // Sum hourly rain observations (rain_1h)
+                const recentObs = observationsData.observations.filter(o => new Date(o.time) >= sevenDaysAgo);
+                recentObs.forEach(o => {
+                    if (o.rain?.rain_1h != null) {
+                        obsPrecip += o.rain.rain_1h;
+                    }
+                });
+
+                // Calculate observation span in days
+                if (recentObs.length > 1) {
+                    const firstObs = new Date(recentObs[0].time);
+                    const lastObs = new Date(recentObs[recentObs.length - 1].time);
+                    obsDays = (lastObs - firstObs) / (1000 * 60 * 60 * 24);
+                }
+            }
+
+            // Estimate ET0 from forecast (daily average × observation days)
+            let dailyEt0 = 0;
+            if (forecastData?.hourly) {
+                // Sum first 24 hours of ET0 as daily estimate
+                const first24h = forecastData.hourly.slice(0, 24);
+                first24h.forEach(h => {
+                    if (h.raw?.et0 != null) {
+                        dailyEt0 += h.raw.et0;
+                    }
+                });
+            }
+
+            // Calculate balance: observed precip - estimated ET0 loss
+            const estimatedEt0Loss = dailyEt0 * Math.max(1, obsDays);
+            const waterBalance = obsPrecip - estimatedEt0Loss;
+
+            document.getElementById('waterBalanceValue').textContent = (waterBalance >= 0 ? '+' : '') + waterBalance.toFixed(1);
+
+            // Water balance scale: -30mm = 0%, +30mm = 100%, 0 = 50%
+            const waterPercent = Math.min(100, Math.max(0, ((waterBalance + 30) / 60) * 100));
+            document.getElementById('waterBar').style.width = waterPercent + '%';
+
+            // Update label with details
+            const daysLabel = obsDays > 0 ? obsDays.toFixed(0) : '7';
+            document.getElementById('waterBalanceLabel').textContent =
+                `${obsPrecip.toFixed(1)}mm rain - ${estimatedEt0Loss.toFixed(1)}mm evap (${daysLabel}d)`;
         }
 
         function renderUpdateTime() {

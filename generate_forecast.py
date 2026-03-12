@@ -155,6 +155,8 @@ def generate_output(times, features, predictions):
                 "cloud_cover": features["fc_cloud_cover"][i],
                 "pressure": features["fc_pressure_msl"][i],
                 "weather_code": features["fc_weather_code"][i],
+                "vpd": features["fc_vapour_pressure_deficit"][i],
+                "et0": features["fc_et0_fao_evapotranspiration"][i],
             },
             "debiased": {
                 "temperature": round(predictions["temperature"][i], 1),
