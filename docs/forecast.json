@@ -3,7 +3,7 @@
     "location": "Morlongo",
     "lat": 46.021245,
     "lon": 8.239861,
-    "generated_at": "2026-03-13T17:58:56.539304+01:00",
+    "generated_at": "2026-03-13T18:32:27.104383+01:00",
     "model": "XGBoost debiasing on MeteoSwiss ICON-CH2",
     "forecast_hours": 120
   },
