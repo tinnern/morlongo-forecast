@@ -964,18 +964,18 @@
 
             // Add past forecast as thin dashed overlay (for accuracy comparison)
             if (forecastHistoryData?.hourly) {
-                const histTempData = forecastHistoryData.hourly
-                    .filter(h => {
-                        const t = new Date(h.time);
-                        return t >= fiveDaysAgo && t <= now;
-                    })
-                    .map(h => ({ x: new Date(h.time), y: h.temperature }));
+                const histData = forecastHistoryData.hourly.filter(h => {
+                    const t = new Date(h.time);
+                    return t >= fiveDaysAgo && t <= now;
+                });
 
+                // Past forecast temperature
+                const histTempData = histData.map(h => ({ x: new Date(h.time), y: h.temperature }));
                 if (histTempData.length > 0) {
                     tempDatasets.push({
-                        label: 'Past Forecast',
+                        label: 'Temp Fc',
                         data: histTempData,
-                        borderColor: '#D9A16480',  // lipari-12 semi-transparent
+                        borderColor: '#D9A16470',  // lipari-12 semi-transparent
                         backgroundColor: 'transparent',
                         borderWidth: 1.5,
                         borderDash: [4, 4],
@@ -983,6 +983,23 @@
                         fill: false,
                         pointRadius: 0,
                         yAxisID: 'y'
+                    });
+                }
+
+                // Past forecast humidity
+                const histHumidityData = histData.map(h => ({ x: new Date(h.time), y: h.humidity }));
+                if (histHumidityData.length > 0) {
+                    tempDatasets.push({
+                        label: 'Humidity Fc',
+                        data: histHumidityData,
+                        borderColor: '#8FACD470',  // lipari-5 semi-transparent
+                        backgroundColor: 'transparent',
+                        borderWidth: 1.5,
+                        borderDash: [4, 4],
+                        tension: 0.4,
+                        fill: false,
+                        pointRadius: 0,
+                        yAxisID: 'y1'
                     });
                 }
             }
@@ -1044,14 +1061,23 @@
             const ctxPW = document.getElementById('precipWindChart').getContext('2d');
             if (precipWindChart) precipWindChart.destroy();
 
-            // Build unified precipitation: observed (past) + forecast (future) - NO OVERLAP
-            const unifiedPrecipData = [];
-
-            // Add observed precipitation (past only)
+            // Aggregate observed precipitation to hourly steps (matching forecast resolution)
+            // Group observations by hour and sum precipitation
+            const hourlyObsPrecip = {};
             obsTimes.forEach((t, i) => {
                 if (t <= now && obsPrecip[i] !== null) {
-                    unifiedPrecipData.push({ x: t, y: obsPrecip[i] });
+                    const hourKey = new Date(t.getFullYear(), t.getMonth(), t.getDate(), t.getHours()).getTime();
+                    if (!hourlyObsPrecip[hourKey]) hourlyObsPrecip[hourKey] = 0;
+                    hourlyObsPrecip[hourKey] += obsPrecip[i];
                 }
+            });
+
+            // Build unified precipitation: aggregated observed (past) + forecast (future)
+            const unifiedPrecipData = [];
+
+            // Add aggregated observed precipitation (past only)
+            Object.keys(hourlyObsPrecip).forEach(hourKey => {
+                unifiedPrecipData.push({ x: new Date(parseInt(hourKey)), y: hourlyObsPrecip[hourKey] });
             });
 
             // Add forecast precipitation (future only)
@@ -1061,20 +1087,22 @@
                 }
             });
 
-            // Wind: unified line (forecast for all times, as we don't have observed wind)
-            const windData = fcSampled.map(h => ({ x: new Date(h.time), y: h.debiased.wind_speed }));
+            // Sort by time
+            unifiedPrecipData.sort((a, b) => a.x - b.x);
+
+            // Build unified wind: forecast only (we typically don't have observed wind)
+            const unifiedWindData = fcSampled.map(h => ({ x: new Date(h.time), y: h.debiased.wind_speed }));
 
             const precipDatasets = [
                 {
                     label: 'Precipitation',
                     data: unifiedPrecipData,
                     backgroundColor: (ctx) => {
-                        // Different color for past vs future
                         const dataPoint = ctx.raw;
                         if (dataPoint && dataPoint.x <= now) {
                             return '#3E4A8A';  // lipari-2: darker blue for observed
                         }
-                        return '#6E8ABE';  // lipari-4: lighter blue for forecast
+                        return '#5369A5';  // lipari-3: medium blue for forecast
                     },
                     borderColor: '#2D2B6B',
                     borderWidth: 1,
@@ -1082,17 +1110,17 @@
                     yAxisID: 'y',
                     type: 'bar',
                     barThickness: 'flex',
-                    maxBarThickness: 30,
-                    categoryPercentage: 0.85,
-                    barPercentage: 0.9
+                    maxBarThickness: 25,
+                    categoryPercentage: 0.8,
+                    barPercentage: 0.85
                 },
                 {
                     label: 'Wind',
-                    data: windData,
+                    data: unifiedWindData,
                     type: 'line',
                     borderColor: '#A24B14',  // lipari-15: distinct brown/orange
-                    backgroundColor: '#A24B1415',
-                    borderWidth: 2,
+                    backgroundColor: '#A24B1418',
+                    borderWidth: 2.5,
                     tension: 0.4,
                     pointRadius: 0,
                     pointHoverRadius: 4,
@@ -1100,6 +1128,55 @@
                     yAxisID: 'y1'
                 }
             ];
+
+            // Add past forecast overlays
+            if (forecastHistoryData?.hourly) {
+                const histData = forecastHistoryData.hourly.filter(h => {
+                    const t = new Date(h.time);
+                    return t >= fiveDaysAgo && t <= now;
+                });
+
+                // Past forecast precipitation - transparent bars behind actual
+                const histPrecipData = histData
+                    .filter(h => h.rain > 0.01)
+                    .map(h => ({ x: new Date(h.time), y: h.rain }));
+
+                if (histPrecipData.length > 0) {
+                    precipDatasets.unshift({
+                        label: 'Precip Fc',
+                        data: histPrecipData,
+                        backgroundColor: '#6E8ABE40',  // lipari-4 very transparent
+                        borderColor: '#5369A560',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        borderDash: [2, 2],
+                        yAxisID: 'y',
+                        type: 'bar',
+                        barThickness: 'flex',
+                        maxBarThickness: 25,
+                        categoryPercentage: 0.8,
+                        barPercentage: 0.85
+                    });
+                }
+
+                // Past forecast wind - dashed line
+                const histWindData = histData.map(h => ({ x: new Date(h.time), y: h.wind_speed }));
+                if (histWindData.length > 0) {
+                    precipDatasets.push({
+                        label: 'Wind Fc',
+                        data: histWindData,
+                        type: 'line',
+                        borderColor: '#D9A16470',  // lipari-12 semi-transparent
+                        backgroundColor: 'transparent',
+                        borderWidth: 1.5,
+                        borderDash: [4, 4],
+                        tension: 0.4,
+                        pointRadius: 0,
+                        fill: false,
+                        yAxisID: 'y1'
+                    });
+                }
+            }
 
             precipWindChart = new Chart(ctxPW, {
                 type: 'bar',
