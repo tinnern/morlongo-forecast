@@ -24,7 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests xgboost numpy scikit-learn
+          pip install requests xgboost numpy scikit-learn torch joblib
 
       - name: Fetch Netatmo observations
         env:
@@ -35,12 +35,12 @@ jobs:
         continue-on-error: true  # Don't fail if Netatmo is down
 
       - name: Generate debiased forecast
-        run: python generate_forecast.py
+        run: python generate_forecast_v4.py
 
       - name: Commit and push
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add docs/forecast.json docs/observations.json
+          git add docs/forecast.json docs/observations.json docs/forecast_history.json
           git diff --staged --quiet || git commit -m "Update forecast & observations $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push

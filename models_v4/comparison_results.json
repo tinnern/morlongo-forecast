@@ -1,0 +1,191 @@
+{
+  "xgboost_lag": {
+    "temperature": {
+      "model": "XGBoost+Lag",
+      "target": "temperature",
+      "train_samples": 3282,
+      "test_samples": 291,
+      "mae": 0.6971169613868229,
+      "rmse": 1.0501540095210575,
+      "r2": 0.967171995240999,
+      "raw_mae": 1.2118556701030927,
+      "raw_r2": 0.9211610685790964,
+      "improvement_mae_pct": 42.4752486137628,
+      "top_features": {
+        "fc_global_tilted_irradiance": 0.3261217474937439,
+        "fc_shortwave_radiation": 0.05025447532534599,
+        "fc_precipitation": 0.03483103960752487,
+        "fc_precipitation_lag2": 0.02294771373271942,
+        "fc_cape": 0.021301357075572014,
+        "doy_cos": 0.019542984664440155,
+        "fc_direct_radiation": 0.01771869882941246,
+        "fc_et0_fao_evapotranspiration": 0.016774017363786697,
+        "fc_precipitation_lag3": 0.016245847567915916,
+        "fc_terrestrial_radiation": 0.015781108289957047
+      }
+    },
+    "humidity": {
+      "model": "XGBoost+Lag",
+      "target": "humidity",
+      "train_samples": 3282,
+      "test_samples": 291,
+      "mae": 4.509798004634397,
+      "rmse": 7.9214570639571456,
+      "r2": 0.8256123624311275,
+      "raw_mae": 5.61340206185567,
+      "raw_r2": 0.7840102427393891,
+      "improvement_mae_pct": 19.660164104768317,
+      "top_features": {
+        "fc_relative_humidity_2m_trend6h": 0.042267609387636185,
+        "fc_relative_humidity_2m": 0.03607911244034767,
+        "fc_relative_humidity_2m_trend3h": 0.032956887036561966,
+        "fc_precipitation_lag6": 0.03234799578785896,
+        "fc_precipitation_lag3": 0.0267275869846344,
+        "fc_shortwave_radiation": 0.025976471602916718,
+        "fc_snowfall": 0.02394881658256054,
+        "month_cos": 0.023106323555111885,
+        "month_sin": 0.022416241466999054,
+        "fc_precipitation_lag1": 0.02191142365336418
+      }
+    },
+    "rain": {
+      "model": "XGBoost+Lag",
+      "target": "rain",
+      "train_samples": 5202,
+      "test_samples": 575,
+      "mae": 0.13085254613810823,
+      "rmse": 0.8157036242704764,
+      "r2": -0.4056870882887278,
+      "raw_mae": 0.1234573913043478,
+      "raw_r2": -0.5255854348750442,
+      "improvement_mae_pct": -5.990046246425103,
+      "top_features": {
+        "fc_precipitation_trend6h": 0.07324139773845673,
+        "fc_precipitation": 0.05785427242517471,
+        "fc_global_tilted_irradiance": 0.03153392672538757,
+        "fc_relative_humidity_2m_lag4": 0.0294375978410244,
+        "fc_temperature_2m_lag6": 0.02929622121155262,
+        "fc_temperature_2m_lag3": 0.02409745194017887,
+        "fc_freezing_level_height": 0.022113462910056114,
+        "fc_is_day": 0.020876901224255562,
+        "fc_dew_point_2m": 0.02032173052430153,
+        "fc_shortwave_radiation": 0.01947859488427639
+      }
+    },
+    "wind_speed": {
+      "model": "XGBoost+Lag",
+      "target": "wind_speed",
+      "train_samples": 4445,
+      "test_samples": 479,
+      "mae": 0.975153080053192,
+      "rmse": 2.0395754825761463,
+      "r2": 0.35265534770197593,
+      "raw_mae": 2.991231732776618,
+      "raw_r2": -1.677593622893125,
+      "improvement_mae_pct": 67.39961436728929,
+      "top_features": {
+        "fc_wind_speed_10m": 0.20724207162857056,
+        "fc_wind_gusts_10m": 0.1440853774547577,
+        "fc_wind_speed_10m_trend6h": 0.05790988355875015,
+        "fc_et0_fao_evapotranspiration": 0.0564618781208992,
+        "fc_precipitation": 0.03734329715371132,
+        "fc_rain": 0.035820722579956055,
+        "fc_wind_speed_10m_trend3h": 0.025469787418842316,
+        "fc_precipitation_lag6": 0.02365492656826973,
+        "fc_precipitation_lag5": 0.022123856469988823,
+        "fc_global_tilted_irradiance": 0.020931631326675415
+      }
+    },
+    "gust_speed": {
+      "model": "XGBoost+Lag",
+      "target": "gust_speed",
+      "train_samples": 4445,
+      "test_samples": 479,
+      "mae": 1.9502514323176883,
+      "rmse": 3.8577572438480123,
+      "r2": 0.3482079158937399,
+      "raw_mae": 5.956784968684759,
+      "raw_r2": -2.132547037975689,
+      "improvement_mae_pct": 67.25999943643596,
+      "top_features": {
+        "fc_wind_gusts_10m": 0.2605195939540863,
+        "fc_et0_fao_evapotranspiration": 0.12362656742334366,
+        "fc_wind_speed_10m": 0.04866666719317436,
+        "fc_precipitation_lag6": 0.02973107248544693,
+        "fc_wind_speed_10m_lag1": 0.026746533811092377,
+        "fc_precipitation_lag5": 0.0221831277012825,
+        "fc_wind_speed_10m_lag2": 0.021672392264008522,
+        "fc_diffuse_radiation": 0.02054682746529579,
+        "fc_terrestrial_radiation": 0.020256729796528816,
+        "fc_precipitation_lag4": 0.01774813048541546
+      }
+    }
+  },
+  "hybrid_conv": {
+    "temperature": {
+      "model": "HybridConv1D+MLP",
+      "target": "temperature",
+      "train_samples": 3212,
+      "test_samples": 328,
+      "mae": 0.5427256571188591,
+      "rmse": 0.7246109064554326,
+      "r2": 0.9803505458121812,
+      "raw_mae": 1.0179878048780486,
+      "raw_r2": 0.933308003298127,
+      "improvement_mae_pct": 46.686428411205206,
+      "n_params": 28897
+    },
+    "humidity": {
+      "model": "HybridConv1D+MLP",
+      "target": "humidity",
+      "train_samples": 3212,
+      "test_samples": 328,
+      "mae": 3.8020951524206503,
+      "rmse": 6.825623405354083,
+      "r2": 0.850577406461045,
+      "raw_mae": 5.498475609756097,
+      "raw_r2": 0.7737746007819931,
+      "improvement_mae_pct": 30.851831993680435,
+      "n_params": 28897
+    },
+    "rain": {
+      "model": "HybridConv1D+MLP",
+      "target": "rain",
+      "train_samples": 5156,
+      "test_samples": 564,
+      "mae": 0.12189515466497894,
+      "rmse": 0.3957003644247249,
+      "r2": 0.21291293414054957,
+      "raw_mae": 0.12240425531914893,
+      "raw_r2": -0.116671182718731,
+      "improvement_mae_pct": 0.41591744734903074,
+      "n_params": 28897
+    },
+    "wind_speed": {
+      "model": "HybridConv1D+MLP",
+      "target": "wind_speed",
+      "train_samples": 4403,
+      "test_samples": 475,
+      "mae": 0.9531848085381484,
+      "rmse": 1.7719327903366613,
+      "r2": 0.08831510148697386,
+      "raw_mae": 2.796842105263158,
+      "raw_r2": -3.363109268192866,
+      "improvement_mae_pct": 65.9192484715378,
+      "n_params": 28897
+    },
+    "gust_speed": {
+      "model": "HybridConv1D+MLP",
+      "target": "gust_speed",
+      "train_samples": 4403,
+      "test_samples": 475,
+      "mae": 2.0671461614182123,
+      "rmse": 3.518724057222979,
+      "r2": -0.11234365784770084,
+      "raw_mae": 5.903578947368421,
+      "raw_r2": -5.106882929789409,
+      "improvement_mae_pct": 64.98486460760107,
+      "n_params": 28897
+    }
+  }
+}

@@ -394,6 +394,23 @@
             font-size: 0.8em;
         }
         footer a { color: var(--text-secondary); text-decoration: none; }
+        .performance-summary {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .perf-item {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .perf-item.good { background: #6E8ABE30; color: #5369A5; }
+        .perf-item.moderate { background: #D9A16430; color: #B96628; }
+        [data-theme="dark"] .perf-item.good { background: #6E8ABE40; color: #8FACD4; }
+        [data-theme="dark"] .perf-item.moderate { background: #D9A16440; color: #E4BC8A; }
 
         /* Weather Alerts Banner */
         .weather-alert {
@@ -771,56 +788,57 @@
             <div class="details-content">
                 <div class="ml-info">
                     <p class="ml-description">
-                        This forecast uses <strong>XGBoost machine learning</strong> to debias MeteoSwiss ICON-CH2 predictions
-                        for this specific microclimate. The model was trained on 8 months of local weather station data
-                        (July 2025 - March 2026) to learn systematic forecast errors.
+                        This forecast uses a <strong>V4 Hybrid ML approach</strong> to debias MeteoSwiss ICON-CH2 predictions:
+                        <strong>Conv1D+MLP</strong> for temperature, humidity, and rain (leveraging 12-hour temporal patterns),
+                        and <strong>XGBoost with lag features</strong> for wind variables. Trained on 8+ months of local data
+                        with day-out cross-validation.
                     </p>
                     <div class="ml-metrics">
                         <div class="ml-metric good">
                             <div class="ml-metric-icon"><i class="wi wi-thermometer"></i></div>
                             <div class="ml-metric-info">
                                 <div class="ml-metric-name">Temperature</div>
-                                <div class="ml-metric-value">R² = 0.97</div>
-                                <div class="ml-metric-detail">MAE: 0.6°C</div>
+                                <div class="ml-metric-value">R² = 0.98</div>
+                                <div class="ml-metric-detail">Conv1D+MLP</div>
                             </div>
                         </div>
                         <div class="ml-metric good">
                             <div class="ml-metric-icon"><i class="wi wi-humidity"></i></div>
                             <div class="ml-metric-info">
                                 <div class="ml-metric-name">Humidity</div>
-                                <div class="ml-metric-value">R² = 0.87</div>
-                                <div class="ml-metric-detail">MAE: 3.7%</div>
+                                <div class="ml-metric-value">R² = 0.85</div>
+                                <div class="ml-metric-detail">Conv1D+MLP</div>
                             </div>
                         </div>
                         <div class="ml-metric moderate">
                             <div class="ml-metric-icon"><i class="wi wi-strong-wind"></i></div>
                             <div class="ml-metric-info">
                                 <div class="ml-metric-name">Wind Speed</div>
-                                <div class="ml-metric-value">R² = 0.60</div>
-                                <div class="ml-metric-detail">MAE: 0.6 km/h</div>
+                                <div class="ml-metric-value">R² = 0.35</div>
+                                <div class="ml-metric-detail">XGBoost+Lag</div>
                             </div>
                         </div>
                         <div class="ml-metric moderate">
                             <div class="ml-metric-icon"><i class="wi wi-windy"></i></div>
                             <div class="ml-metric-info">
                                 <div class="ml-metric-name">Gusts</div>
-                                <div class="ml-metric-value">R² = 0.46</div>
-                                <div class="ml-metric-detail">MAE: 1.5 km/h</div>
+                                <div class="ml-metric-value">R² = 0.35</div>
+                                <div class="ml-metric-detail">XGBoost+Lag</div>
                             </div>
                         </div>
-                        <div class="ml-metric challenging">
+                        <div class="ml-metric moderate">
                             <div class="ml-metric-icon"><i class="wi wi-rain"></i></div>
                             <div class="ml-metric-info">
                                 <div class="ml-metric-name">Precipitation</div>
-                                <div class="ml-metric-value">R² = 0.20</div>
-                                <div class="ml-metric-detail">MAE: 0.2mm</div>
+                                <div class="ml-metric-value">R² = 0.21</div>
+                                <div class="ml-metric-detail">Conv1D+MLP</div>
                             </div>
                         </div>
                     </div>
                     <p class="ml-note">
-                        <strong>Key insight:</strong> Temperature and humidity corrections are highly reliable.
-                        Precipitation remains challenging due to its inherent spatial variability.
-                        The model uses 36 forecast features including pressure trends, cloud layers, and atmospheric stability indices.
+                        <strong>Architecture:</strong> The hybrid model combines a current-timestep MLP with past-window Conv1D
+                        to capture temporal patterns. Wind uses XGBoost with 6-hour lag features and trend indicators.
+                        See <a href="https://github.com/Real-Slin-Shady/morlongo-forecast">GitHub</a> for full methodology.
                     </p>
                 </div>
             </div>
@@ -828,9 +846,15 @@
     </div>
 
     <footer>
-        <p>Observations: Netatmo &bull; Forecast: <a href="https://open-meteo.com">Open-Meteo</a> (MeteoSwiss ICON-CH2) &bull; ML: XGBoost</p>
-        <p><a href="https://github.com/Real-Slin-Shady/morlongo-forecast">GitHub</a></p>
-        <div id="accuracyStats" style="margin-top: 10px; font-size: 0.85em; color: var(--text-muted);"></div>
+        <p>Observations: Netatmo &bull; Forecast: <a href="https://open-meteo.com">Open-Meteo</a> (MeteoSwiss ICON-CH2)</p>
+        <p style="margin-top: 8px;"><strong>ML Debiasing (V4 Hybrid)</strong>: Conv1D+MLP for temp/humidity/rain, XGBoost for wind</p>
+        <div class="performance-summary">
+            <span class="perf-item good">Temp: R²=0.98</span>
+            <span class="perf-item good">Humidity: R²=0.85</span>
+            <span class="perf-item moderate">Rain: R²=0.21</span>
+            <span class="perf-item moderate">Wind: R²=0.35</span>
+        </div>
+        <p style="margin-top: 8px;"><a href="https://github.com/Real-Slin-Shady/morlongo-forecast">GitHub</a> (see README for full methodology)</p>
     </footer>
 
     <script>
