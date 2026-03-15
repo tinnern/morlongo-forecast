@@ -934,36 +934,54 @@
 
         async function loadData() {
             try {
+                console.log('Loading data...');
                 const [fcRes, obsRes, histRes] = await Promise.all([
                     fetch('forecast.json?t=' + Date.now()),
                     fetch('observations.json?t=' + Date.now()).catch(() => null),
                     fetch('forecast_history.json?t=' + Date.now()).catch(() => null)
                 ]);
+                console.log('Fetch complete, parsing JSON...');
                 forecastData = await fcRes.json();
+                console.log('Forecast loaded:', forecastData?.hourly?.length, 'hours');
                 if (obsRes && obsRes.ok) {
                     observationsData = await obsRes.json();
+                    console.log('Observations loaded');
                 }
                 if (histRes && histRes.ok) {
                     forecastHistoryData = await histRes.json();
+                    console.log('History loaded');
                 }
+                console.log('Calling renderAll...');
                 renderAll();
+                console.log('Render complete');
             } catch (error) {
                 console.error('Error loading data:', error);
-                document.getElementById('updateTime').textContent = 'Error loading data';
+                document.getElementById('updateTime').textContent = 'Error: ' + error.message;
             }
         }
 
         function renderAll() {
-            renderUpdateTime();
-            renderWeatherAlerts();
-            renderObserved();
-            renderCurrentForecast();
-            renderPlantStress();
-            renderDailyForecast();
-            renderWeeklySummary();
-            renderActivityPlanner();
-            renderCharts();
-            renderHourlyTable();
+            const steps = [
+                ['UpdateTime', renderUpdateTime],
+                ['WeatherAlerts', renderWeatherAlerts],
+                ['Observed', renderObserved],
+                ['CurrentForecast', renderCurrentForecast],
+                ['PlantStress', renderPlantStress],
+                ['DailyForecast', renderDailyForecast],
+                ['WeeklySummary', renderWeeklySummary],
+                ['ActivityPlanner', renderActivityPlanner],
+                ['Charts', renderCharts],
+                ['HourlyTable', renderHourlyTable]
+            ];
+            for (const [name, fn] of steps) {
+                try {
+                    fn();
+                } catch (e) {
+                    console.error(`Error in render${name}:`, e);
+                    document.getElementById('updateTime').textContent = `Error in ${name}: ${e.message}`;
+                    return;
+                }
+            }
         }
 
         function renderUpdateTime() {
