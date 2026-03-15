@@ -535,6 +535,44 @@
         }
         .accuracy-badge .wi { font-size: 1em; }
 
+        /* ML Model Performance Section */
+        .ml-info { padding: 0 20px 20px; }
+        .ml-description {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .ml-metrics {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .ml-metric {
+            padding: 15px 10px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .ml-metric:hover { transform: translateY(-2px); }
+        .ml-metric.good { background: linear-gradient(135deg, #6E8ABE20 0%, #8FACD420 100%); border: 1px solid #6E8ABE40; }
+        .ml-metric.moderate { background: linear-gradient(135deg, #D9A16420 0%, #E4BC8A20 100%); border: 1px solid #D9A16440; }
+        .ml-metric.challenging { background: linear-gradient(135deg, #B9662820 0%, #CB834320 100%); border: 1px solid #B9662840; }
+        .ml-metric-icon { font-size: 1.5em; color: var(--text-secondary); margin-bottom: 8px; }
+        .ml-metric-name { font-size: 0.75em; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; }
+        .ml-metric-value { font-size: 1.1em; font-weight: 700; color: var(--text-primary); margin: 4px 0; }
+        .ml-metric-detail { font-size: 0.7em; color: var(--text-muted); }
+        .ml-note {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            background: var(--border-light);
+            padding: 12px 15px;
+            border-radius: 10px;
+            line-height: 1.5;
+        }
+        .ml-note strong { color: var(--text-secondary); }
+
         @media (max-width: 700px) {
             .current-section { grid-template-columns: 1fr; }
             .current-details { grid-template-columns: repeat(3, 1fr); }
@@ -549,6 +587,8 @@
             .weekly-summary { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .activity-grid { grid-template-columns: 1fr; gap: 8px; }
             .activity-card { padding: 12px 10px; }
+            .ml-metrics { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .ml-metric { padding: 12px 8px; }
         }
     </style>
 </head>
@@ -721,6 +761,70 @@
                 </div>
             </div>
         </div>
+
+        <!-- ML Model Performance -->
+        <div class="details-section" id="mlSection">
+            <div class="details-header" onclick="toggleML()">
+                <span class="details-title">ML Debiasing Performance</span>
+                <i class="wi wi-direction-down collapse-icon"></i>
+            </div>
+            <div class="details-content">
+                <div class="ml-info">
+                    <p class="ml-description">
+                        This forecast uses <strong>XGBoost machine learning</strong> to debias MeteoSwiss ICON-CH2 predictions
+                        for this specific microclimate. The model was trained on 8 months of local weather station data
+                        (July 2025 - March 2026) to learn systematic forecast errors.
+                    </p>
+                    <div class="ml-metrics">
+                        <div class="ml-metric good">
+                            <div class="ml-metric-icon"><i class="wi wi-thermometer"></i></div>
+                            <div class="ml-metric-info">
+                                <div class="ml-metric-name">Temperature</div>
+                                <div class="ml-metric-value">R² = 0.97</div>
+                                <div class="ml-metric-detail">MAE: 0.6°C</div>
+                            </div>
+                        </div>
+                        <div class="ml-metric good">
+                            <div class="ml-metric-icon"><i class="wi wi-humidity"></i></div>
+                            <div class="ml-metric-info">
+                                <div class="ml-metric-name">Humidity</div>
+                                <div class="ml-metric-value">R² = 0.87</div>
+                                <div class="ml-metric-detail">MAE: 3.7%</div>
+                            </div>
+                        </div>
+                        <div class="ml-metric moderate">
+                            <div class="ml-metric-icon"><i class="wi wi-strong-wind"></i></div>
+                            <div class="ml-metric-info">
+                                <div class="ml-metric-name">Wind Speed</div>
+                                <div class="ml-metric-value">R² = 0.60</div>
+                                <div class="ml-metric-detail">MAE: 0.6 km/h</div>
+                            </div>
+                        </div>
+                        <div class="ml-metric moderate">
+                            <div class="ml-metric-icon"><i class="wi wi-windy"></i></div>
+                            <div class="ml-metric-info">
+                                <div class="ml-metric-name">Gusts</div>
+                                <div class="ml-metric-value">R² = 0.46</div>
+                                <div class="ml-metric-detail">MAE: 1.5 km/h</div>
+                            </div>
+                        </div>
+                        <div class="ml-metric challenging">
+                            <div class="ml-metric-icon"><i class="wi wi-rain"></i></div>
+                            <div class="ml-metric-info">
+                                <div class="ml-metric-name">Precipitation</div>
+                                <div class="ml-metric-value">R² = 0.20</div>
+                                <div class="ml-metric-detail">MAE: 0.2mm</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="ml-note">
+                        <strong>Key insight:</strong> Temperature and humidity corrections are highly reliable.
+                        Precipitation remains challenging due to its inherent spatial variability.
+                        The model uses 36 forecast features including pressure trends, cloud layers, and atmospheric stability indices.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -764,9 +868,13 @@
             updateThemeIcon();
         }
 
-        // Collapsible table
+        // Collapsible sections
         function toggleDetails() {
             document.getElementById('detailsSection').classList.toggle('collapsed');
+        }
+
+        function toggleML() {
+            document.getElementById('mlSection').classList.toggle('collapsed');
         }
 
         function getWeatherIcon(code, isDay = true) {

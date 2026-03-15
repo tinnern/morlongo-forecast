@@ -1,0 +1,79 @@
+{
+  "seq_length": 12,
+  "n_features": 36,
+  "features": [
+    "fc_temperature_2m",
+    "fc_relative_humidity_2m",
+    "fc_dew_point_2m",
+    "fc_apparent_temperature",
+    "fc_precipitation",
+    "fc_rain",
+    "fc_snowfall",
+    "fc_snow_depth",
+    "fc_weather_code",
+    "fc_pressure_msl",
+    "fc_surface_pressure",
+    "fc_cloud_cover",
+    "fc_cloud_cover_low",
+    "fc_cloud_cover_mid",
+    "fc_cloud_cover_high",
+    "fc_et0_fao_evapotranspiration",
+    "fc_vapour_pressure_deficit",
+    "fc_wind_speed_10m",
+    "fc_wind_direction_10m",
+    "fc_wind_gusts_10m",
+    "fc_shortwave_radiation",
+    "fc_direct_radiation",
+    "fc_diffuse_radiation",
+    "fc_direct_normal_irradiance",
+    "fc_global_tilted_irradiance",
+    "fc_terrestrial_radiation",
+    "fc_cape",
+    "fc_convective_inhibition",
+    "fc_freezing_level_height",
+    "fc_is_day",
+    "hour_sin",
+    "hour_cos",
+    "month_sin",
+    "month_cos",
+    "doy_sin",
+    "doy_cos"
+  ],
+  "targets": {
+    "temperature": {
+      "train_samples": 3215,
+      "test_samples": 325,
+      "holdout_days": 15,
+      "y_train_mean": 12.106749611197513,
+      "y_train_std": 7.176931758493795
+    },
+    "humidity": {
+      "train_samples": 3215,
+      "test_samples": 325,
+      "holdout_days": 15,
+      "y_train_mean": 73.4244167962675,
+      "y_train_std": 15.498518800260225
+    },
+    "rain": {
+      "train_samples": 5155,
+      "test_samples": 565,
+      "holdout_days": 24,
+      "y_train_mean": 0.1075047526673133,
+      "y_train_std": 0.6832083530396523
+    },
+    "wind_speed": {
+      "train_samples": 4398,
+      "test_samples": 480,
+      "holdout_days": 20,
+      "y_train_mean": 2.5455889040472943,
+      "y_train_std": 1.7078656959125291
+    },
+    "gust_speed": {
+      "train_samples": 4398,
+      "test_samples": 480,
+      "holdout_days": 20,
+      "y_train_mean": 7.796612096407458,
+      "y_train_std": 3.6120666953679543
+    }
+  }
+}

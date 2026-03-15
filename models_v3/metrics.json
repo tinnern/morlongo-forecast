@@ -1,0 +1,52 @@
+{
+  "temperature": {
+    "target": "temperature",
+    "train_samples": 3215,
+    "test_samples": 325,
+    "mae": 0.9666000604629517,
+    "rmse": 1.7016994953155518,
+    "r2": 0.9087153427593743,
+    "n_params": 43169,
+    "epochs_trained": 58
+  },
+  "humidity": {
+    "target": "humidity",
+    "train_samples": 3215,
+    "test_samples": 325,
+    "mae": 4.7702555656433105,
+    "rmse": 7.304728984832764,
+    "r2": 0.8192679371917571,
+    "n_params": 43169,
+    "epochs_trained": 35
+  },
+  "rain": {
+    "target": "rain",
+    "train_samples": 5155,
+    "test_samples": 565,
+    "mae": 0.09261708706617355,
+    "rmse": 0.3306429088115692,
+    "r2": -3.711073853571391,
+    "n_params": 43169,
+    "epochs_trained": 31
+  },
+  "wind_speed": {
+    "target": "wind_speed",
+    "train_samples": 4398,
+    "test_samples": 480,
+    "mae": 0.5908840894699097,
+    "rmse": 0.8228685855865479,
+    "r2": 0.1304698054378507,
+    "n_params": 43169,
+    "epochs_trained": 30
+  },
+  "gust_speed": {
+    "target": "gust_speed",
+    "train_samples": 4398,
+    "test_samples": 480,
+    "mae": 1.3703498840332031,
+    "rmse": 2.054300308227539,
+    "r2": 0.3654481019914454,
+    "n_params": 43169,
+    "epochs_trained": 44
+  }
+}
