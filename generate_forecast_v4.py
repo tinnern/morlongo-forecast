@@ -312,6 +312,10 @@ def generate_output(times, features, predictions):
             start_idx = i
             break
 
+    # Limit to 120 hours (5 days) of forecast
+    MAX_HOURS = 120
+    end_idx = min(start_idx + MAX_HOURS, len(times))
+
     output = {
         "meta": {
             "location": LOCATION_NAME,
@@ -319,12 +323,12 @@ def generate_output(times, features, predictions):
             "lon": LON,
             "generated_at": datetime.now(TZ).isoformat(),
             "model": "V4 Hybrid: Conv1D+MLP (temp/humidity/rain) + XGBoost (wind)",
-            "forecast_hours": len(times) - start_idx
+            "forecast_hours": end_idx - start_idx
         },
         "hourly": []
     }
 
-    for i in range(start_idx, len(times)):
+    for i in range(start_idx, end_idx):
         t = times[i]
         hour_data = {
             "time": t.isoformat() if hasattr(t, 'isoformat') else str(t),
