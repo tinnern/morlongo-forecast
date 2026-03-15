@@ -1,30 +1,30 @@
 {
   "meta": {
     "station_name": "Morlongo 17 (Weather Station)",
-    "last_update": "2026-03-15T13:34:01.259921+01:00",
+    "last_update": "2026-03-15T14:30:08.134791+01:00",
     "history_days": 7,
-    "observation_count": 103
+    "observation_count": 104
   },
   "current": {
-    "time": "2026-03-15T13:34:01.259921+01:00",
+    "time": "2026-03-15T14:30:08.134791+01:00",
     "station_name": "Morlongo 17 (Weather Station)",
     "indoor": {
-      "temperature": 20.1,
-      "humidity": 45,
-      "pressure": 1010.6,
-      "co2": 650,
-      "noise": 49,
-      "time_utc": 1773577628
+      "temperature": 20.2,
+      "humidity": 46,
+      "pressure": 1010.4,
+      "co2": 773,
+      "noise": 40,
+      "time_utc": 1773581142
     },
     "outdoor": {
-      "temperature": 5.2,
-      "humidity": 90,
-      "time_utc": 1773577612
+      "temperature": 6.9,
+      "humidity": 87,
+      "time_utc": 1773581095
     },
     "rain": {
-      "rain_1h": 7.776999999999999,
-      "rain_24h": 65.3,
-      "time_utc": 1773577625
+      "rain_1h": 2.121,
+      "rain_24h": 67.5,
+      "time_utc": 1773579740
     },
     "wind": {
       "wind_strength": null,
@@ -3013,6 +3013,35 @@
         "rain_1h": 7.776999999999999,
         "rain_24h": 65.3,
         "time_utc": 1773577625
+      },
+      "wind": {
+        "wind_strength": null,
+        "wind_angle": null,
+        "gust_strength": null,
+        "gust_angle": null,
+        "time_utc": null
+      }
+    },
+    {
+      "time": "2026-03-15T14:30:08.134791+01:00",
+      "station_name": "Morlongo 17 (Weather Station)",
+      "indoor": {
+        "temperature": 20.2,
+        "humidity": 46,
+        "pressure": 1010.4,
+        "co2": 773,
+        "noise": 40,
+        "time_utc": 1773581142
+      },
+      "outdoor": {
+        "temperature": 6.9,
+        "humidity": 87,
+        "time_utc": 1773581095
+      },
+      "rain": {
+        "rain_1h": 2.121,
+        "rain_24h": 67.5,
+        "time_utc": 1773579740
       },
       "wind": {
         "wind_strength": null,
