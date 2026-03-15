@@ -104,7 +104,11 @@
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 4px 20px var(--shadow);
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+        .current-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--shadow);
         }
         .current-card.observed {
             background: linear-gradient(135deg, var(--lipari-13) 0%, var(--lipari-11) 100%);
@@ -155,7 +159,15 @@
             background: var(--border-light);
             border-radius: 10px;
             text-align: center;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
+            cursor: default;
+        }
+        .detail-item:hover {
+            transform: scale(1.05);
+            background: var(--lipari-6);
+        }
+        [data-theme="dark"] .detail-item:hover {
+            background: var(--lipari-2);
         }
         .detail-item .wi { font-size: 1.1em; color: var(--text-secondary); margin-bottom: 3px; }
         .detail-value { font-size: 1em; font-weight: 600; color: var(--text-primary); }
@@ -181,7 +193,11 @@
             padding: 20px;
             text-align: center;
             box-shadow: 0 2px 10px var(--shadow);
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+        .stress-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px var(--shadow);
         }
         .stress-header {
             display: flex;
@@ -311,7 +327,10 @@
             border-radius: 16px;
             padding: 20px;
             box-shadow: 0 2px 10px var(--shadow);
-            transition: background 0.3s;
+            transition: background 0.3s, box-shadow 0.2s;
+        }
+        .chart-card:hover {
+            box-shadow: 0 6px 25px var(--shadow);
         }
         .chart-title {
             font-size: 0.9em;
@@ -376,6 +395,132 @@
         }
         footer a { color: var(--text-secondary); text-decoration: none; }
 
+        /* Weather Alerts Banner */
+        .weather-alert {
+            display: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            animation: slideDown 0.3s ease;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .fade-in { animation: fadeInUp 0.4s ease forwards; }
+        .pulse-on-update { animation: pulse 0.3s ease; }
+        .weather-alert.visible { display: flex; align-items: center; gap: 12px; }
+        .weather-alert .wi { font-size: 1.5em; }
+        .weather-alert-content { flex: 1; }
+        .weather-alert-title { font-weight: 600; margin-bottom: 2px; }
+        .weather-alert-detail { font-size: 0.85em; opacity: 0.9; }
+        .weather-alert.frost {
+            background: linear-gradient(135deg, #5369A5 0%, #6E8ABE 100%);
+            color: white;
+        }
+        .weather-alert.heat {
+            background: linear-gradient(135deg, #B96628 0%, #CB8343 100%);
+            color: white;
+        }
+        .weather-alert.rain {
+            background: linear-gradient(135deg, #3E4A8A 0%, #5369A5 100%);
+            color: white;
+        }
+
+        /* Weekly Summary Card */
+        .weekly-summary {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px var(--shadow);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        .weekly-stat {
+            text-align: center;
+            padding: 10px;
+            border-radius: 12px;
+            background: var(--border-light);
+        }
+        .weekly-stat-icon { font-size: 1.5em; color: var(--text-secondary); margin-bottom: 6px; }
+        .weekly-stat-value { font-size: 1.4em; font-weight: 600; color: var(--text-primary); }
+        .weekly-stat-label { font-size: 0.7em; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .weekly-stat.highlight {
+            background: linear-gradient(135deg, var(--lipari-12) 0%, var(--lipari-10) 100%);
+            color: white;
+        }
+        .weekly-stat.highlight .weekly-stat-icon,
+        .weekly-stat.highlight .weekly-stat-value { color: white; }
+        .weekly-stat.highlight .weekly-stat-label { color: rgba(255,255,255,0.8); }
+
+        /* Activity Planner */
+        .activity-planner {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+        .activity-title {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .activity-title .wi { color: var(--text-secondary); }
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .activity-card {
+            padding: 15px 12px;
+            border-radius: 12px;
+            background: var(--border-light);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .activity-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px var(--shadow); }
+        .activity-card.ideal {
+            background: linear-gradient(135deg, #6E8ABE 0%, #8FACD4 100%);
+            color: white;
+        }
+        .activity-card.ideal .activity-time,
+        .activity-card.ideal .activity-label { color: white; }
+        .activity-card.ideal .activity-icon { color: white; }
+        .activity-card.ideal .activity-reason { color: rgba(255,255,255,0.8); }
+        .activity-icon { font-size: 1.4em; color: var(--text-secondary); margin-bottom: 6px; }
+        .activity-label { font-size: 0.75em; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 4px; }
+        .activity-time { font-size: 1.1em; font-weight: 600; color: var(--text-primary); }
+        .activity-reason { font-size: 0.7em; color: var(--text-muted); margin-top: 4px; }
+
+        /* Forecast Accuracy Badge */
+        .accuracy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.15);
+            font-size: 0.75em;
+            margin-top: 8px;
+        }
+        .accuracy-badge .wi { font-size: 1em; }
+
         @media (max-width: 700px) {
             .current-section { grid-template-columns: 1fr; }
             .current-details { grid-template-columns: repeat(3, 1fr); }
@@ -387,6 +532,9 @@
             .day-icon { font-size: 1.4em; }
             .sparkline-container { height: 20px; }
             .chart-container { height: 280px; }
+            .weekly-summary { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .activity-grid { grid-template-columns: 1fr; gap: 8px; }
+            .activity-card { padding: 12px 10px; }
         }
     </style>
 </head>
@@ -401,6 +549,15 @@
     </header>
 
     <div class="container">
+        <!-- Weather Alert Banner -->
+        <div class="weather-alert" id="weatherAlert">
+            <i class="wi" id="alertIcon"></i>
+            <div class="weather-alert-content">
+                <div class="weather-alert-title" id="alertTitle"></div>
+                <div class="weather-alert-detail" id="alertDetail"></div>
+            </div>
+        </div>
+
         <!-- Current: Observed vs Forecast -->
         <div class="current-section">
             <div class="current-card observed" id="observedCard">
@@ -458,6 +615,15 @@
 
         <!-- Daily Forecast -->
         <div class="daily-forecast" id="dailyForecast"></div>
+
+        <!-- Weekly Summary -->
+        <div class="weekly-summary" id="weeklySummary"></div>
+
+        <!-- Activity Planner -->
+        <div class="activity-planner">
+            <div class="activity-title"><i class="wi wi-day-sunny"></i> Best Times Today</div>
+            <div class="activity-grid" id="activityGrid"></div>
+        </div>
 
         <!-- Charts -->
         <div class="charts-section">
@@ -543,6 +709,7 @@
     <footer>
         <p>Observations: Netatmo &bull; Forecast: <a href="https://open-meteo.com">Open-Meteo</a> (MeteoSwiss ICON-CH2) &bull; ML: XGBoost</p>
         <p><a href="https://github.com/Real-Slin-Shady/morlongo-forecast">GitHub</a></p>
+        <div id="accuracyStats" style="margin-top: 10px; font-size: 0.85em; color: var(--text-muted);"></div>
     </footer>
 
     <script>
@@ -639,10 +806,13 @@
 
         function renderAll() {
             renderUpdateTime();
+            renderWeatherAlerts();
             renderObserved();
             renderCurrentForecast();
             renderPlantStress();
             renderDailyForecast();
+            renderWeeklySummary();
+            renderActivityPlanner();
             renderCharts();
             renderHourlyTable();
         }
@@ -655,6 +825,52 @@
                 text += ` | Obs: ${obsTime.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
             }
             document.getElementById('updateTime').textContent = text;
+
+            // Calculate and show forecast accuracy if we have history data
+            renderAccuracyStats();
+        }
+
+        function renderAccuracyStats() {
+            const statsEl = document.getElementById('accuracyStats');
+            if (!forecastHistoryData?.hourly || !observationsData?.observations) {
+                statsEl.textContent = '';
+                return;
+            }
+
+            // Match historical forecasts with observations
+            const matches = [];
+            const now = new Date();
+
+            forecastHistoryData.hourly.forEach(fc => {
+                const fcTime = new Date(fc.time);
+                if (fcTime > now) return; // Skip future forecasts
+
+                // Find closest observation within 30 minutes
+                const matchingObs = observationsData.observations.find(obs => {
+                    const obsTime = new Date(obs.time);
+                    const diff = Math.abs(fcTime - obsTime);
+                    return diff < 30 * 60 * 1000; // 30 minutes
+                });
+
+                if (matchingObs && matchingObs.outdoor?.temperature != null) {
+                    matches.push({
+                        fcTemp: fc.temperature,
+                        obsTemp: matchingObs.outdoor.temperature,
+                        error: Math.abs(fc.temperature - matchingObs.outdoor.temperature)
+                    });
+                }
+            });
+
+            if (matches.length < 5) {
+                statsEl.textContent = '';
+                return;
+            }
+
+            // Calculate Mean Absolute Error
+            const mae = matches.reduce((sum, m) => sum + m.error, 0) / matches.length;
+            const within1deg = matches.filter(m => m.error <= 1).length / matches.length * 100;
+
+            statsEl.innerHTML = `ML Forecast Accuracy: <strong>${within1deg.toFixed(0)}%</strong> within 1°C (MAE: ${mae.toFixed(1)}°C, ${matches.length} samples)`;
         }
 
         function renderObserved() {
@@ -1246,6 +1462,205 @@
                     </tr>
                 `;
             }).join('');
+        }
+
+        function renderWeatherAlerts() {
+            const alertEl = document.getElementById('weatherAlert');
+            const next48h = forecastData.hourly.slice(0, 48);
+
+            // Check for frost risk (temp below 3C in next 48h)
+            const frostHours = next48h.filter(h => h.debiased.temperature < 3);
+            const minTemp = Math.min(...next48h.map(h => h.debiased.temperature));
+
+            // Check for heat (temp above 32C)
+            const heatHours = next48h.filter(h => h.debiased.temperature > 32);
+            const maxTemp = Math.max(...next48h.map(h => h.debiased.temperature));
+
+            // Check for heavy rain (>10mm in 24h or >5mm in single hour)
+            const next24h = forecastData.hourly.slice(0, 24);
+            const totalRain24h = next24h.reduce((sum, h) => sum + (h.debiased.rain || 0), 0);
+            const maxHourlyRain = Math.max(...next24h.map(h => h.debiased.rain || 0));
+
+            alertEl.classList.remove('visible', 'frost', 'heat', 'rain');
+
+            if (frostHours.length > 0 && minTemp < 2) {
+                const firstFrost = new Date(frostHours[0].time);
+                const timeStr = firstFrost.toLocaleString('en-US', { weekday: 'short', hour: '2-digit', minute: '2-digit' });
+                alertEl.classList.add('visible', 'frost');
+                document.getElementById('alertIcon').className = 'wi wi-snowflake-cold';
+                document.getElementById('alertTitle').textContent = 'Frost Warning';
+                document.getElementById('alertDetail').textContent = `Expected ${minTemp.toFixed(1)}°C starting ${timeStr}. Protect sensitive plants.`;
+            } else if (heatHours.length > 0) {
+                const firstHeat = new Date(heatHours[0].time);
+                const timeStr = firstHeat.toLocaleString('en-US', { weekday: 'short', hour: '2-digit', minute: '2-digit' });
+                alertEl.classList.add('visible', 'heat');
+                document.getElementById('alertIcon').className = 'wi wi-hot';
+                document.getElementById('alertTitle').textContent = 'Heat Advisory';
+                document.getElementById('alertDetail').textContent = `High of ${maxTemp.toFixed(1)}°C expected ${timeStr}. Stay hydrated.`;
+            } else if (totalRain24h > 15 || maxHourlyRain > 5) {
+                alertEl.classList.add('visible', 'rain');
+                document.getElementById('alertIcon').className = 'wi wi-rain';
+                document.getElementById('alertTitle').textContent = 'Heavy Rain Expected';
+                document.getElementById('alertDetail').textContent = `${totalRain24h.toFixed(1)}mm in next 24h. Peak: ${maxHourlyRain.toFixed(1)}mm/h.`;
+            }
+        }
+
+        function renderWeeklySummary() {
+            const container = document.getElementById('weeklySummary');
+            const allHours = forecastData.hourly;
+
+            // Calculate weekly stats
+            const temps = allHours.map(h => h.debiased.temperature);
+            const maxTemp = Math.max(...temps);
+            const minTemp = Math.min(...temps);
+            const totalRain = allHours.reduce((sum, h) => sum + (h.debiased.rain || 0), 0);
+            const avgWind = allHours.reduce((sum, h) => sum + h.debiased.wind_speed, 0) / allHours.length;
+
+            // Find best day (highest max temp, low rain)
+            const days = {};
+            allHours.forEach(h => {
+                const d = new Date(h.time);
+                const key = d.toDateString();
+                if (!days[key]) days[key] = { date: d, temps: [], rain: 0 };
+                days[key].temps.push(h.debiased.temperature);
+                days[key].rain += h.debiased.rain || 0;
+            });
+
+            let bestDay = null;
+            let bestScore = -Infinity;
+            Object.values(days).forEach(day => {
+                const maxT = Math.max(...day.temps);
+                const score = maxT - (day.rain * 2); // Prefer warm, dry days
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestDay = day;
+                }
+            });
+
+            const bestDayStr = bestDay ? bestDay.date.toLocaleDateString('en-US', { weekday: 'short' }) : '-';
+
+            container.innerHTML = `
+                <div class="weekly-stat">
+                    <div class="weekly-stat-icon"><i class="wi wi-thermometer"></i></div>
+                    <div class="weekly-stat-value">${Math.round(maxTemp)}°</div>
+                    <div class="weekly-stat-label">High</div>
+                </div>
+                <div class="weekly-stat">
+                    <div class="weekly-stat-icon"><i class="wi wi-thermometer-exterior"></i></div>
+                    <div class="weekly-stat-value">${Math.round(minTemp)}°</div>
+                    <div class="weekly-stat-label">Low</div>
+                </div>
+                <div class="weekly-stat">
+                    <div class="weekly-stat-icon"><i class="wi wi-rain"></i></div>
+                    <div class="weekly-stat-value">${totalRain.toFixed(0)}<span style="font-size:0.6em">mm</span></div>
+                    <div class="weekly-stat-label">Total Rain</div>
+                </div>
+                <div class="weekly-stat highlight">
+                    <div class="weekly-stat-icon"><i class="wi wi-day-sunny"></i></div>
+                    <div class="weekly-stat-value">${bestDayStr}</div>
+                    <div class="weekly-stat-label">Best Day</div>
+                </div>
+            `;
+        }
+
+        function renderActivityPlanner() {
+            const container = document.getElementById('activityGrid');
+            const now = new Date();
+            const todayEnd = new Date(now);
+            todayEnd.setHours(23, 59, 59);
+
+            // Get today's remaining hours
+            const todayHours = forecastData.hourly.filter(h => {
+                const t = new Date(h.time);
+                return t >= now && t <= todayEnd;
+            });
+
+            if (todayHours.length === 0) {
+                container.innerHTML = '<div class="activity-card"><div class="activity-label">No data for today</div></div>';
+                return;
+            }
+
+            // Find best time for gardening (low VPD, no rain, moderate temp)
+            let bestGardening = null;
+            let bestGardeningScore = -Infinity;
+            todayHours.forEach(h => {
+                const vpd = h.raw?.vpd ?? 1;
+                const rain = h.debiased.rain || 0;
+                const temp = h.debiased.temperature;
+                if (rain > 0.5) return; // Skip rainy hours
+                const score = (1 / (vpd + 0.1)) + (temp > 10 && temp < 28 ? 2 : 0);
+                if (score > bestGardeningScore) {
+                    bestGardeningScore = score;
+                    bestGardening = h;
+                }
+            });
+
+            // Find best time for outdoor exercise (comfortable temp, low humidity, light wind)
+            let bestExercise = null;
+            let bestExerciseScore = -Infinity;
+            todayHours.forEach(h => {
+                const temp = h.debiased.temperature;
+                const humidity = h.debiased.humidity;
+                const wind = h.debiased.wind_speed;
+                const rain = h.debiased.rain || 0;
+                if (rain > 0.2) return;
+                // Ideal: 12-22C, humidity < 70%, wind < 20km/h
+                let score = 0;
+                if (temp >= 12 && temp <= 22) score += 3;
+                else if (temp >= 8 && temp <= 26) score += 1;
+                if (humidity < 70) score += 2;
+                if (wind < 15) score += 1;
+                if (score > bestExerciseScore) {
+                    bestExerciseScore = score;
+                    bestExercise = h;
+                }
+            });
+
+            // Find driest period for outdoor activities
+            let driestHour = todayHours[0];
+            let minRainProb = Infinity;
+            todayHours.forEach(h => {
+                const prob = h.raw?.precipitation_probability ?? 100;
+                if (prob < minRainProb) {
+                    minRainProb = prob;
+                    driestHour = h;
+                }
+            });
+
+            const formatTime = (h) => {
+                if (!h) return '--';
+                const t = new Date(h.time);
+                return t.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' });
+            };
+
+            const isIdeal = (h, type) => {
+                if (!h) return false;
+                if (type === 'gardening') return bestGardeningScore > 2;
+                if (type === 'exercise') return bestExerciseScore > 4;
+                if (type === 'outdoor') return minRainProb < 20;
+                return false;
+            };
+
+            container.innerHTML = `
+                <div class="activity-card ${isIdeal(bestGardening, 'gardening') ? 'ideal' : ''}">
+                    <div class="activity-icon"><i class="wi wi-sprinkle"></i></div>
+                    <div class="activity-label">Gardening</div>
+                    <div class="activity-time">${formatTime(bestGardening)}</div>
+                    <div class="activity-reason">${bestGardening ? `VPD: ${(bestGardening.raw?.vpd ?? 0).toFixed(1)}` : 'Not ideal'}</div>
+                </div>
+                <div class="activity-card ${isIdeal(bestExercise, 'exercise') ? 'ideal' : ''}">
+                    <div class="activity-icon"><i class="wi wi-day-sunny"></i></div>
+                    <div class="activity-label">Exercise</div>
+                    <div class="activity-time">${formatTime(bestExercise)}</div>
+                    <div class="activity-reason">${bestExercise ? `${Math.round(bestExercise.debiased.temperature)}° ${Math.round(bestExercise.debiased.humidity)}%` : 'Not ideal'}</div>
+                </div>
+                <div class="activity-card ${isIdeal(driestHour, 'outdoor') ? 'ideal' : ''}">
+                    <div class="activity-icon"><i class="wi wi-umbrella"></i></div>
+                    <div class="activity-label">Stay Dry</div>
+                    <div class="activity-time">${formatTime(driestHour)}</div>
+                    <div class="activity-reason">${Math.round(minRainProb)}% rain chance</div>
+                </div>
+            `;
         }
 
         // Initialize
