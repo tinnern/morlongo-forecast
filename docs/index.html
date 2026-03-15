@@ -206,22 +206,52 @@
             margin-bottom: 10px;
         }
         .stress-bar-container {
-            height: 6px;
-            background: var(--border-light);
-            border-radius: 3px;
-            overflow: hidden;
+            height: 12px;
+            border-radius: 6px;
+            overflow: visible;
             margin-bottom: 8px;
+            position: relative;
         }
-        .stress-bar {
+        .stress-bar-bg {
             height: 100%;
-            border-radius: 3px;
-            transition: width 0.5s ease;
+            border-radius: 6px;
+            width: 100%;
         }
-        .vpd-bar {
-            background: linear-gradient(90deg, var(--lipari-5) 0%, var(--lipari-12) 50%, var(--lipari-16) 100%);
+        .vpd-bar-bg {
+            background: linear-gradient(90deg, var(--lipari-5) 0%, var(--lipari-9) 25%, var(--lipari-12) 50%, var(--lipari-15) 75%, var(--lipari-16) 100%);
         }
-        .water-bar {
-            background: linear-gradient(90deg, var(--lipari-16) 0%, var(--lipari-9) 50%, var(--lipari-3) 100%);
+        .water-bar-bg {
+            background: linear-gradient(90deg, var(--lipari-16) 0%, var(--lipari-13) 25%, var(--lipari-9) 50%, var(--lipari-5) 75%, var(--lipari-3) 100%);
+        }
+        .stress-marker {
+            position: absolute;
+            top: -4px;
+            width: 4px;
+            height: 20px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transform: translateX(-50%);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            transition: left 0.5s ease;
+        }
+        .stress-marker::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid var(--text-primary);
+        }
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.55em;
+            color: var(--text-muted);
+            margin-top: 2px;
         }
         .stress-label {
             font-size: 0.65em;
@@ -454,8 +484,10 @@
                 <div class="stress-value" id="vpdValue">--</div>
                 <div class="stress-unit">kPa</div>
                 <div class="stress-bar-container">
-                    <div class="stress-bar vpd-bar" id="vpdBar"></div>
+                    <div class="stress-bar-bg vpd-bar-bg"></div>
+                    <div class="stress-marker" id="vpdMarker"></div>
                 </div>
+                <div class="scale-labels"><span>0</span><span>1.0</span><span>2.0</span><span>3.0+</span></div>
                 <div class="stress-label">Atmospheric drying</div>
             </div>
             <div class="stress-card">
@@ -466,8 +498,10 @@
                 <div class="stress-value" id="waterBalanceValue">--</div>
                 <div class="stress-unit">mm (7d)</div>
                 <div class="stress-bar-container">
-                    <div class="stress-bar water-bar" id="waterBar"></div>
+                    <div class="stress-bar-bg water-bar-bg"></div>
+                    <div class="stress-marker" id="waterMarker"></div>
                 </div>
+                <div class="scale-labels"><span>-30</span><span>-15</span><span>0</span><span>+15</span><span>+30</span></div>
                 <div class="stress-label" id="waterBalanceLabel">Rain - evaporation</div>
             </div>
             <div class="stress-card">
@@ -526,6 +560,7 @@
         let precipWindChart = null;
         let forecastData = null;
         let observationsData = null;
+        let forecastHistoryData = null;
 
         // Theme handling
         function toggleTheme() {
@@ -586,13 +621,17 @@
 
         async function loadData() {
             try {
-                const [fcRes, obsRes] = await Promise.all([
+                const [fcRes, obsRes, histRes] = await Promise.all([
                     fetch('forecast.json?t=' + Date.now()),
-                    fetch('observations.json?t=' + Date.now()).catch(() => null)
+                    fetch('observations.json?t=' + Date.now()).catch(() => null),
+                    fetch('forecast_history.json?t=' + Date.now()).catch(() => null)
                 ]);
                 forecastData = await fcRes.json();
                 if (obsRes && obsRes.ok) {
                     observationsData = await obsRes.json();
+                }
+                if (histRes && histRes.ok) {
+                    forecastHistoryData = await histRes.json();
                 }
                 renderAll();
             } catch (error) {
@@ -702,8 +741,9 @@
 
             if (vpd != null) {
                 document.getElementById('vpdValue').textContent = vpd.toFixed(2);
-                const vpdPercent = Math.min(100, (vpd / 2.5) * 100);
-                document.getElementById('vpdBar').style.width = vpdPercent + '%';
+                // VPD scale: 0-3.0+ kPa (typical range for subtropical climate)
+                const vpdPercent = Math.min(100, Math.max(0, (vpd / 3.0) * 100));
+                document.getElementById('vpdMarker').style.left = vpdPercent + '%';
             }
 
             // Water balance calculation
@@ -727,9 +767,9 @@
             const estimatedEt0Loss = dailyEt0 * Math.max(1, obsDays);
             const waterBalance = obsPrecip - estimatedEt0Loss;
             document.getElementById('waterBalanceValue').textContent = (waterBalance >= 0 ? '+' : '') + waterBalance.toFixed(1);
+            // Water balance scale: -30mm to +30mm
             const waterPercent = Math.min(100, Math.max(0, ((waterBalance + 30) / 60) * 100));
-            document.getElementById('waterBar').style.width = waterPercent + '%';
-            const daysLabel = obsDays > 0 ? obsDays.toFixed(0) : '7';
+            document.getElementById('waterMarker').style.left = waterPercent + '%';
             document.getElementById('waterBalanceLabel').textContent = `${obsPrecip.toFixed(1)} rain - ${estimatedEt0Loss.toFixed(1)} evap`;
 
             // Best watering time (lowest VPD in next 24h)
@@ -841,6 +881,28 @@
                 pointRadius: 0
             }];
 
+            // Add historical forecast data (what we predicted for past times)
+            if (forecastHistoryData?.hourly) {
+                const now = new Date();
+                const histData = forecastHistoryData.hourly
+                    .filter(h => new Date(h.time) >= fiveDaysAgo && new Date(h.time) < now)
+                    .map(h => ({ x: new Date(h.time), y: h.temperature }));
+
+                if (histData.length > 0) {
+                    tempDatasets.unshift({
+                        label: 'Past Forecast',
+                        data: histData,
+                        borderColor: lipari[4],
+                        backgroundColor: lipari[4] + '15',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 0
+                    });
+                }
+            }
+
             if (obsTimes.length > 0) {
                 tempDatasets.unshift({
                     label: 'Observed',
@@ -854,13 +916,14 @@
                 });
             }
 
+            const hasMultipleDatasets = tempDatasets.length > 1;
             tempChart = new Chart(ctxTemp, {
                 type: 'line',
                 data: { datasets: tempDatasets },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: obsTimes.length > 0, position: 'top', labels: { boxWidth: 12 } } },
+                    plugins: { legend: { display: hasMultipleDatasets, position: 'top', labels: { boxWidth: 12 } } },
                     scales: {
                         x: { type: 'time', min: xMin, max: xMax, time: { unit: 'day', displayFormats: { day: 'EEE' } }, grid: { display: false } },
                         y: { grid: { color: gridColor } }
@@ -872,13 +935,33 @@
             if (precipWindChart) precipWindChart.destroy();
 
             const precipDatasets = [
-                { label: 'Precip (mm)', data: fcTimes.map((t, i) => ({ x: t, y: fcPrecip[i] })), backgroundColor: lipari[2] + 'CC', borderRadius: 3, yAxisID: 'y', type: 'bar', barPercentage: 0.8 },
+                { label: 'Precip Forecast', data: fcTimes.map((t, i) => ({ x: t, y: fcPrecip[i] })), backgroundColor: lipari[2] + 'CC', borderRadius: 3, yAxisID: 'y', type: 'bar', barPercentage: 0.8 },
                 { label: 'Wind (km/h)', data: fcSampled.map(h => ({ x: new Date(h.time), y: h.debiased.wind_speed })), type: 'line', borderColor: lipari[12], borderWidth: 2, tension: 0.4, pointRadius: 0, yAxisID: 'y1' }
             ];
 
+            // Add historical forecast precipitation
+            if (forecastHistoryData?.hourly) {
+                const now = new Date();
+                const histPrecipData = forecastHistoryData.hourly
+                    .filter(h => new Date(h.time) >= fiveDaysAgo && new Date(h.time) < now && h.rain > 0)
+                    .map(h => ({ x: new Date(h.time), y: h.rain }));
+
+                if (histPrecipData.length > 0) {
+                    precipDatasets.unshift({
+                        label: 'Past Fc Precip',
+                        data: histPrecipData,
+                        backgroundColor: lipari[4] + 'AA',
+                        borderRadius: 3,
+                        yAxisID: 'y',
+                        type: 'bar',
+                        barPercentage: 0.6
+                    });
+                }
+            }
+
             const hasObsPrecip = obsPrecip.some(p => p !== null && p > 0);
             if (hasObsPrecip) {
-                precipDatasets.unshift({ label: 'Precip Obs (mm)', data: obsTimes.map((t, i) => ({ x: t, y: obsPrecip[i] })), backgroundColor: lipari[14] + 'CC', borderRadius: 3, yAxisID: 'y', type: 'bar', barPercentage: 0.8 });
+                precipDatasets.unshift({ label: 'Precip Observed', data: obsTimes.map((t, i) => ({ x: t, y: obsPrecip[i] })), backgroundColor: lipari[14] + 'CC', borderRadius: 3, yAxisID: 'y', type: 'bar', barPercentage: 0.8 });
             }
 
             precipWindChart = new Chart(ctxPW, {

@@ -175,6 +175,75 @@ def generate_output(times, features, predictions):
     return output
 
 
+def save_forecast_history(output):
+    """Save forecast data for historical comparison.
+
+    Stores forecasts in a simple format: for each hour we track what
+    the forecast predicted. As time passes and that hour becomes "past",
+    the observation data can be compared against these stored forecasts.
+    """
+    from datetime import timedelta
+    history_path = OUTPUT_DIR / "forecast_history.json"
+
+    # Load existing history or create new
+    if history_path.exists():
+        with open(history_path) as f:
+            history = json.load(f)
+    else:
+        history = {"meta": {}, "hourly": []}
+
+    generated_at = output["meta"]["generated_at"]
+    now = datetime.now(TZ)
+
+    # Convert existing hourly list to dict for easier merging
+    existing = {h["time"]: h for h in history.get("hourly", [])}
+
+    # Store forecasts for the next 48 hours
+    # For past hours (that we may have missed), we already have entries
+    for h in output["hourly"][:48]:
+        valid_time = h["time"]
+
+        # Only add/update if we don't have an entry yet, or if this is still
+        # in the future (we want the latest forecast for future hours)
+        valid_dt = datetime.fromisoformat(valid_time)
+        if valid_dt.tzinfo is None:
+            valid_dt = valid_dt.replace(tzinfo=TZ)
+
+        is_future = valid_dt > now
+        has_existing = valid_time in existing
+
+        # For future hours: always update with latest forecast
+        # For past hours: keep the original forecast (don't overwrite)
+        if is_future or not has_existing:
+            existing[valid_time] = {
+                "time": valid_time,
+                "temperature": h["debiased"]["temperature"],
+                "rain": h["debiased"]["rain"],
+                "humidity": h["debiased"]["humidity"],
+                "wind_speed": h["debiased"]["wind_speed"],
+                "forecast_made": generated_at
+            }
+
+    # Clean old entries (keep last 14 days)
+    cutoff = (now - timedelta(days=14)).replace(tzinfo=None).isoformat()
+    existing = {k: v for k, v in existing.items() if k >= cutoff}
+
+    # Sort by time and save
+    hourly = sorted(existing.values(), key=lambda x: x["time"])
+
+    result = {
+        "meta": {"last_update": generated_at},
+        "hourly": hourly
+    }
+
+    with open(history_path, "w") as f:
+        json.dump(result, f, indent=2)
+
+    # Count past vs future forecasts
+    past_count = sum(1 for h in hourly if datetime.fromisoformat(h["time"]).replace(tzinfo=TZ) <= now)
+    print(f"Updated forecast history: {len(hourly)} hours ({past_count} past, {len(hourly) - past_count} future)")
+
+
 def main():
     print(f"Generating forecast for {LOCATION_NAME} ({LAT}, {LON})")
     print(f"Time: {datetime.now(TZ).isoformat()}")
@@ -207,6 +276,10 @@ def main():
     with open(output_path, "w") as f:
         json.dump(output, f, indent=2)
     print(f"Saved to {output_path}")
+
+    # Save forecast history for comparison
+    print("Saving forecast history...")
+    save_forecast_history(output)
 
     # Print summary
     print("\nForecast summary (next 24h):")
