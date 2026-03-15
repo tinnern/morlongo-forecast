@@ -840,50 +840,110 @@
             }).join('');
         }
 
+        // Plugin to draw "NOW" vertical line and shade past region
+        const nowLinePlugin = {
+            id: 'nowLine',
+            beforeDraw: (chart) => {
+                const now = new Date();
+                const xScale = chart.scales.x;
+                const yScale = chart.scales.y;
+                if (!xScale || !yScale) return;
+
+                const xPos = xScale.getPixelForValue(now);
+                if (xPos < xScale.left || xPos > xScale.right) return;
+
+                const ctx = chart.ctx;
+                ctx.save();
+
+                // Subtle shading for past region
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                ctx.fillStyle = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)';
+                ctx.fillRect(xScale.left, yScale.top, xPos - xScale.left, yScale.bottom - yScale.top);
+
+                // NOW line
+                ctx.beginPath();
+                ctx.setLineDash([6, 4]);
+                ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.3)';
+                ctx.lineWidth = 1.5;
+                ctx.moveTo(xPos, yScale.top);
+                ctx.lineTo(xPos, yScale.bottom);
+                ctx.stroke();
+
+                // "NOW" label
+                ctx.setLineDash([]);
+                ctx.font = '10px -apple-system, sans-serif';
+                ctx.fillStyle = isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)';
+                ctx.textAlign = 'center';
+                ctx.fillText('NOW', xPos, yScale.top - 5);
+
+                ctx.restore();
+            }
+        };
+
         function renderCharts() {
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             const gridColor = isDark ? lipari[2] : lipari[7];
+            const now = new Date();
 
             const fcStep = 2;
             const fcSampled = forecastData.hourly.filter((_, i) => i % fcStep === 0);
             const fcTimes = fcSampled.map(h => new Date(h.time));
             const fcTemps = fcSampled.map(h => h.debiased.temperature);
             const fcPrecip = fcSampled.map(h => h.debiased.rain);
+            const fcHumidity = fcSampled.map(h => h.debiased.humidity);
 
             const fiveDaysAgo = new Date();
             fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
 
-            let obsTimes = [], obsTemps = [], obsPrecip = [];
+            let obsTimes = [], obsTemps = [], obsPrecip = [], obsHumidity = [];
             if (observationsData?.observations) {
                 const obs = observationsData.observations.filter(o => new Date(o.time) >= fiveDaysAgo);
                 obsTimes = obs.map(o => new Date(o.time));
                 obsTemps = obs.map(o => o.outdoor?.temperature ?? o.indoor?.temperature ?? null);
                 obsPrecip = obs.map(o => o.rain?.rain_1h ?? null);
+                obsHumidity = obs.map(o => o.outdoor?.humidity ?? o.indoor?.humidity ?? null);
             }
 
             const xMin = fiveDaysAgo;
             const xMax = fcTimes.length > 0 ? fcTimes[fcTimes.length - 1] : new Date();
 
+            // ========== TEMPERATURE + HUMIDITY CHART ==========
             const ctxTemp = document.getElementById('tempChart').getContext('2d');
             if (tempChart) tempChart.destroy();
 
-            // Humidity data (forecast)
-            const fcHumidity = fcSampled.map(h => h.debiased.humidity);
+            // Build unified temperature data: observed (past) + forecast (future)
+            const unifiedTempData = [];
+            const unifiedHumidityData = [];
 
-            // Observed humidity
-            let obsHumidity = [];
-            if (observationsData?.observations) {
-                const obs = observationsData.observations.filter(o => new Date(o.time) >= fiveDaysAgo);
-                obsHumidity = obs.map(o => o.outdoor?.humidity ?? o.indoor?.humidity ?? null);
-            }
+            // Add observed data points (past)
+            obsTimes.forEach((t, i) => {
+                if (t <= now && obsTemps[i] !== null) {
+                    unifiedTempData.push({ x: t, y: obsTemps[i] });
+                }
+                if (t <= now && obsHumidity[i] !== null) {
+                    unifiedHumidityData.push({ x: t, y: obsHumidity[i] });
+                }
+            });
+
+            // Add forecast data points (future only, starting from now)
+            fcTimes.forEach((t, i) => {
+                if (t > now) {
+                    unifiedTempData.push({ x: t, y: fcTemps[i] });
+                    unifiedHumidityData.push({ x: t, y: fcHumidity[i] });
+                }
+            });
+
+            // Sort by time
+            unifiedTempData.sort((a, b) => a.x - b.x);
+            unifiedHumidityData.sort((a, b) => a.x - b.x);
 
             const tempDatasets = [
                 {
-                    label: 'Temp Forecast',
-                    data: fcTimes.map((t, i) => ({ x: t, y: fcTemps[i] })),
+                    label: 'Temperature',
+                    data: unifiedTempData,
                     borderColor: '#B96628',  // lipari-14: warm orange
-                    backgroundColor: '#B9662830',
-                    borderWidth: 2,
+                    backgroundColor: '#B9662825',
+                    borderWidth: 2.5,
                     tension: 0.4,
                     fill: true,
                     pointRadius: 0,
@@ -891,9 +951,9 @@
                 },
                 {
                     label: 'Humidity',
-                    data: fcTimes.map((t, i) => ({ x: t, y: fcHumidity[i] })),
+                    data: unifiedHumidityData,
                     borderColor: '#5369A5',  // lipari-3: blue
-                    backgroundColor: '#5369A515',
+                    backgroundColor: '#5369A512',
                     borderWidth: 2,
                     tension: 0.4,
                     fill: true,
@@ -902,54 +962,27 @@
                 }
             ];
 
-            // Add historical forecast data (what we predicted for past times)
+            // Add past forecast as thin dashed overlay (for accuracy comparison)
             if (forecastHistoryData?.hourly) {
-                const now = new Date();
-                const histData = forecastHistoryData.hourly
-                    .filter(h => new Date(h.time) >= fiveDaysAgo && new Date(h.time) < now)
+                const histTempData = forecastHistoryData.hourly
+                    .filter(h => {
+                        const t = new Date(h.time);
+                        return t >= fiveDaysAgo && t <= now;
+                    })
                     .map(h => ({ x: new Date(h.time), y: h.temperature }));
 
-                if (histData.length > 0) {
-                    tempDatasets.unshift({
-                        label: 'Temp Past Fc',
-                        data: histData,
-                        borderColor: '#CB8343',  // lipari-13
-                        backgroundColor: '#CB834315',
-                        borderWidth: 2,
-                        borderDash: [5, 5],
-                        tension: 0.4,
-                        fill: true,
-                        pointRadius: 0,
-                        yAxisID: 'y'
-                    });
-                }
-            }
-
-            if (obsTimes.length > 0) {
-                tempDatasets.unshift({
-                    label: 'Temp Observed',
-                    data: obsTimes.map((t, i) => ({ x: t, y: obsTemps[i] })),
-                    borderColor: '#872E08',  // lipari-16: dark red/brown
-                    backgroundColor: '#872E0840',
-                    borderWidth: 2.5,
-                    tension: 0.4,
-                    fill: true,
-                    pointRadius: 3,
-                    yAxisID: 'y'
-                });
-
-                // Observed humidity
-                if (obsHumidity.some(h => h !== null)) {
+                if (histTempData.length > 0) {
                     tempDatasets.push({
-                        label: 'Humidity Obs',
-                        data: obsTimes.map((t, i) => ({ x: t, y: obsHumidity[i] })),
-                        borderColor: '#3E4A8A',  // lipari-2: darker blue
-                        backgroundColor: '#3E4A8A20',
-                        borderWidth: 2,
+                        label: 'Past Forecast',
+                        data: histTempData,
+                        borderColor: '#D9A16480',  // lipari-12 semi-transparent
+                        backgroundColor: 'transparent',
+                        borderWidth: 1.5,
+                        borderDash: [4, 4],
                         tension: 0.4,
                         fill: false,
-                        pointRadius: 2,
-                        yAxisID: 'y1'
+                        pointRadius: 0,
+                        yAxisID: 'y'
                     });
                 }
             }
@@ -957,13 +990,11 @@
             tempChart = new Chart(ctxTemp, {
                 type: 'line',
                 data: { datasets: tempDatasets },
+                plugins: [nowLinePlugin],
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    interaction: {
-                        mode: 'index',
-                        intersect: false
-                    },
+                    interaction: { mode: 'index', intersect: false },
                     plugins: {
                         legend: { display: true, position: 'top', labels: { boxWidth: 12, font: { size: 11 } } },
                         tooltip: {
@@ -977,7 +1008,9 @@
                                 title: (items) => {
                                     if (items.length) {
                                         const d = new Date(items[0].parsed.x);
-                                        return d.toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                                        const isPast = d <= now;
+                                        const prefix = isPast ? '(Observed) ' : '(Forecast) ';
+                                        return prefix + d.toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
                                     }
                                     return '';
                                 },
@@ -1007,94 +1040,75 @@
                 }
             });
 
+            // ========== PRECIPITATION + WIND CHART ==========
             const ctxPW = document.getElementById('precipWindChart').getContext('2d');
             if (precipWindChart) precipWindChart.destroy();
 
-            // Precipitation dataset with larger, more visible bars
-            // Colors: Precip = blue shades, Wind = purple/magenta (distinct)
+            // Build unified precipitation: observed (past) + forecast (future) - NO OVERLAP
+            const unifiedPrecipData = [];
+
+            // Add observed precipitation (past only)
+            obsTimes.forEach((t, i) => {
+                if (t <= now && obsPrecip[i] !== null) {
+                    unifiedPrecipData.push({ x: t, y: obsPrecip[i] });
+                }
+            });
+
+            // Add forecast precipitation (future only)
+            fcTimes.forEach((t, i) => {
+                if (t > now) {
+                    unifiedPrecipData.push({ x: t, y: fcPrecip[i] });
+                }
+            });
+
+            // Wind: unified line (forecast for all times, as we don't have observed wind)
+            const windData = fcSampled.map(h => ({ x: new Date(h.time), y: h.debiased.wind_speed }));
+
             const precipDatasets = [
                 {
-                    label: 'Precip Forecast',
-                    data: fcTimes.map((t, i) => ({ x: t, y: fcPrecip[i] })),
-                    backgroundColor: '#5369A5',  // lipari-3: medium blue
-                    borderColor: '#3E4A8A',      // lipari-2: darker blue
+                    label: 'Precipitation',
+                    data: unifiedPrecipData,
+                    backgroundColor: (ctx) => {
+                        // Different color for past vs future
+                        const dataPoint = ctx.raw;
+                        if (dataPoint && dataPoint.x <= now) {
+                            return '#3E4A8A';  // lipari-2: darker blue for observed
+                        }
+                        return '#6E8ABE';  // lipari-4: lighter blue for forecast
+                    },
+                    borderColor: '#2D2B6B',
                     borderWidth: 1,
                     borderRadius: 4,
                     yAxisID: 'y',
                     type: 'bar',
                     barThickness: 'flex',
-                    maxBarThickness: 25,
-                    categoryPercentage: 0.9,
-                    barPercentage: 0.95
+                    maxBarThickness: 30,
+                    categoryPercentage: 0.85,
+                    barPercentage: 0.9
                 },
                 {
-                    label: 'Wind (km/h)',
-                    data: fcSampled.map(h => ({ x: new Date(h.time), y: h.debiased.wind_speed })),
+                    label: 'Wind',
+                    data: windData,
                     type: 'line',
-                    borderColor: '#A24B14',      // lipari-15: dark orange/brown
-                    backgroundColor: '#A24B1420',
-                    borderWidth: 2.5,
+                    borderColor: '#A24B14',  // lipari-15: distinct brown/orange
+                    backgroundColor: '#A24B1415',
+                    borderWidth: 2,
                     tension: 0.4,
                     pointRadius: 0,
-                    pointHoverRadius: 5,
+                    pointHoverRadius: 4,
                     fill: true,
                     yAxisID: 'y1'
                 }
             ];
 
-            // Add historical forecast precipitation
-            if (forecastHistoryData?.hourly) {
-                const now = new Date();
-                const histPrecipData = forecastHistoryData.hourly
-                    .filter(h => new Date(h.time) >= fiveDaysAgo && new Date(h.time) < now && h.rain > 0)
-                    .map(h => ({ x: new Date(h.time), y: h.rain }));
-
-                if (histPrecipData.length > 0) {
-                    precipDatasets.unshift({
-                        label: 'Past Fc Precip',
-                        data: histPrecipData,
-                        backgroundColor: '#6E8ABE',  // lipari-4: lighter blue
-                        borderColor: '#5369A5',      // lipari-3
-                        borderWidth: 1,
-                        borderRadius: 4,
-                        yAxisID: 'y',
-                        type: 'bar',
-                        barThickness: 'flex',
-                        maxBarThickness: 25,
-                        categoryPercentage: 0.9,
-                        barPercentage: 0.95
-                    });
-                }
-            }
-
-            const hasObsPrecip = obsPrecip.some(p => p !== null && p > 0);
-            if (hasObsPrecip) {
-                precipDatasets.unshift({
-                    label: 'Precip Observed',
-                    data: obsTimes.map((t, i) => ({ x: t, y: obsPrecip[i] })),
-                    backgroundColor: '#2D2B6B',  // lipari-1: dark purple/blue
-                    borderColor: '#1B1145',      // lipari-0: darkest
-                    borderWidth: 1,
-                    borderRadius: 4,
-                    yAxisID: 'y',
-                    type: 'bar',
-                    barThickness: 'flex',
-                    maxBarThickness: 25,
-                    categoryPercentage: 0.9,
-                    barPercentage: 0.95
-                });
-            }
-
             precipWindChart = new Chart(ctxPW, {
                 type: 'bar',
                 data: { datasets: precipDatasets },
+                plugins: [nowLinePlugin],
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    interaction: {
-                        mode: 'index',
-                        intersect: false
-                    },
+                    interaction: { mode: 'index', intersect: false },
                     plugins: {
                         legend: { display: true, position: 'top', labels: { boxWidth: 12, font: { size: 11 } } },
                         tooltip: {
@@ -1108,7 +1122,9 @@
                                 title: (items) => {
                                     if (items.length) {
                                         const d = new Date(items[0].parsed.x);
-                                        return d.toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                                        const isPast = d <= now;
+                                        const prefix = isPast ? '(Observed) ' : '(Forecast) ';
+                                        return prefix + d.toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
                                     }
                                     return '';
                                 },
@@ -1120,9 +1136,9 @@
                         }
                     },
                     scales: {
-                        x: { type: 'time', min: xMin, max: xMax, time: { unit: 'day', displayFormats: { day: 'EEE' } }, grid: { display: false }, stacked: false },
-                        y: { position: 'left', title: { display: true, text: 'mm', font: { size: 11 } }, grid: { color: gridColor }, min: 0, suggestedMax: 10 },
-                        y1: { position: 'right', title: { display: true, text: 'km/h', font: { size: 11 } }, grid: { display: false }, min: 0 }
+                        x: { type: 'time', min: xMin, max: xMax, time: { unit: 'day', displayFormats: { day: 'EEE' } }, grid: { display: false } },
+                        y: { position: 'left', title: { display: true, text: 'mm', font: { size: 11 }, color: '#3E4A8A' }, grid: { color: gridColor }, min: 0, suggestedMax: 10 },
+                        y1: { position: 'right', title: { display: true, text: 'km/h', font: { size: 11 }, color: '#A24B14' }, grid: { display: false }, min: 0 }
                     },
                     hover: { mode: 'index', intersect: false }
                 }
