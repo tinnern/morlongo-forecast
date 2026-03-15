@@ -3,63 +3,11 @@
     "location": "Morlongo",
     "lat": 46.021245,
     "lon": 8.239861,
-    "generated_at": "2026-03-15T19:23:21.583014+01:00",
+    "generated_at": "2026-03-15T21:16:47.154128+01:00",
     "model": "V4 Hybrid: Conv1D+MLP (temp/humidity/rain) + XGBoost (wind)",
     "forecast_hours": 120
   },
   "hourly": [
-    {
-      "time": "2026-03-15T20:00:00",
-      "raw": {
-        "temperature": 6.4,
-        "apparent_temperature": 4.0,
-        "humidity": 80,
-        "precipitation": 0.0,
-        "precipitation_probability": 67,
-        "wind_speed": 5.2,
-        "wind_gusts": 12.6,
-        "wind_direction": 286,
-        "cloud_cover": 92,
-        "pressure": 1015.4,
-        "weather_code": 3,
-        "vpd": 0.19,
-        "et0": 0.0,
-        "is_day": 0
-      },
-      "debiased": {
-        "temperature": 7.1,
-        "humidity": 86.0,
-        "wind_speed": 2.4,
-        "gust_speed": 7.4,
-        "rain": 0.01
-      }
-    },
-    {
-      "time": "2026-03-15T21:00:00",
-      "raw": {
-        "temperature": 6.3,
-        "apparent_temperature": 3.6,
-        "humidity": 80,
-        "precipitation": 0.4,
-        "precipitation_probability": 48,
-        "wind_speed": 8.2,
-        "wind_gusts": 15.5,
-        "wind_direction": 293,
-        "cloud_cover": 100,
-        "pressure": 1015.8,
-        "weather_code": 51,
-        "vpd": 0.19,
-        "et0": 0.0,
-        "is_day": 0
-      },
-      "debiased": {
-        "temperature": 6.9,
-        "humidity": 86.4,
-        "wind_speed": 3.5,
-        "gust_speed": 9.0,
-        "rain": 0.46
-      }
-    },
     {
       "time": "2026-03-15T22:00:00",
       "raw": {
@@ -3125,6 +3073,58 @@
         "humidity": 100.0,
         "wind_speed": 2.4,
         "gust_speed": 8.7,
+        "rain": 0.0
+      }
+    },
+    {
+      "time": "2026-03-20T20:00:00",
+      "raw": {
+        "temperature": null,
+        "apparent_temperature": null,
+        "humidity": null,
+        "precipitation": null,
+        "precipitation_probability": null,
+        "wind_speed": null,
+        "wind_gusts": null,
+        "wind_direction": null,
+        "cloud_cover": null,
+        "pressure": null,
+        "weather_code": null,
+        "vpd": null,
+        "et0": null,
+        "is_day": 0
+      },
+      "debiased": {
+        "temperature": -0.6,
+        "humidity": 100.0,
+        "wind_speed": 2.2,
+        "gust_speed": 8.2,
+        "rain": 0.0
+      }
+    },
+    {
+      "time": "2026-03-20T21:00:00",
+      "raw": {
+        "temperature": null,
+        "apparent_temperature": null,
+        "humidity": null,
+        "precipitation": null,
+        "precipitation_probability": null,
+        "wind_speed": null,
+        "wind_gusts": null,
+        "wind_direction": null,
+        "cloud_cover": null,
+        "pressure": null,
+        "weather_code": null,
+        "vpd": null,
+        "et0": null,
+        "is_day": 0
+      },
+      "debiased": {
+        "temperature": -0.7,
+        "humidity": 100.0,
+        "wind_speed": 2.1,
+        "gust_speed": 8.2,
         "rain": 0.0
       }
     }
