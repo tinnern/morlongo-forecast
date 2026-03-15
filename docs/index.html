@@ -858,11 +858,6 @@
     </footer>
 
     <script>
-        // Debug: Test if script executes at all
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('updateTime').textContent = 'Script started...';
-        });
-
         const lipari = {
             0: '#1B1145', 1: '#2D2B6B', 2: '#3E4A8A', 3: '#5369A5',
             4: '#6E8ABE', 5: '#8FACD4', 6: '#B5CEE6', 7: '#DDE9F2',
@@ -938,56 +933,37 @@
         }
 
         async function loadData() {
-            const statusEl = document.getElementById('updateTime');
             try {
-                statusEl.textContent = 'Fetching data...';
-                const fcRes = await fetch('forecast.json?t=' + Date.now());
-                statusEl.textContent = 'Got forecast response: ' + fcRes.status;
-                if (!fcRes.ok) throw new Error('Forecast fetch failed: ' + fcRes.status);
-
+                const [fcRes, obsRes, histRes] = await Promise.all([
+                    fetch('forecast.json?t=' + Date.now()),
+                    fetch('observations.json?t=' + Date.now()).catch(() => null),
+                    fetch('forecast_history.json?t=' + Date.now()).catch(() => null)
+                ]);
                 forecastData = await fcRes.json();
-                statusEl.textContent = 'Parsed ' + (forecastData?.hourly?.length || 0) + ' hours';
-
-                // Load optional data
-                try {
-                    const obsRes = await fetch('observations.json?t=' + Date.now());
-                    if (obsRes.ok) observationsData = await obsRes.json();
-                } catch(e) {}
-                try {
-                    const histRes = await fetch('forecast_history.json?t=' + Date.now());
-                    if (histRes.ok) forecastHistoryData = await histRes.json();
-                } catch(e) {}
-
-                statusEl.textContent = 'Rendering...';
+                if (obsRes && obsRes.ok) {
+                    observationsData = await obsRes.json();
+                }
+                if (histRes && histRes.ok) {
+                    forecastHistoryData = await histRes.json();
+                }
                 renderAll();
             } catch (error) {
-                statusEl.textContent = 'ERROR: ' + error.message;
-                console.error('Load error:', error);
+                console.error('Error loading data:', error);
+                document.getElementById('updateTime').textContent = 'Error loading data';
             }
         }
 
         function renderAll() {
-            const steps = [
-                ['UpdateTime', renderUpdateTime],
-                ['WeatherAlerts', renderWeatherAlerts],
-                ['Observed', renderObserved],
-                ['CurrentForecast', renderCurrentForecast],
-                ['PlantStress', renderPlantStress],
-                ['DailyForecast', renderDailyForecast],
-                ['WeeklySummary', renderWeeklySummary],
-                ['ActivityPlanner', renderActivityPlanner],
-                ['Charts', renderCharts],
-                ['HourlyTable', renderHourlyTable]
-            ];
-            for (const [name, fn] of steps) {
-                try {
-                    fn();
-                } catch (e) {
-                    console.error(`Error in render${name}:`, e);
-                    document.getElementById('updateTime').textContent = `Error in ${name}: ${e.message}`;
-                    return;
-                }
-            }
+            renderUpdateTime();
+            renderWeatherAlerts();
+            renderObserved();
+            renderCurrentForecast();
+            renderPlantStress();
+            renderDailyForecast();
+            renderWeeklySummary();
+            renderActivityPlanner();
+            renderCharts();
+            renderHourlyTable();
         }
 
         function renderUpdateTime() {
@@ -1005,6 +981,7 @@
 
         function renderAccuracyStats() {
             const statsEl = document.getElementById('accuracyStats');
+            if (!statsEl) return; // Element doesn't exist, skip
             if (!forecastHistoryData?.hourly || !observationsData?.observations) {
                 statsEl.textContent = '';
                 return;
