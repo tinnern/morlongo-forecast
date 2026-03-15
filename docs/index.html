@@ -858,6 +858,11 @@
     </footer>
 
     <script>
+        // Debug: Test if script executes at all
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('updateTime').textContent = 'Script started...';
+        });
+
         const lipari = {
             0: '#1B1145', 1: '#2D2B6B', 2: '#3E4A8A', 3: '#5369A5',
             4: '#6E8ABE', 5: '#8FACD4', 6: '#B5CEE6', 7: '#DDE9F2',
@@ -933,30 +938,31 @@
         }
 
         async function loadData() {
+            const statusEl = document.getElementById('updateTime');
             try {
-                console.log('Loading data...');
-                const [fcRes, obsRes, histRes] = await Promise.all([
-                    fetch('forecast.json?t=' + Date.now()),
-                    fetch('observations.json?t=' + Date.now()).catch(() => null),
-                    fetch('forecast_history.json?t=' + Date.now()).catch(() => null)
-                ]);
-                console.log('Fetch complete, parsing JSON...');
+                statusEl.textContent = 'Fetching data...';
+                const fcRes = await fetch('forecast.json?t=' + Date.now());
+                statusEl.textContent = 'Got forecast response: ' + fcRes.status;
+                if (!fcRes.ok) throw new Error('Forecast fetch failed: ' + fcRes.status);
+
                 forecastData = await fcRes.json();
-                console.log('Forecast loaded:', forecastData?.hourly?.length, 'hours');
-                if (obsRes && obsRes.ok) {
-                    observationsData = await obsRes.json();
-                    console.log('Observations loaded');
-                }
-                if (histRes && histRes.ok) {
-                    forecastHistoryData = await histRes.json();
-                    console.log('History loaded');
-                }
-                console.log('Calling renderAll...');
+                statusEl.textContent = 'Parsed ' + (forecastData?.hourly?.length || 0) + ' hours';
+
+                // Load optional data
+                try {
+                    const obsRes = await fetch('observations.json?t=' + Date.now());
+                    if (obsRes.ok) observationsData = await obsRes.json();
+                } catch(e) {}
+                try {
+                    const histRes = await fetch('forecast_history.json?t=' + Date.now());
+                    if (histRes.ok) forecastHistoryData = await histRes.json();
+                } catch(e) {}
+
+                statusEl.textContent = 'Rendering...';
                 renderAll();
-                console.log('Render complete');
             } catch (error) {
-                console.error('Error loading data:', error);
-                document.getElementById('updateTime').textContent = 'Error: ' + error.message;
+                statusEl.textContent = 'ERROR: ' + error.message;
+                console.error('Load error:', error);
             }
         }
 
