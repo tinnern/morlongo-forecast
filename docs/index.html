@@ -11,6 +11,7 @@
     <title>Morlongo Weather</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
     <style>
         /* Actual Lipari colorscale from scico/crameri */
@@ -495,6 +496,37 @@
         .weekly-stat.highlight .weekly-stat-value { color: white; }
         .weekly-stat.highlight .weekly-stat-label { color: rgba(255,255,255,0.8); }
 
+        /* Sun Times */
+        .sun-times {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 12px 20px;
+            margin: 15px 0;
+            background: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+        .sun-time-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sun-time-item .wi {
+            font-size: 1.3em;
+            color: var(--lipari-14);
+        }
+        .sun-time-value {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .sun-time-diff {
+            font-size: 0.75em;
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
         /* Activity Planner */
         .activity-planner {
             background: var(--bg-card);
@@ -693,6 +725,9 @@
             <div class="weekly-summary" id="weeklySummary"></div>
         </div>
 
+        <!-- Sun Times -->
+        <div class="sun-times" id="sunTimes"></div>
+
         <!-- Activity Planner -->
         <div class="activity-planner">
             <div class="activity-title"><i class="wi wi-day-sunny"></i> Best Times Today</div>
@@ -870,6 +905,7 @@
         let forecastData = null;
         let observationsData = null;
         let forecastHistoryData = null;
+        let horizonData = null;
 
         // Theme handling
         function toggleTheme() {
@@ -932,12 +968,66 @@
             </svg>`;
         }
 
+        function getTerrainSunTimes(date = new Date()) {
+            // Get terrain-adjusted sunrise/sunset using horizon profile
+            if (!horizonData?.horizon || typeof SunCalc === 'undefined') {
+                return null;
+            }
+
+            const lat = horizonData.location.lat;
+            const lon = horizonData.location.lon;
+            const horizon = horizonData.horizon;
+
+            // Get horizon elevation for a given azimuth (interpolate between samples)
+            function getHorizonElevation(azimuth) {
+                const az = ((azimuth % 360) + 360) % 360;
+                const step = horizon[1].azimuth - horizon[0].azimuth;
+                const idx = az / step;
+                const i0 = Math.floor(idx) % horizon.length;
+                const i1 = (i0 + 1) % horizon.length;
+                const frac = idx - Math.floor(idx);
+                return horizon[i0].elevation * (1 - frac) + horizon[i1].elevation * frac;
+            }
+
+            // Search for terrain sunrise (sun altitude > horizon)
+            const startOfDay = new Date(date);
+            startOfDay.setHours(0, 0, 0, 0);
+
+            let terrainSunrise = null;
+            let terrainSunset = null;
+
+            // Check every minute from 4am to 10pm
+            for (let mins = 4 * 60; mins < 22 * 60; mins++) {
+                const t = new Date(startOfDay.getTime() + mins * 60000);
+                const pos = SunCalc.getPosition(t, lat, lon);
+                const altDeg = pos.altitude * 180 / Math.PI;
+                const azDeg = (pos.azimuth * 180 / Math.PI + 180) % 360; // Convert from south=0 to north=0
+                const horizonElev = getHorizonElevation(azDeg);
+
+                if (altDeg > horizonElev) {
+                    if (!terrainSunrise) terrainSunrise = t;
+                    terrainSunset = t;
+                }
+            }
+
+            // Get astronomical times for comparison
+            const astro = SunCalc.getTimes(date, lat, lon);
+
+            return {
+                sunrise: terrainSunrise,
+                sunset: terrainSunset,
+                astroSunrise: astro.sunrise,
+                astroSunset: astro.sunset
+            };
+        }
+
         async function loadData() {
             try {
-                const [fcRes, obsRes, histRes] = await Promise.all([
+                const [fcRes, obsRes, histRes, hrzRes] = await Promise.all([
                     fetch('forecast.json?t=' + Date.now()),
                     fetch('observations.json?t=' + Date.now()).catch(() => null),
-                    fetch('forecast_history.json?t=' + Date.now()).catch(() => null)
+                    fetch('forecast_history.json?t=' + Date.now()).catch(() => null),
+                    fetch('horizon.json').catch(() => null)
                 ]);
                 forecastData = await fcRes.json();
                 if (obsRes && obsRes.ok) {
@@ -945,6 +1035,9 @@
                 }
                 if (histRes && histRes.ok) {
                     forecastHistoryData = await histRes.json();
+                }
+                if (hrzRes && hrzRes.ok) {
+                    horizonData = await hrzRes.json();
                 }
                 renderAll();
             } catch (error) {
@@ -959,11 +1052,39 @@
             renderObserved();
             renderCurrentForecast();
             renderPlantStress();
+            renderSunTimes();
             renderDailyForecast();
             renderWeeklySummary();
             renderActivityPlanner();
             renderCharts();
             renderHourlyTable();
+        }
+
+        function renderSunTimes() {
+            const container = document.getElementById('sunTimes');
+            const times = getTerrainSunTimes();
+
+            if (!times || !times.sunrise || !times.sunset) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const fmt = (d) => d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+            const sunriseDelay = Math.round((times.sunrise - times.astroSunrise) / 60000);
+            const sunsetAdvance = Math.round((times.astroSunset - times.sunset) / 60000);
+
+            container.innerHTML = `
+                <div class="sun-time-item">
+                    <i class="wi wi-sunrise"></i>
+                    <span class="sun-time-value">${fmt(times.sunrise)}</span>
+                    <span class="sun-time-diff">+${sunriseDelay}min</span>
+                </div>
+                <div class="sun-time-item">
+                    <i class="wi wi-sunset"></i>
+                    <span class="sun-time-value">${fmt(times.sunset)}</span>
+                    <span class="sun-time-diff">-${sunsetAdvance}min</span>
+                </div>
+            `;
         }
 
         function renderUpdateTime() {

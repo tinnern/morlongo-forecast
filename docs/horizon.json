@@ -1,0 +1,297 @@
+{
+  "location": {
+    "lat": 46.021245,
+    "lon": 8.239861,
+    "elevation": 568.0
+  },
+  "horizon": [
+    {
+      "azimuth": 0,
+      "elevation": 26.65665106628485
+    },
+    {
+      "azimuth": 5,
+      "elevation": 29.4229982815435
+    },
+    {
+      "azimuth": 10,
+      "elevation": 30.156587770220305
+    },
+    {
+      "azimuth": 15,
+      "elevation": 30.02791226984655
+    },
+    {
+      "azimuth": 20,
+      "elevation": 29.335986698169123
+    },
+    {
+      "azimuth": 25,
+      "elevation": 27.83405394055083
+    },
+    {
+      "azimuth": 30,
+      "elevation": 27.384156633996337
+    },
+    {
+      "azimuth": 35,
+      "elevation": 22.879744802192413
+    },
+    {
+      "azimuth": 40,
+      "elevation": 18.623816456084498
+    },
+    {
+      "azimuth": 45,
+      "elevation": 19.03443435483519
+    },
+    {
+      "azimuth": 50,
+      "elevation": 16.856808543494637
+    },
+    {
+      "azimuth": 55,
+      "elevation": 12.188633201931882
+    },
+    {
+      "azimuth": 60,
+      "elevation": 7.997705648139197
+    },
+    {
+      "azimuth": 65,
+      "elevation": 7.125016348901798
+    },
+    {
+      "azimuth": 70,
+      "elevation": 5.511975373891073
+    },
+    {
+      "azimuth": 75,
+      "elevation": 6.526265333994203
+    },
+    {
+      "azimuth": 80,
+      "elevation": 6.797583199336068
+    },
+    {
+      "azimuth": 85,
+      "elevation": 5.631162285767516
+    },
+    {
+      "azimuth": 90,
+      "elevation": 5.99409294910847
+    },
+    {
+      "azimuth": 95,
+      "elevation": 3.5477970696678907
+    },
+    {
+      "azimuth": 100,
+      "elevation": 2.244845188067913
+    },
+    {
+      "azimuth": 105,
+      "elevation": 0
+    },
+    {
+      "azimuth": 110,
+      "elevation": 0
+    },
+    {
+      "azimuth": 115,
+      "elevation": 0
+    },
+    {
+      "azimuth": 120,
+      "elevation": 1.8328395059420592
+    },
+    {
+      "azimuth": 125,
+      "elevation": 3.2680403757749006
+    },
+    {
+      "azimuth": 130,
+      "elevation": 3.4050843842066807
+    },
+    {
+      "azimuth": 135,
+      "elevation": 6.339562889026429
+    },
+    {
+      "azimuth": 140,
+      "elevation": 6.803232441876311
+    },
+    {
+      "azimuth": 145,
+      "elevation": 6.955711410950602
+    },
+    {
+      "azimuth": 150,
+      "elevation": 4.949466213912973
+    },
+    {
+      "azimuth": 155,
+      "elevation": 7.068595117003157
+    },
+    {
+      "azimuth": 160,
+      "elevation": 8.978510950863493
+    },
+    {
+      "azimuth": 165,
+      "elevation": 13.441545717023374
+    },
+    {
+      "azimuth": 170,
+      "elevation": 14.224826521076764
+    },
+    {
+      "azimuth": 175,
+      "elevation": 15.136273121644438
+    },
+    {
+      "azimuth": 180,
+      "elevation": 17.223436191131462
+    },
+    {
+      "azimuth": 185,
+      "elevation": 18.623816456084498
+    },
+    {
+      "azimuth": 190,
+      "elevation": 19.315563744619013
+    },
+    {
+      "azimuth": 195,
+      "elevation": 19.493963071571073
+    },
+    {
+      "azimuth": 200,
+      "elevation": 17.5104854856722
+    },
+    {
+      "azimuth": 205,
+      "elevation": 21.256035187134707
+    },
+    {
+      "azimuth": 210,
+      "elevation": 18.77803322244554
+    },
+    {
+      "azimuth": 215,
+      "elevation": 15.668808186680284
+    },
+    {
+      "azimuth": 220,
+      "elevation": 11.475113006725126
+    },
+    {
+      "azimuth": 225,
+      "elevation": 7.350561369681234
+    },
+    {
+      "azimuth": 230,
+      "elevation": 6.684570602024596
+    },
+    {
+      "azimuth": 235,
+      "elevation": 6.910542679762564
+    },
+    {
+      "azimuth": 240,
+      "elevation": 5.344465513723059
+    },
+    {
+      "azimuth": 245,
+      "elevation": 3.8017155007692325
+    },
+    {
+      "azimuth": 250,
+      "elevation": 3.1023957185086517
+    },
+    {
+      "azimuth": 255,
+      "elevation": 5.818356877694401
+    },
+    {
+      "azimuth": 260,
+      "elevation": 9.291279438975772
+    },
+    {
+      "azimuth": 265,
+      "elevation": 7.091165269478904
+    },
+    {
+      "azimuth": 270,
+      "elevation": 8.861082503360445
+    },
+    {
+      "azimuth": 275,
+      "elevation": 11.15559187273663
+    },
+    {
+      "azimuth": 280,
+      "elevation": 12.98541049954852
+    },
+    {
+      "azimuth": 285,
+      "elevation": 9.848396517000694
+    },
+    {
+      "azimuth": 290,
+      "elevation": 12.952764513375518
+    },
+    {
+      "azimuth": 295,
+      "elevation": 16.646664842023966
+    },
+    {
+      "azimuth": 300,
+      "elevation": 17.744671625056935
+    },
+    {
+      "azimuth": 305,
+      "elevation": 23.025492008528037
+    },
+    {
+      "azimuth": 310,
+      "elevation": 25.641005824305285
+    },
+    {
+      "azimuth": 315,
+      "elevation": 28.01297742306717
+    },
+    {
+      "azimuth": 320,
+      "elevation": 26.74810416292146
+    },
+    {
+      "azimuth": 325,
+      "elevation": 25.079594021590246
+    },
+    {
+      "azimuth": 330,
+      "elevation": 25.98923358383301
+    },
+    {
+      "azimuth": 335,
+      "elevation": 22.806753550092356
+    },
+    {
+      "azimuth": 340,
+      "elevation": 18.93196824507274
+    },
+    {
+      "azimuth": 345,
+      "elevation": 20.3548537997779
+    },
+    {
+      "azimuth": 350,
+      "elevation": 25.079594021590246
+    },
+    {
+      "azimuth": 355,
+      "elevation": 25.734066714912938
+    }
+  ]
+}
