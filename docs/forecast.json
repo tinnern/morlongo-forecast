@@ -3,63 +3,11 @@
     "location": "Morlongo",
     "lat": 46.021245,
     "lon": 8.239861,
-    "generated_at": "2026-03-21T07:29:50.688403+01:00",
+    "generated_at": "2026-03-21T09:19:33.646347+01:00",
     "model": "V4 Hybrid: Conv1D+MLP (temp/humidity/rain) + XGBoost (wind)",
-    "forecast_hours": 114
+    "forecast_hours": 112
   },
   "hourly": [
-    {
-      "time": "2026-03-21T08:00:00",
-      "raw": {
-        "temperature": 6.2,
-        "apparent_temperature": 3.7,
-        "humidity": 71,
-        "precipitation": 0.0,
-        "precipitation_probability": 0,
-        "wind_speed": 3.7,
-        "wind_gusts": 13.7,
-        "wind_direction": 299,
-        "cloud_cover": 97,
-        "pressure": 1015.9,
-        "weather_code": 3,
-        "vpd": 0.28,
-        "et0": 0.04,
-        "is_day": 1
-      },
-      "debiased": {
-        "temperature": 6.9,
-        "humidity": 66.2,
-        "wind_speed": 2.1,
-        "gust_speed": 6.9,
-        "rain": 0.0
-      }
-    },
-    {
-      "time": "2026-03-21T09:00:00",
-      "raw": {
-        "temperature": 7.1,
-        "apparent_temperature": 5.1,
-        "humidity": 71,
-        "precipitation": 0.0,
-        "precipitation_probability": 0,
-        "wind_speed": 2.3,
-        "wind_gusts": 7.2,
-        "wind_direction": 51,
-        "cloud_cover": 82,
-        "pressure": 1015.5,
-        "weather_code": 3,
-        "vpd": 0.29,
-        "et0": 0.1,
-        "is_day": 1
-      },
-      "debiased": {
-        "temperature": 7.1,
-        "humidity": 68.6,
-        "wind_speed": 1.1,
-        "gust_speed": 4.6,
-        "rain": 0.0
-      }
-    },
     {
       "time": "2026-03-21T10:00:00",
       "raw": {
