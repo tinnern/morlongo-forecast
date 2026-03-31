@@ -1382,13 +1382,14 @@
             const fiveDaysAgo = new Date();
             fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
 
-            let obsTimes = [], obsTemps = [], obsPrecip = [], obsHumidity = [];
+            let obsTimes = [], obsTemps = [], obsPrecip = [], obsHumidity = [], obsWind = [];
             if (observationsData?.observations) {
                 const obs = observationsData.observations.filter(o => new Date(o.time) >= fiveDaysAgo);
                 obsTimes = obs.map(o => new Date(o.time));
                 obsTemps = obs.map(o => o.outdoor?.temperature ?? o.indoor?.temperature ?? null);
                 obsPrecip = obs.map(o => o.rain?.rain_1h ?? null);
                 obsHumidity = obs.map(o => o.outdoor?.humidity ?? o.indoor?.humidity ?? null);
+                obsWind = obs.map(o => o.wind?.wind_strength ?? null);
             }
 
             const xMin = fiveDaysAgo;
@@ -1577,8 +1578,26 @@
             // Sort by time
             unifiedPrecipData.sort((a, b) => a.x - b.x);
 
-            // Build unified wind: forecast only (we typically don't have observed wind)
-            const unifiedWindData = fcSampled.map(h => ({ x: new Date(h.time), y: h.debiased.wind_speed }));
+            // Build unified wind: observed (past) + forecast (future)
+            const unifiedWindData = [];
+
+            // Add observed wind data points (past)
+            obsTimes.forEach((t, i) => {
+                if (t <= now && obsWind[i] !== null) {
+                    unifiedWindData.push({ x: t, y: obsWind[i] });
+                }
+            });
+
+            // Add forecast wind data points (future)
+            fcSampled.forEach(h => {
+                const t = new Date(h.time);
+                if (t > now) {
+                    unifiedWindData.push({ x: t, y: h.debiased.wind_speed });
+                }
+            });
+
+            // Sort by time
+            unifiedWindData.sort((a, b) => a.x - b.x);
 
             const precipDatasets = [
                 {
