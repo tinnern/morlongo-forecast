@@ -1,69 +1,40 @@
 {
   "meta": {
     "station_name": "Morlongo 17 (Weather Station)",
-    "last_update": "2026-04-09T13:43:48.658144+02:00",
+    "last_update": "2026-04-09T14:55:17.100920+02:00",
     "history_days": 7,
     "observation_count": 168
   },
   "current": {
-    "time": "2026-04-09T13:43:48.658144+02:00",
+    "time": "2026-04-09T14:55:17.100920+02:00",
     "station_name": "Morlongo 17 (Weather Station)",
     "indoor": {
       "temperature": 20.5,
       "humidity": 42,
-      "pressure": 1015.8,
-      "co2": 617,
+      "pressure": 1015,
+      "co2": 581,
       "noise": 32,
-      "time_utc": 1775734948
+      "time_utc": 1775739185
     },
     "outdoor": {
-      "temperature": 22.7,
-      "humidity": 48,
-      "time_utc": 1775734939
+      "temperature": 24.5,
+      "humidity": 44,
+      "time_utc": 1775739143
     },
     "rain": {
       "rain_1h": 0,
       "rain_24h": 0,
-      "time_utc": 1775734939
+      "time_utc": 1775739181
     },
     "wind": {
       "wind_strength": 4,
-      "wind_angle": 199,
+      "wind_angle": 191,
       "gust_strength": 10,
-      "gust_angle": 197,
-      "time_utc": 1775734945
+      "gust_angle": 181,
+      "time_utc": 1775739181
     }
   },
   "observations": [
-    {
-      "time": "2026-04-02T14:42:52.650860+02:00",
-      "station_name": "Morlongo 17 (Weather Station)",
-      "indoor": {
-        "temperature": 19.3,
-        "humidity": 28,
-        "pressure": 1004.9,
-        "co2": 556,
-        "noise": 32,
-        "time_utc": 1775133169
-      },
-      "outdoor": {
-        "temperature": 19.4,
-        "humidity": 31,
-        "time_utc": 1775133155
-      },
-      "rain": {
-        "rain_1h": 0,
-        "rain_24h": 0,
-        "time_utc": 1775133168
-      },
-      "wind": {
-        "wind_strength": 4,
-        "wind_angle": 200,
-        "gust_strength": 7,
-        "gust_angle": 191,
-        "time_utc": 1775133168
-      }
-    },
     {
       "time": "2026-04-02T16:15:07.303725+02:00",
       "station_name": "Morlongo 17 (Weather Station)",
@@ -4905,6 +4876,35 @@
         "gust_strength": 10,
         "gust_angle": 197,
         "time_utc": 1775734945
+      }
+    },
+    {
+      "time": "2026-04-09T14:55:17.100920+02:00",
+      "station_name": "Morlongo 17 (Weather Station)",
+      "indoor": {
+        "temperature": 20.5,
+        "humidity": 42,
+        "pressure": 1015,
+        "co2": 581,
+        "noise": 32,
+        "time_utc": 1775739185
+      },
+      "outdoor": {
+        "temperature": 24.5,
+        "humidity": 44,
+        "time_utc": 1775739143
+      },
+      "rain": {
+        "rain_1h": 0,
+        "rain_24h": 0,
+        "time_utc": 1775739181
+      },
+      "wind": {
+        "wind_strength": 4,
+        "wind_angle": 191,
+        "gust_strength": 10,
+        "gust_angle": 181,
+        "time_utc": 1775739181
       }
     }
   ]
