@@ -1251,10 +1251,6 @@
             if (rain.rain_24h != null) {
                 detailsHTML += `<div class="detail-item"><i class="wi wi-rain"></i><div class="detail-value">${rain.rain_24h.toFixed(1)}</div><div class="detail-label">mm/24h</div></div>`;
             }
-            if (indoor.temperature != null && outdoor.temperature != null) {
-                const delta = (indoor.temperature - outdoor.temperature).toFixed(1);
-                detailsHTML += `<div class="detail-item"><i class="wi wi-thermometer-internal"></i><div class="detail-value">${delta > 0 ? '+' : ''}${delta}°</div><div class="detail-label">In−Out</div></div>`;
-            }
             const obsTime = new Date(current.time);
             detailsHTML += `<div class="detail-item"><i class="wi wi-time-3"></i><div class="detail-value">${obsTime.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' })}</div><div class="detail-label">Updated</div></div>`;
             document.getElementById('obsDetails').innerHTML = detailsHTML;
