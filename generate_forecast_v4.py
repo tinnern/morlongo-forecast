@@ -402,6 +402,7 @@ def save_forecast_history(output):
             existing[valid_time] = {
                 "time": valid_time,
                 "temperature": h["debiased"]["temperature"],
+                "raw_temperature": h["raw"]["temperature"],
                 "rain": h["debiased"]["rain"],
                 "humidity": h["debiased"]["humidity"],
                 "wind_speed": h["debiased"]["wind_speed"],
