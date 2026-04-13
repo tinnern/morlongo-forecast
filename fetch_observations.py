@@ -25,7 +25,7 @@ TOKEN_URL = "https://api.netatmo.com/oauth2/token"
 STATIONS_URL = "https://api.netatmo.com/api/getstationsdata"
 OUTPUT_DIR = Path(__file__).parent / "docs"
 OUTPUT_FILE = OUTPUT_DIR / "observations.json"
-HISTORY_DAYS = 7
+HISTORY_DAYS = 30
 
 
 def get_access_token():

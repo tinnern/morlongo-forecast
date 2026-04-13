@@ -622,6 +622,22 @@
         }
         .ml-note strong { color: var(--text-secondary); }
 
+        .raw-toggle-btn {
+            margin-left: auto;
+            padding: 3px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.72em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            font-family: inherit;
+        }
+        .raw-toggle-btn:hover { background: var(--border-light); color: var(--text-secondary); }
+        .raw-toggle-btn.active { background: var(--lipari-12); color: white; border-color: var(--lipari-12); }
+        [data-theme="dark"] .raw-toggle-btn:hover { background: var(--lipari-2); }
+
         @media (max-width: 700px) {
             .current-section { grid-template-columns: 1fr; }
             .current-details { grid-template-columns: repeat(3, 1fr); }
@@ -643,12 +659,14 @@
 </head>
 <body>
     <header>
+        <button class="theme-toggle" style="right:57px;" onclick="shareWeather()" aria-label="Share">&#8679;</button>
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
             <i class="wi wi-day-sunny" id="themeIcon"></i>
         </button>
         <h1>Morlongo Weather</h1>
         <p>Real-time observations & ML-corrected forecast</p>
         <div class="update-time" id="updateTime">Loading...</div>
+        <div class="update-time" id="accuracyStats"></div>
     </header>
 
     <div class="container">
@@ -737,12 +755,16 @@
         <!-- Charts -->
         <div class="charts-section">
             <div class="chart-card">
-                <div class="chart-title"><i class="wi wi-thermometer"></i> Temperature (Observed + Forecast)</div>
+                <div class="chart-title"><i class="wi wi-thermometer"></i> Temperature (Observed + Forecast)<button id="rawToggle" onclick="toggleRawForecast()" class="raw-toggle-btn">Raw ICON</button></div>
                 <div class="chart-container"><canvas id="tempChart"></canvas></div>
             </div>
             <div class="chart-card">
                 <div class="chart-title"><i class="wi wi-rain"></i> Precipitation & <i class="wi wi-strong-wind"></i> Wind</div>
                 <div class="chart-container"><canvas id="precipWindChart"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title"><i class="wi wi-rain"></i> Daily Rain — Last 30 Days</div>
+                <div class="chart-container" style="height: 220px;"><canvas id="rainHistoryChart"></canvas></div>
             </div>
         </div>
 
@@ -768,12 +790,12 @@
                     <span>Water Balance</span>
                 </div>
                 <div class="stress-value" id="waterBalanceValue">--</div>
-                <div class="stress-unit">mm (7d)</div>
+                <div class="stress-unit">mm (30d)</div>
                 <div class="stress-bar-container">
                     <div class="stress-bar-bg water-gradient"></div>
                     <div class="stress-bar-cover" id="waterCover" style="width: 100%"></div>
                 </div>
-                <div class="scale-labels"><span>-30 Deficit</span><span>0</span><span>+30 Surplus</span></div>
+                <div class="scale-labels"><span>-150 Deficit</span><span>0</span><span>+150 Surplus</span></div>
                 <div class="stress-label" id="waterBalanceLabel">Rain - evaporation</div>
             </div>
             <div class="stress-card">
@@ -902,10 +924,12 @@
 
         let tempChart = null;
         let precipWindChart = null;
+        let rainHistoryChart = null;
         let forecastData = null;
         let observationsData = null;
         let forecastHistoryData = null;
         let horizonData = null;
+        let showRawForecast = false;
 
         // Theme handling
         function toggleTheme() {
@@ -950,6 +974,27 @@
                 95: 'wi-thunderstorm', 96: 'wi-thunderstorm', 99: 'wi-thunderstorm'
             };
             return icons[code] || (isDay ? 'wi-day-cloudy' : 'wi-night-alt-cloudy');
+        }
+
+        function windAngleToDir(deg) {
+            const dirs = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+            return dirs[Math.round(((deg % 360) + 360) % 360 / 22.5) % 16];
+        }
+
+        function shareWeather() {
+            if (navigator.share) {
+                navigator.share({ title: 'Morlongo Weather', url: location.href });
+            } else {
+                navigator.clipboard.writeText(location.href);
+            }
+        }
+
+        function toggleRawForecast() {
+            showRawForecast = !showRawForecast;
+            const btn = document.getElementById('rawToggle');
+            btn.textContent = showRawForecast ? 'Debiased' : 'Raw ICON';
+            btn.classList.toggle('active', showRawForecast);
+            renderCharts();
         }
 
         // Generate SVG sparkline
@@ -1057,6 +1102,7 @@
             renderWeeklySummary();
             renderActivityPlanner();
             renderCharts();
+            renderRainHistory();
             renderHourlyTable();
         }
 
@@ -1173,22 +1219,41 @@
                 deltaEl.textContent = `${delta >= 0 ? '+' : ''}${delta.toFixed(1)}° vs fc`;
             }
 
+            // Pressure trend vs 3 hours ago
+            let pressureTrend = '';
+            if (indoor.pressure != null && observationsData?.observations) {
+                const threeHAgo = Date.now() - 3 * 3600 * 1000;
+                const oldObs = observationsData.observations.reduce((best, o) => {
+                    const d = Math.abs(new Date(o.time) - threeHAgo);
+                    return (!best || d < Math.abs(new Date(best.time) - threeHAgo)) ? o : best;
+                }, null);
+                if (oldObs?.indoor?.pressure != null) {
+                    const delta = indoor.pressure - oldObs.indoor.pressure;
+                    pressureTrend = delta > 0.5 ? ' ↑' : delta < -0.5 ? ' ↓' : ' →';
+                }
+            }
+
             let detailsHTML = '';
             const humidity = outdoor.humidity ?? indoor.humidity;
             if (humidity != null) {
                 detailsHTML += `<div class="detail-item"><i class="wi wi-humidity"></i><div class="detail-value">${Math.round(humidity)}%</div><div class="detail-label">Humidity</div></div>`;
             }
             if (indoor.pressure != null) {
-                detailsHTML += `<div class="detail-item"><i class="wi wi-barometer"></i><div class="detail-value">${Math.round(indoor.pressure)}</div><div class="detail-label">hPa</div></div>`;
+                detailsHTML += `<div class="detail-item"><i class="wi wi-barometer"></i><div class="detail-value">${Math.round(indoor.pressure)}${pressureTrend}</div><div class="detail-label">hPa</div></div>`;
             }
             if (wind.wind_strength != null) {
-                detailsHTML += `<div class="detail-item"><i class="wi wi-strong-wind"></i><div class="detail-value">${Math.round(wind.wind_strength)}</div><div class="detail-label">km/h</div></div>`;
+                const dir = wind.wind_angle != null ? ` ${windAngleToDir(wind.wind_angle)}` : '';
+                detailsHTML += `<div class="detail-item"><i class="wi wi-strong-wind"></i><div class="detail-value">${Math.round(wind.wind_strength)}${dir}</div><div class="detail-label">km/h</div></div>`;
             }
             if (rain.rain_1h != null) {
                 detailsHTML += `<div class="detail-item"><i class="wi wi-raindrop"></i><div class="detail-value">${rain.rain_1h.toFixed(1)}</div><div class="detail-label">mm/1h</div></div>`;
             }
             if (rain.rain_24h != null) {
                 detailsHTML += `<div class="detail-item"><i class="wi wi-rain"></i><div class="detail-value">${rain.rain_24h.toFixed(1)}</div><div class="detail-label">mm/24h</div></div>`;
+            }
+            if (indoor.temperature != null && outdoor.temperature != null) {
+                const delta = (indoor.temperature - outdoor.temperature).toFixed(1);
+                detailsHTML += `<div class="detail-item"><i class="wi wi-thermometer-internal"></i><div class="detail-value">${delta > 0 ? '+' : ''}${delta}°</div><div class="detail-label">In−Out</div></div>`;
             }
             const obsTime = new Date(current.time);
             detailsHTML += `<div class="detail-item"><i class="wi wi-time-3"></i><div class="detail-value">${obsTime.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' })}</div><div class="detail-label">Updated</div></div>`;
@@ -1230,13 +1295,13 @@
                 document.getElementById('vpdCover').style.width = (100 - vpdPercent) + '%';
             }
 
-            // Water balance calculation
+            // Water balance calculation (30-day window)
             let obsPrecip = 0;
             let obsDays = 0;
             if (observationsData?.observations) {
-                const sevenDaysAgo = new Date();
-                sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-                const recentObs = observationsData.observations.filter(o => new Date(o.time) >= sevenDaysAgo);
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                const recentObs = observationsData.observations.filter(o => new Date(o.time) >= thirtyDaysAgo);
                 recentObs.forEach(o => { if (o.rain?.rain_1h != null) obsPrecip += o.rain.rain_1h; });
                 if (recentObs.length > 1) {
                     obsDays = (new Date(recentObs[recentObs.length - 1].time) - new Date(recentObs[0].time)) / (1000 * 60 * 60 * 24);
@@ -1251,8 +1316,8 @@
             const estimatedEt0Loss = dailyEt0 * Math.max(1, obsDays);
             const waterBalance = obsPrecip - estimatedEt0Loss;
             document.getElementById('waterBalanceValue').textContent = (waterBalance >= 0 ? '+' : '') + waterBalance.toFixed(1);
-            // Water balance scale: -30mm to +30mm - cover shrinks from right
-            const waterPercent = Math.min(100, Math.max(0, ((waterBalance + 30) / 60) * 100));
+            // Water balance scale: -150mm to +150mm - cover shrinks from right
+            const waterPercent = Math.min(100, Math.max(0, ((waterBalance + 150) / 300) * 100));
             document.getElementById('waterCover').style.width = (100 - waterPercent) + '%';
             document.getElementById('waterBalanceLabel').textContent = `${obsPrecip.toFixed(1)} rain - ${estimatedEt0Loss.toFixed(1)} evap`;
 
@@ -1375,9 +1440,9 @@
             const fcStep = 2;
             const fcSampled = forecastData.hourly.filter((_, i) => i % fcStep === 0);
             const fcTimes = fcSampled.map(h => new Date(h.time));
-            const fcTemps = fcSampled.map(h => h.debiased.temperature);
+            const fcTemps = fcSampled.map(h => showRawForecast ? h.raw.temperature : h.debiased.temperature);
             const fcPrecip = fcSampled.map(h => h.debiased.rain);
-            const fcHumidity = fcSampled.map(h => h.debiased.humidity);
+            const fcHumidity = fcSampled.map(h => showRawForecast ? h.raw.humidity : h.debiased.humidity);
 
             const fiveDaysAgo = new Date();
             fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
@@ -1427,7 +1492,7 @@
 
             const tempDatasets = [
                 {
-                    label: 'Temperature',
+                    label: showRawForecast ? 'Temperature (Raw ICON)' : 'Temperature',
                     data: unifiedTempData,
                     borderColor: '#B96628',  // lipari-14: warm orange
                     backgroundColor: '#B9662825',
@@ -1438,7 +1503,7 @@
                     yAxisID: 'y'
                 },
                 {
-                    label: 'Humidity',
+                    label: showRawForecast ? 'Humidity (Raw ICON)' : 'Humidity',
                     data: unifiedHumidityData,
                     borderColor: '#5369A5',  // lipari-3: blue
                     backgroundColor: '#5369A512',
@@ -1724,6 +1789,68 @@
                         y1: { position: 'right', title: { display: true, text: 'km/h', font: { size: 11 }, color: '#A24B14' }, grid: { display: false }, min: 0 }
                     },
                     hover: { mode: 'index', intersect: false }
+                }
+            });
+        }
+
+        function renderRainHistory() {
+            const canvas = document.getElementById('rainHistoryChart');
+            if (!canvas || !observationsData?.observations) return;
+
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const gridColor = isDark ? lipari[2] : lipari[7];
+
+            // Sum rain_1h per calendar day; take one sample per hour to avoid double-counting
+            const dailyRain = {};
+            const seen = new Set();
+            observationsData.observations.forEach(o => {
+                if (o.rain?.rain_1h == null) return;
+                const t = new Date(o.time);
+                const dayKey = t.toDateString();
+                const hourKey = dayKey + '-' + t.getHours();
+                if (seen.has(hourKey)) return;
+                seen.add(hourKey);
+                dailyRain[dayKey] = (dailyRain[dayKey] || 0) + o.rain.rain_1h;
+            });
+
+            const days = Object.keys(dailyRain).sort((a, b) => new Date(a) - new Date(b));
+            if (days.length === 0) return;
+
+            if (rainHistoryChart) rainHistoryChart.destroy();
+            rainHistoryChart = new Chart(canvas.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    datasets: [{
+                        label: 'Daily Rain',
+                        data: days.map(d => ({ x: new Date(d), y: +dailyRain[d].toFixed(1) })),
+                        backgroundColor: '#3E4A8A',
+                        borderColor: '#2D2B6B',
+                        borderWidth: 1,
+                        borderRadius: 3,
+                        barThickness: 'flex',
+                        maxBarThickness: 30
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(27, 17, 69, 0.9)',
+                            titleFont: { size: 13 },
+                            bodyFont: { size: 12 },
+                            padding: 12,
+                            callbacks: {
+                                title: (items) => new Date(items[0].parsed.x).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }),
+                                label: (ctx) => `${ctx.parsed.y.toFixed(1)} mm`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { type: 'time', time: { unit: 'day', displayFormats: { day: 'MMM d' } }, grid: { display: false } },
+                        y: { min: 0, title: { display: true, text: 'mm', font: { size: 11 }, color: '#3E4A8A' }, grid: { color: gridColor } }
+                    }
                 }
             });
         }
