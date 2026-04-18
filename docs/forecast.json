@@ -3,115 +3,11 @@
     "location": "Morlongo",
     "lat": 46.021245,
     "lon": 8.239861,
-    "generated_at": "2026-04-18T04:14:53.890156+02:00",
+    "generated_at": "2026-04-18T08:06:08.264918+02:00",
     "model": "V4 Hybrid: Conv1D+MLP (temp/humidity/rain) + XGBoost (wind)",
-    "forecast_hours": 112
+    "forecast_hours": 108
   },
   "hourly": [
-    {
-      "time": "2026-04-18T05:00:00",
-      "raw": {
-        "temperature": 13.2,
-        "apparent_temperature": 11.5,
-        "humidity": 73,
-        "precipitation": 0.0,
-        "precipitation_probability": 0,
-        "wind_speed": 8.9,
-        "wind_gusts": 17.3,
-        "wind_direction": 291,
-        "cloud_cover": 62,
-        "pressure": 1020.2,
-        "weather_code": 2,
-        "vpd": 0.41,
-        "et0": 0.01,
-        "is_day": 0
-      },
-      "debiased": {
-        "temperature": 14.3,
-        "humidity": 69.8,
-        "wind_speed": 3.3,
-        "gust_speed": 7.9,
-        "rain": 0.0
-      }
-    },
-    {
-      "time": "2026-04-18T06:00:00",
-      "raw": {
-        "temperature": 13.2,
-        "apparent_temperature": 11.5,
-        "humidity": 72,
-        "precipitation": 0.0,
-        "precipitation_probability": 0,
-        "wind_speed": 8.9,
-        "wind_gusts": 18.7,
-        "wind_direction": 297,
-        "cloud_cover": 60,
-        "pressure": 1020.2,
-        "weather_code": 2,
-        "vpd": 0.42,
-        "et0": 0.02,
-        "is_day": 0
-      },
-      "debiased": {
-        "temperature": 14.1,
-        "humidity": 69.2,
-        "wind_speed": 3.2,
-        "gust_speed": 8.3,
-        "rain": 0.0
-      }
-    },
-    {
-      "time": "2026-04-18T07:00:00",
-      "raw": {
-        "temperature": 13.1,
-        "apparent_temperature": 11.5,
-        "humidity": 73,
-        "precipitation": 0.0,
-        "precipitation_probability": 0,
-        "wind_speed": 7.9,
-        "wind_gusts": 17.6,
-        "wind_direction": 300,
-        "cloud_cover": 77,
-        "pressure": 1020.5,
-        "weather_code": 2,
-        "vpd": 0.41,
-        "et0": 0.03,
-        "is_day": 1
-      },
-      "debiased": {
-        "temperature": 13.8,
-        "humidity": 69.6,
-        "wind_speed": 2.7,
-        "gust_speed": 7.9,
-        "rain": 0
-      }
-    },
-    {
-      "time": "2026-04-18T08:00:00",
-      "raw": {
-        "temperature": 14.6,
-        "apparent_temperature": 13.9,
-        "humidity": 72,
-        "precipitation": 0.0,
-        "precipitation_probability": 0,
-        "wind_speed": 3.9,
-        "wind_gusts": 15.1,
-        "wind_direction": 326,
-        "cloud_cover": 68,
-        "pressure": 1020.5,
-        "weather_code": 2,
-        "vpd": 0.47,
-        "et0": 0.04,
-        "is_day": 1
-      },
-      "debiased": {
-        "temperature": 14.5,
-        "humidity": 68.6,
-        "wind_speed": 2.6,
-        "gust_speed": 7.7,
-        "rain": 0.0
-      }
-    },
     {
       "time": "2026-04-18T09:00:00",
       "raw": {
