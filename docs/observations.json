@@ -1,37 +1,37 @@
 {
   "meta": {
     "station_name": "Morlongo 17 (Weather Station)",
-    "last_update": "2026-04-18T08:06:02.466454+02:00",
+    "last_update": "2026-04-18T09:39:09.160615+02:00",
     "history_days": 30,
-    "observation_count": 233
+    "observation_count": 234
   },
   "current": {
-    "time": "2026-04-18T08:06:02.466454+02:00",
+    "time": "2026-04-18T09:39:09.160615+02:00",
     "station_name": "Morlongo 17 (Weather Station)",
     "indoor": {
-      "temperature": 20.3,
-      "humidity": 51,
-      "pressure": 1020,
-      "co2": 813,
+      "temperature": 19.8,
+      "humidity": 52,
+      "pressure": 1019.6,
+      "co2": 861,
       "noise": 33,
-      "time_utc": 1776492094
+      "time_utc": 1776497546
     },
     "outdoor": {
-      "temperature": 13.9,
-      "humidity": 72,
-      "time_utc": 1776492044
+      "temperature": 15.1,
+      "humidity": 73,
+      "time_utc": 1776497530
     },
     "rain": {
       "rain_1h": 0,
       "rain_24h": 0,
-      "time_utc": 1776492089
+      "time_utc": 1776497537
     },
     "wind": {
       "wind_strength": 1,
-      "wind_angle": 34,
+      "wind_angle": 90,
       "gust_strength": 4,
-      "gust_angle": 34,
-      "time_utc": 1776492089
+      "gust_angle": 101,
+      "time_utc": 1776497543
     }
   },
   "observations": [
@@ -6790,6 +6790,35 @@
         "gust_strength": 4,
         "gust_angle": 34,
         "time_utc": 1776492089
+      }
+    },
+    {
+      "time": "2026-04-18T09:39:09.160615+02:00",
+      "station_name": "Morlongo 17 (Weather Station)",
+      "indoor": {
+        "temperature": 19.8,
+        "humidity": 52,
+        "pressure": 1019.6,
+        "co2": 861,
+        "noise": 33,
+        "time_utc": 1776497546
+      },
+      "outdoor": {
+        "temperature": 15.1,
+        "humidity": 73,
+        "time_utc": 1776497530
+      },
+      "rain": {
+        "rain_1h": 0,
+        "rain_24h": 0,
+        "time_utc": 1776497537
+      },
+      "wind": {
+        "wind_strength": 1,
+        "wind_angle": 90,
+        "gust_strength": 4,
+        "gust_angle": 101,
+        "time_utc": 1776497543
       }
     }
   ]
