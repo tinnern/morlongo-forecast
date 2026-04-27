@@ -1,37 +1,37 @@
 {
   "meta": {
     "station_name": "Morlongo 17 (Weather Station)",
-    "last_update": "2026-04-27T01:28:50.789600+02:00",
+    "last_update": "2026-04-27T02:03:24.065095+02:00",
     "history_days": 30,
-    "observation_count": 405
+    "observation_count": 406
   },
   "current": {
-    "time": "2026-04-27T01:28:50.789600+02:00",
+    "time": "2026-04-27T02:03:24.065095+02:00",
     "station_name": "Morlongo 17 (Weather Station)",
     "indoor": {
       "temperature": 18.8,
       "humidity": 46,
       "pressure": 1018.8,
-      "co2": 444,
+      "co2": 449,
       "noise": 32,
-      "time_utc": 1777245645
+      "time_utc": 1777248061
     },
     "outdoor": {
-      "temperature": 15.7,
+      "temperature": 15.4,
       "humidity": 61,
-      "time_utc": 1777245644
+      "time_utc": 1777248054
     },
     "rain": {
       "rain_1h": 0,
       "rain_24h": 0,
-      "time_utc": 1777245644
+      "time_utc": 1777248054
     },
     "wind": {
       "wind_strength": 2,
-      "wind_angle": 60,
+      "wind_angle": 25,
       "gust_strength": 5,
-      "gust_angle": 64,
-      "time_utc": 1777245644
+      "gust_angle": 322,
+      "time_utc": 1777248060
     }
   },
   "observations": [
@@ -11778,6 +11778,35 @@
         "gust_strength": 5,
         "gust_angle": 64,
         "time_utc": 1777245644
+      }
+    },
+    {
+      "time": "2026-04-27T02:03:24.065095+02:00",
+      "station_name": "Morlongo 17 (Weather Station)",
+      "indoor": {
+        "temperature": 18.8,
+        "humidity": 46,
+        "pressure": 1018.8,
+        "co2": 449,
+        "noise": 32,
+        "time_utc": 1777248061
+      },
+      "outdoor": {
+        "temperature": 15.4,
+        "humidity": 61,
+        "time_utc": 1777248054
+      },
+      "rain": {
+        "rain_1h": 0,
+        "rain_24h": 0,
+        "time_utc": 1777248054
+      },
+      "wind": {
+        "wind_strength": 2,
+        "wind_angle": 25,
+        "gust_strength": 5,
+        "gust_angle": 322,
+        "time_utc": 1777248060
       }
     }
   ]
