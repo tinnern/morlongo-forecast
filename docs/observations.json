@@ -1,25 +1,25 @@
 {
   "meta": {
     "station_name": "Morlongo 17 (Weather Station)",
-    "last_update": "2026-04-28T15:13:12.721272+02:00",
+    "last_update": "2026-04-28T17:43:24.982650+02:00",
     "history_days": 30,
-    "observation_count": 425
+    "observation_count": 426
   },
   "current": {
-    "time": "2026-04-28T15:13:12.721272+02:00",
+    "time": "2026-04-28T17:43:24.982650+02:00",
     "station_name": "Morlongo 17 (Weather Station)",
     "indoor": {
       "temperature": 19.3,
       "humidity": 50,
-      "pressure": 1016.8,
-      "co2": 469,
-      "noise": 33,
-      "time_utc": 1777381458
+      "pressure": 1015.8,
+      "co2": 440,
+      "noise": 32,
+      "time_utc": 1777390528
     },
     "outdoor": {
-      "temperature": 13.7,
-      "humidity": 90,
-      "time_utc": 1777381407
+      "temperature": 14.7,
+      "humidity": 89,
+      "time_utc": 1777390482
     },
     "rain": {
       "rain_1h": null,
@@ -28,10 +28,10 @@
     },
     "wind": {
       "wind_strength": 1,
-      "wind_angle": 127,
+      "wind_angle": 90,
       "gust_strength": 4,
-      "gust_angle": 194,
-      "time_utc": 1777381452
+      "gust_angle": 77,
+      "time_utc": 1777390527
     }
   },
   "observations": [
@@ -12358,6 +12358,35 @@
         "gust_strength": 4,
         "gust_angle": 194,
         "time_utc": 1777381452
+      }
+    },
+    {
+      "time": "2026-04-28T17:43:24.982650+02:00",
+      "station_name": "Morlongo 17 (Weather Station)",
+      "indoor": {
+        "temperature": 19.3,
+        "humidity": 50,
+        "pressure": 1015.8,
+        "co2": 440,
+        "noise": 32,
+        "time_utc": 1777390528
+      },
+      "outdoor": {
+        "temperature": 14.7,
+        "humidity": 89,
+        "time_utc": 1777390482
+      },
+      "rain": {
+        "rain_1h": null,
+        "rain_24h": null,
+        "time_utc": null
+      },
+      "wind": {
+        "wind_strength": 1,
+        "wind_angle": 90,
+        "gust_strength": 4,
+        "gust_angle": 77,
+        "time_utc": 1777390527
       }
     }
   ]
