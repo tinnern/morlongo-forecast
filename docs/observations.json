@@ -1,37 +1,37 @@
 {
   "meta": {
     "station_name": "Morlongo 17 (Weather Station)",
-    "last_update": "2026-05-05T21:56:37.793982+02:00",
+    "last_update": "2026-05-05T22:52:23.911221+02:00",
     "history_days": 30,
-    "observation_count": 506
+    "observation_count": 507
   },
   "current": {
-    "time": "2026-05-05T21:56:37.793982+02:00",
+    "time": "2026-05-05T22:52:23.911221+02:00",
     "station_name": "Morlongo 17 (Weather Station)",
     "indoor": {
       "temperature": 17.5,
       "humidity": 49,
-      "pressure": 1012.4,
-      "co2": 424,
+      "pressure": 1012.3,
+      "co2": 404,
       "noise": 32,
-      "time_utc": 1778010953
+      "time_utc": 1778013896
     },
     "outdoor": {
       "temperature": 9.8,
-      "humidity": 92,
-      "time_utc": 1778010948
+      "humidity": 93,
+      "time_utc": 1778013869
     },
     "rain": {
       "rain_1h": 0,
       "rain_24h": 9.7,
-      "time_utc": 1778010544
+      "time_utc": 1778013292
     },
     "wind": {
       "wind_strength": 1,
-      "wind_angle": 125,
+      "wind_angle": 90,
       "gust_strength": 4,
-      "gust_angle": 178,
-      "time_utc": 1778010948
+      "gust_angle": 172,
+      "time_utc": 1778013895
     }
   },
   "observations": [
@@ -14707,6 +14707,35 @@
         "gust_strength": 4,
         "gust_angle": 178,
         "time_utc": 1778010948
+      }
+    },
+    {
+      "time": "2026-05-05T22:52:23.911221+02:00",
+      "station_name": "Morlongo 17 (Weather Station)",
+      "indoor": {
+        "temperature": 17.5,
+        "humidity": 49,
+        "pressure": 1012.3,
+        "co2": 404,
+        "noise": 32,
+        "time_utc": 1778013896
+      },
+      "outdoor": {
+        "temperature": 9.8,
+        "humidity": 93,
+        "time_utc": 1778013869
+      },
+      "rain": {
+        "rain_1h": 0,
+        "rain_24h": 9.7,
+        "time_utc": 1778013292
+      },
+      "wind": {
+        "wind_strength": 1,
+        "wind_angle": 90,
+        "gust_strength": 4,
+        "gust_angle": 172,
+        "time_utc": 1778013895
       }
     }
   ]
