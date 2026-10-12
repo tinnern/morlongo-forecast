@@ -24,3 +24,7 @@ __pycache__/
 # OS
 .DS_Store
 debiased_forecast.csv
+
+# Local credentials
+.env
+data/

@@ -1,0 +1,37 @@
+{
+  "test_from": "2026-09-01",
+  "test_through": "2026-10-11T23:00:00+00:00",
+  "lead_hours": [
+    24,
+    48,
+    72,
+    96
+  ],
+  "targets": {
+    "temperature": {
+      "mae": 0.9608758629272713,
+      "raw_mae": 1.1607456140350878,
+      "calibrated": true
+    },
+    "humidity": {
+      "mae": 5.853214439087521,
+      "raw_mae": 7.602130325814536,
+      "calibrated": true
+    },
+    "wind_speed": {
+      "mae": 0.8614677346026206,
+      "raw_mae": 5.280566801619433,
+      "calibrated": true
+    },
+    "gust_speed": {
+      "mae": 2.0542671800945005,
+      "raw_mae": 11.08096361185984,
+      "calibrated": true
+    },
+    "rain": {
+      "mae": 0.06454893350062736,
+      "raw_mae": 0.06454893350062736,
+      "calibrated": false
+    }
+  }
+}

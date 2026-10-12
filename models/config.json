@@ -1,36 +1,194 @@
 {
-  "features": [
-    "fc_temperature_2m",
-    "fc_relative_humidity_2m",
-    "fc_dew_point_2m",
-    "fc_precipitation",
-    "fc_rain",
-    "fc_pressure_msl",
-    "fc_surface_pressure",
-    "fc_wind_speed_10m",
-    "fc_wind_direction_10m",
-    "fc_wind_gusts_10m",
-    "fc_cloud_cover",
-    "fc_shortwave_radiation",
-    "hour_sin",
-    "hour_cos",
-    "month_sin",
-    "month_cos"
-  ],
-  "targets": [
-    "temperature",
-    "humidity",
-    "rain",
-    "wind_speed",
-    "gust_speed"
-  ],
-  "location": {
-    "lat": 46.021245,
-    "lon": 8.239861,
-    "name": "Morlongo"
+  "source": "meteoswiss_icon_ch2",
+  "trained_through": "2026-10-11 23:00:00+00:00",
+  "models": {
+    "temperature": {
+      "depth": 4,
+      "mode": "residual",
+      "objective": "reg:squarederror",
+      "features": [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "dew_point_2m",
+        "precipitation",
+        "rain",
+        "snowfall",
+        "pressure_msl",
+        "cloud_cover",
+        "wind_speed_10m",
+        "wind_gusts_10m",
+        "shortwave_radiation",
+        "direct_radiation",
+        "cape",
+        "lead_hours",
+        "hour_sin",
+        "hour_cos",
+        "year_sin",
+        "year_cos",
+        "wind_sin",
+        "wind_cos"
+      ],
+      "trees": 244,
+      "correction_weight": 1,
+      "score": 1.2439380400432727,
+      "metrics": {
+        "n": 5355,
+        "mae": 1.2439380400432727,
+        "rmse": 1.7288925427283925,
+        "bias": -0.425753375601525
+      }
+    },
+    "humidity": {
+      "depth": 4,
+      "mode": "residual",
+      "objective": "reg:squarederror",
+      "features": [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "dew_point_2m",
+        "precipitation",
+        "rain",
+        "snowfall",
+        "pressure_msl",
+        "cloud_cover",
+        "wind_speed_10m",
+        "wind_gusts_10m",
+        "shortwave_radiation",
+        "direct_radiation",
+        "cape",
+        "lead_hours",
+        "hour_sin",
+        "hour_cos",
+        "year_sin",
+        "year_cos",
+        "wind_sin",
+        "wind_cos"
+      ],
+      "trees": 133,
+      "correction_weight": 1,
+      "score": 6.553263594172582,
+      "metrics": {
+        "n": 5355,
+        "mae": 6.553263594172582,
+        "rmse": 8.507673664927148,
+        "bias": 2.1876614336303524
+      }
+    },
+    "wind_speed": {
+      "depth": 3,
+      "mode": "direct",
+      "objective": "reg:squarederror",
+      "features": [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "dew_point_2m",
+        "precipitation",
+        "rain",
+        "snowfall",
+        "pressure_msl",
+        "cloud_cover",
+        "wind_speed_10m",
+        "wind_gusts_10m",
+        "shortwave_radiation",
+        "direct_radiation",
+        "cape",
+        "lead_hours",
+        "hour_sin",
+        "hour_cos",
+        "year_sin",
+        "year_cos",
+        "wind_sin",
+        "wind_cos"
+      ],
+      "trees": 196,
+      "correction_weight": 1,
+      "score": 1.0003599216286934,
+      "metrics": {
+        "n": 5090,
+        "mae": 1.0003599216286934,
+        "rmse": 2.190570088127335,
+        "bias": -0.2156730354651955
+      }
+    },
+    "gust_speed": {
+      "depth": 4,
+      "mode": "direct",
+      "objective": "reg:squarederror",
+      "features": [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "dew_point_2m",
+        "precipitation",
+        "rain",
+        "snowfall",
+        "pressure_msl",
+        "cloud_cover",
+        "wind_speed_10m",
+        "wind_gusts_10m",
+        "shortwave_radiation",
+        "direct_radiation",
+        "cape",
+        "lead_hours",
+        "hour_sin",
+        "hour_cos",
+        "year_sin",
+        "year_cos",
+        "wind_sin",
+        "wind_cos"
+      ],
+      "trees": 392,
+      "correction_weight": 1,
+      "score": 2.5873048647447745,
+      "metrics": {
+        "n": 5090,
+        "mae": 2.5873048647447745,
+        "rmse": 5.2970441967870165,
+        "bias": -0.524447091670308
+      }
+    },
+    "rain": {
+      "depth": 4,
+      "mode": "direct",
+      "objective": "reg:squarederror",
+      "features": [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "dew_point_2m",
+        "precipitation",
+        "rain",
+        "snowfall",
+        "pressure_msl",
+        "cloud_cover",
+        "wind_speed_10m",
+        "wind_gusts_10m",
+        "shortwave_radiation",
+        "direct_radiation",
+        "cape",
+        "lead_hours",
+        "hour_sin",
+        "hour_cos",
+        "year_sin",
+        "year_cos",
+        "wind_sin",
+        "wind_cos"
+      ],
+      "trees": 199,
+      "correction_weight": 0,
+      "score": 0.8229667685889686,
+      "metrics": {
+        "n": 5270,
+        "mae": 0.1733769569762835,
+        "rmse": 1.3669470061762479,
+        "bias": -0.04663654564050326,
+        "wet_mae": 3.1374997805104634,
+        "wet_recall": 0.44651162790697674,
+        "wet_precision": 0.3735408560311284,
+        "csi": 0.2553191489361702,
+        "total_ratio": 0.6652803525604314
+      },
+      "fallback_reason": "Candidate did not improve held-out hourly MAE; retain raw CH2."
+    }
   },
-  "training_period": {
-    "start": "2025-07-10 00:00:00",
-    "end": "2026-03-10 23:00:00"
-  }
+  "training_samples": 52800,
+  "xgboost_version": "3.4.1"
 }

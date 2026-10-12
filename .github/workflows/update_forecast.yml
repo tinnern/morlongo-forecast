@@ -20,11 +20,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
+          cache: pip
 
       - name: Install dependencies
-        run: |
-          pip install requests xgboost numpy scikit-learn torch joblib
+        run: pip install -r requirements.txt
 
       - name: Fetch Netatmo observations
         env:
@@ -48,12 +48,12 @@ jobs:
 
       - name: Generate debiased forecast
         if: steps.check_forecast.outputs.run_forecast == 'true' || github.event_name == 'workflow_dispatch'
-        run: python generate_forecast_v4.py
+        run: python generate_forecast.py
 
       - name: Commit and push
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add docs/forecast.json docs/observations.json docs/forecast_history.json
+          git add docs/forecast.json docs/observations.json docs/forecast_history.json docs/station_history.json
           git diff --staged --quiet || git commit -m "Update forecast & observations $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push

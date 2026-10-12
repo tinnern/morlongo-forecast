@@ -1,51 +1,19 @@
-const CACHE_NAME = 'morlongo-weather-v2';
-const STATIC_ASSETS = [
-  './',
-  './index.html',
-  './manifest.json',
-  'https://cdn.jsdelivr.net/npm/chart.js',
-  'https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns',
-  'https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css'
-];
-
-// Install: cache static assets
+const CACHE_NAME = 'morlongo-weather-v3';
+const STATIC_ASSETS = ['./', './index.html', './weather.css', './weather.js', './icon.svg', './manifest.json'];
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS))
-  );
-  self.skipWaiting();
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS)).then(() => self.skipWaiting()));
 });
-
-// Activate: clean old caches
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-    )
-  );
-  self.clients.claim();
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith('morlongo-weather-') && k !== CACHE_NAME).map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
-
-// Fetch: network-first for HTML and data, cache-first for external assets
+// Network first so both code and readings refresh; stable URLs avoid endless cache entries.
 self.addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
-
-  // JSON data and HTML: network first, fall back to cache
-  if (url.pathname.endsWith('.json') || url.pathname.endsWith('.html') || url.pathname === '/' || url.pathname.endsWith('/')) {
-    event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-          return response;
-        })
-        .catch(() => caches.match(event.request))
-    );
-    return;
-  }
-
-  // External assets (CDN): cache first
-  event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request))
-  );
+  if (event.request.method !== 'GET') return;
+  event.respondWith(fetch(event.request).then(response => {
+    if (response.ok && (new URL(event.request.url).origin === self.location.origin || response.type === 'cors')) {
+      const copy = response.clone();
+      event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy)));
+    }
+    return response;
+  }).catch(async () => (await caches.match(event.request)) || new Response('Offline: no cached data', {status:503})));
 });

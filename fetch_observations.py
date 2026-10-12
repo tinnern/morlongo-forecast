@@ -2,9 +2,9 @@
 """
 Fetch observations from Netatmo weather station.
 Auto-discovers the weather station and fetches indoor/outdoor data.
-Maintains a rolling 7-day history in observations.json.
+Maintains a rolling 30-day history in observations.json.
 
-Requires environment variables:
+Requires environment variables or a local .env file:
     NETATMO_CLIENT_ID
     NETATMO_CLIENT_SECRET
     NETATMO_REFRESH_TOKEN
@@ -12,6 +12,7 @@ Requires environment variables:
 
 import os
 import json
+import shlex
 import requests
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -30,6 +31,10 @@ HISTORY_DAYS = 30
 
 def get_access_token():
     """Get fresh access token using refresh token."""
+    env_path = Path(__file__).parent / ".env"
+    local = dict(item.split("=", 1) for item in shlex.split(env_path.read_text())) if env_path.exists() else {}
+    for key, value in local.items():
+        os.environ.setdefault(key, value)
     client_id = os.environ.get("NETATMO_CLIENT_ID")
     client_secret = os.environ.get("NETATMO_CLIENT_SECRET")
     refresh_token = os.environ.get("NETATMO_REFRESH_TOKEN")
@@ -46,21 +51,24 @@ def get_access_token():
         "client_id": client_id,
         "client_secret": client_secret,
         "refresh_token": refresh_token
-    })
+    }, timeout=30)
 
     if response.status_code != 200:
         print(f"Error refreshing token: {response.status_code}")
-        print(response.text)
         return None, None
 
     tokens = response.json()
+    if local.get("NETATMO_REFRESH_TOKEN") == refresh_token and tokens.get("refresh_token"):
+        local["NETATMO_REFRESH_TOKEN"] = tokens["refresh_token"]
+        env_path.chmod(0o600)
+        env_path.write_text("".join(f"{key}={shlex.quote(value)}\n" for key, value in local.items()))
     return tokens.get("access_token"), tokens.get("refresh_token")
 
 
 def fetch_station_data(access_token):
     """Fetch data from all stations."""
     headers = {"Authorization": f"Bearer {access_token}"}
-    response = requests.get(STATIONS_URL, headers=headers)
+    response = requests.get(STATIONS_URL, headers=headers, timeout=30)
 
     if response.status_code != 200:
         print(f"Error fetching station data: {response.status_code}")
@@ -244,6 +252,13 @@ def main():
     # Load history and save
     history = load_history()
     output = save_history(history, observation)
+
+    # Current readings remain available even when the history endpoint fails.
+    from station_history import update_history
+    try:
+        update_history(access_token=access_token, station=station, evaporation=True)
+    except (requests.RequestException, ValueError) as error:
+        print(f"Warning: station history was not refreshed ({type(error).__name__})")
 
     print(f"\nSaved to {OUTPUT_FILE}")
     print(f"History: {output['meta']['observation_count']} observations over {HISTORY_DAYS} days")
