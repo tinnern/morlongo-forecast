@@ -1,35 +1,35 @@
 {
   "meta": {
     "station_name": "Morlongo 17 (Weather Station)",
-    "last_update": "2026-10-13T03:28:30.750094+02:00",
+    "last_update": "2026-10-13T07:49:48.336493+02:00",
     "history_days": 30,
-    "observation_count": 160
+    "observation_count": 161
   },
   "current": {
-    "time": "2026-10-13T03:28:30.750094+02:00",
+    "time": "2026-10-13T07:49:48.336493+02:00",
     "station_name": "Morlongo 17 (Weather Station)",
     "indoor": {
-      "temperature": 18.9,
+      "temperature": 19.8,
       "humidity": 54,
-      "pressure": 1024.2,
-      "time_utc": 1791854858
+      "pressure": 1023.8,
+      "time_utc": 1791870005
     },
     "outdoor": {
-      "temperature": 13.7,
-      "humidity": 78,
-      "time_utc": 1791854840
+      "temperature": 12.5,
+      "humidity": 82,
+      "time_utc": 1791869965
     },
     "rain": {
       "rain_1h": 0,
       "rain_24h": 0,
-      "time_utc": 1791854834
+      "time_utc": 1791869997
     },
     "wind": {
       "wind_strength": 2,
-      "wind_angle": 62,
-      "gust_strength": 4,
-      "gust_angle": 51,
-      "time_utc": 1791854853
+      "wind_angle": 66,
+      "gust_strength": 5,
+      "gust_angle": 48,
+      "time_utc": 1791870003
     }
   },
   "observations": [
@@ -4351,6 +4351,33 @@
         "gust_strength": 4,
         "gust_angle": 51,
         "time_utc": 1791854853
+      }
+    },
+    {
+      "time": "2026-10-13T07:49:48.336493+02:00",
+      "station_name": "Morlongo 17 (Weather Station)",
+      "indoor": {
+        "temperature": 19.8,
+        "humidity": 54,
+        "pressure": 1023.8,
+        "time_utc": 1791870005
+      },
+      "outdoor": {
+        "temperature": 12.5,
+        "humidity": 82,
+        "time_utc": 1791869965
+      },
+      "rain": {
+        "rain_1h": 0,
+        "rain_24h": 0,
+        "time_utc": 1791869997
+      },
+      "wind": {
+        "wind_strength": 2,
+        "wind_angle": 66,
+        "gust_strength": 5,
+        "gust_angle": 48,
+        "time_utc": 1791870003
       }
     }
   ]
