@@ -1,9 +1,12 @@
 name: Update Forecast & Observations
 
 on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/update_forecast.yml]
   schedule:
     # Run every 30 minutes for Netatmo observations
-    - cron: '*/30 * * * *'
+    - cron: '17,47 * * * *'
   workflow_dispatch:  # Allow manual trigger
 
 permissions:
@@ -37,14 +40,18 @@ jobs:
       - name: Check if forecast should run
         id: check_forecast
         run: |
-          HOUR=$(date -u +%H)
-          MINUTE=$(date -u +%M)
-          # Run forecast every 2 hours (at even hours, minute 0 or close to it)
-          if [ $((10#$HOUR % 2)) -eq 0 ] && [ $((10#$MINUTE)) -lt 35 ]; then
-            echo "run_forecast=true" >> $GITHUB_OUTPUT
-          else
-            echo "run_forecast=false" >> $GITHUB_OUTPUT
-          fi
+          python - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+
+          # Delayed scheduled runs must still refresh an old forecast.
+          generated = datetime.fromisoformat(json.loads(Path('docs/forecast.json').read_text())['meta']['generated_at'])
+          due = datetime.now(timezone.utc) - generated >= timedelta(hours=2)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f"run_forecast={str(due).lower()}\n")
+          PY
 
       - name: Generate debiased forecast
         if: steps.check_forecast.outputs.run_forecast == 'true' || github.event_name == 'workflow_dispatch'

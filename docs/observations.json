@@ -12,8 +12,6 @@
       "temperature": 18.9,
       "humidity": 54,
       "pressure": 1024.2,
-      "co2": 384,
-      "noise": 32,
       "time_utc": 1791854858
     },
     "outdoor": {
@@ -42,8 +40,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -71,8 +67,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -100,8 +94,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -129,8 +121,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -158,8 +148,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -187,8 +175,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -216,8 +202,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -245,8 +229,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -274,8 +256,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -303,8 +283,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -332,8 +310,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -361,8 +337,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -390,8 +364,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -419,8 +391,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -448,8 +418,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -477,8 +445,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -506,8 +472,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -535,8 +499,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -564,8 +526,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -593,8 +553,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -622,8 +580,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -651,8 +607,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -680,8 +634,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -709,8 +661,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -738,8 +688,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -767,8 +715,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -796,8 +742,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -825,8 +769,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -854,8 +796,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -883,8 +823,6 @@
         "temperature": null,
         "humidity": null,
         "pressure": null,
-        "co2": null,
-        "noise": null,
         "time_utc": null
       },
       "outdoor": {
@@ -912,8 +850,6 @@
         "temperature": 22.8,
         "humidity": 62,
         "pressure": 1016.5,
-        "co2": 695,
-        "noise": 39,
         "time_utc": 1789751756
       },
       "outdoor": {
@@ -941,8 +877,6 @@
         "temperature": 22.9,
         "humidity": 60,
         "pressure": 1018.6,
-        "co2": 576,
-        "noise": 32,
         "time_utc": 1789760641
       },
       "outdoor": {
@@ -970,8 +904,6 @@
         "temperature": 21.7,
         "humidity": 60,
         "pressure": 1020.6,
-        "co2": 609,
-        "noise": 33,
         "time_utc": 1789775546
       },
       "outdoor": {
@@ -999,8 +931,6 @@
         "temperature": 21.2,
         "humidity": 60,
         "pressure": 1020.7,
-        "co2": 565,
-        "noise": 33,
         "time_utc": 1789782209
       },
       "outdoor": {
@@ -1028,8 +958,6 @@
         "temperature": 21.3,
         "humidity": 58,
         "pressure": 1022.7,
-        "co2": 510,
-        "noise": 35,
         "time_utc": 1789800385
       },
       "outdoor": {
@@ -1057,8 +985,6 @@
         "temperature": 21.9,
         "humidity": 59,
         "pressure": 1022.9,
-        "co2": 477,
-        "noise": 37,
         "time_utc": 1789817550
       },
       "outdoor": {
@@ -1086,8 +1012,6 @@
         "temperature": 22.5,
         "humidity": 59,
         "pressure": 1022.7,
-        "co2": 459,
-        "noise": 33,
         "time_utc": 1789829665
       },
       "outdoor": {
@@ -1115,8 +1039,6 @@
         "temperature": 22.8,
         "humidity": 59,
         "pressure": 1023.5,
-        "co2": 733,
-        "noise": 46,
         "time_utc": 1789838753
       },
       "outdoor": {
@@ -1144,8 +1066,6 @@
         "temperature": 23.1,
         "humidity": 61,
         "pressure": 1025.1,
-        "co2": 1255,
-        "noise": 43,
         "time_utc": 1789846853
       },
       "outdoor": {
@@ -1173,8 +1093,6 @@
         "temperature": 21.6,
         "humidity": 60,
         "pressure": 1025.4,
-        "co2": 509,
-        "noise": 33,
         "time_utc": 1789854124
       },
       "outdoor": {
@@ -1202,8 +1120,6 @@
         "temperature": 21.3,
         "humidity": 60,
         "pressure": 1025.9,
-        "co2": 488,
-        "noise": 33,
         "time_utc": 1789860790
       },
       "outdoor": {
@@ -1231,8 +1147,6 @@
         "temperature": 21.3,
         "humidity": 58,
         "pressure": 1026,
-        "co2": 456,
-        "noise": 42,
         "time_utc": 1789888052
       },
       "outdoor": {
@@ -1260,8 +1174,6 @@
         "temperature": 22.5,
         "humidity": 59,
         "pressure": 1024.9,
-        "co2": 504,
-        "noise": 49,
         "time_utc": 1789907281
       },
       "outdoor": {
@@ -1289,8 +1201,6 @@
         "temperature": 22.7,
         "humidity": 59,
         "pressure": 1023.7,
-        "co2": 488,
-        "noise": 32,
         "time_utc": 1789921518
       },
       "outdoor": {
@@ -1318,8 +1228,6 @@
         "temperature": 22.6,
         "humidity": 59,
         "pressure": 1024.6,
-        "co2": 477,
-        "noise": 32,
         "time_utc": 1789930821
       },
       "outdoor": {
@@ -1347,8 +1255,6 @@
         "temperature": 22.6,
         "humidity": 59,
         "pressure": 1024.7,
-        "co2": 460,
-        "noise": 32,
         "time_utc": 1789940431
       },
       "outdoor": {
@@ -1376,8 +1282,6 @@
         "temperature": 22.6,
         "humidity": 59,
         "pressure": 1024.2,
-        "co2": 462,
-        "noise": 33,
         "time_utc": 1789947093
       },
       "outdoor": {
@@ -1405,8 +1309,6 @@
         "temperature": 22.4,
         "humidity": 57,
         "pressure": 1023.8,
-        "co2": 447,
-        "noise": 33,
         "time_utc": 1789955572
       },
       "outdoor": {
@@ -1434,8 +1336,6 @@
         "temperature": 22.1,
         "humidity": 53,
         "pressure": 1023.4,
-        "co2": 438,
-        "noise": 37,
         "time_utc": 1789974858
       },
       "outdoor": {
@@ -1463,8 +1363,6 @@
         "temperature": 22.4,
         "humidity": 54,
         "pressure": 1020.7,
-        "co2": 418,
-        "noise": 32,
         "time_utc": 1790000202
       },
       "outdoor": {
@@ -1492,8 +1390,6 @@
         "temperature": 22.4,
         "humidity": 53,
         "pressure": 1021.7,
-        "co2": 440,
-        "noise": 33,
         "time_utc": 1790018982
       },
       "outdoor": {
@@ -1521,8 +1417,6 @@
         "temperature": 22.3,
         "humidity": 50,
         "pressure": 1022.2,
-        "co2": 438,
-        "noise": 32,
         "time_utc": 1790031098
       },
       "outdoor": {
@@ -1550,8 +1444,6 @@
         "temperature": 22.3,
         "humidity": 49,
         "pressure": 1023,
-        "co2": 515,
-        "noise": 33,
         "time_utc": 1790057755
       },
       "outdoor": {
@@ -1579,8 +1471,6 @@
         "temperature": 22.4,
         "humidity": 50,
         "pressure": 1021.1,
-        "co2": 453,
-        "noise": 33,
         "time_utc": 1790077746
       },
       "outdoor": {
@@ -1608,8 +1498,6 @@
         "temperature": 22.6,
         "humidity": 52,
         "pressure": 1020,
-        "co2": 421,
-        "noise": 33,
         "time_utc": 1790091680
       },
       "outdoor": {
@@ -1637,8 +1525,6 @@
         "temperature": 22.7,
         "humidity": 52,
         "pressure": 1022.2,
-        "co2": 478,
-        "noise": 33,
         "time_utc": 1790104404
       },
       "outdoor": {
@@ -1666,8 +1552,6 @@
         "temperature": 22.7,
         "humidity": 52,
         "pressure": 1024.6,
-        "co2": 525,
-        "noise": 32,
         "time_utc": 1790115310
       },
       "outdoor": {
@@ -1695,8 +1579,6 @@
         "temperature": 22.4,
         "humidity": 51,
         "pressure": 1025.6,
-        "co2": 422,
-        "noise": 32,
         "time_utc": 1790123792
       },
       "outdoor": {
@@ -1724,8 +1606,6 @@
         "temperature": 22.4,
         "humidity": 51,
         "pressure": 1025.2,
-        "co2": 469,
-        "noise": 33,
         "time_utc": 1790140728
       },
       "outdoor": {
@@ -1753,8 +1633,6 @@
         "temperature": 22.4,
         "humidity": 50,
         "pressure": 1025.5,
-        "co2": 492,
-        "noise": 34,
         "time_utc": 1790157690
       },
       "outdoor": {
@@ -1782,8 +1660,6 @@
         "temperature": 22.5,
         "humidity": 49,
         "pressure": 1022.5,
-        "co2": 442,
-        "noise": 32,
         "time_utc": 1790175850
       },
       "outdoor": {
@@ -1811,8 +1687,6 @@
         "temperature": 22.5,
         "humidity": 50,
         "pressure": 1023.3,
-        "co2": 427,
-        "noise": 32,
         "time_utc": 1790190366
       },
       "outdoor": {
@@ -1840,8 +1714,6 @@
         "temperature": 22.4,
         "humidity": 51,
         "pressure": 1024.2,
-        "co2": 430,
-        "noise": 32,
         "time_utc": 1790201859
       },
       "outdoor": {
@@ -1869,8 +1741,6 @@
         "temperature": 22.3,
         "humidity": 51,
         "pressure": 1023.4,
-        "co2": 438,
-        "noise": 32,
         "time_utc": 1790209725
       },
       "outdoor": {
@@ -1898,8 +1768,6 @@
         "temperature": 22.1,
         "humidity": 51,
         "pressure": 1022.3,
-        "co2": 417,
-        "noise": 32,
         "time_utc": 1790227879
       },
       "outdoor": {
@@ -1927,8 +1795,6 @@
         "temperature": 21.9,
         "humidity": 51,
         "pressure": 1021.3,
-        "co2": 434,
-        "noise": 32,
         "time_utc": 1790246026
       },
       "outdoor": {
@@ -1956,8 +1822,6 @@
         "temperature": 22.1,
         "humidity": 52,
         "pressure": 1017.7,
-        "co2": 415,
-        "noise": 32,
         "time_utc": 1790263591
       },
       "outdoor": {
@@ -1985,8 +1849,6 @@
         "temperature": 22.1,
         "humidity": 52,
         "pressure": 1019,
-        "co2": 421,
-        "noise": 32,
         "time_utc": 1790277502
       },
       "outdoor": {
@@ -2014,8 +1876,6 @@
         "temperature": 22.1,
         "humidity": 52,
         "pressure": 1018.7,
-        "co2": 418,
-        "noise": 32,
         "time_utc": 1790289611
       },
       "outdoor": {
@@ -2043,8 +1903,6 @@
         "temperature": 22,
         "humidity": 52,
         "pressure": 1019.1,
-        "co2": 421,
-        "noise": 32,
         "time_utc": 1790297468
       },
       "outdoor": {
@@ -2072,8 +1930,6 @@
         "temperature": 21.8,
         "humidity": 51,
         "pressure": 1021.7,
-        "co2": 417,
-        "noise": 32,
         "time_utc": 1790314420
       },
       "outdoor": {
@@ -2101,8 +1957,6 @@
         "temperature": 21.8,
         "humidity": 52,
         "pressure": 1021.7,
-        "co2": 422,
-        "noise": 32,
         "time_utc": 1790332567
       },
       "outdoor": {
@@ -2130,8 +1984,6 @@
         "temperature": 21.9,
         "humidity": 52,
         "pressure": 1019.9,
-        "co2": 411,
-        "noise": 32,
         "time_utc": 1790350109
       },
       "outdoor": {
@@ -2159,8 +2011,6 @@
         "temperature": 21.9,
         "humidity": 52,
         "pressure": 1021.6,
-        "co2": 420,
-        "noise": 32,
         "time_utc": 1790364641
       },
       "outdoor": {
@@ -2188,8 +2038,6 @@
         "temperature": 21.9,
         "humidity": 52,
         "pressure": 1022.9,
-        "co2": 450,
-        "noise": 32,
         "time_utc": 1790376740
       },
       "outdoor": {
@@ -2217,8 +2065,6 @@
         "temperature": 21.8,
         "humidity": 52,
         "pressure": 1023.2,
-        "co2": 446,
-        "noise": 32,
         "time_utc": 1790383995
       },
       "outdoor": {
@@ -2246,8 +2092,6 @@
         "temperature": 21.8,
         "humidity": 52,
         "pressure": 1023.5,
-        "co2": 408,
-        "noise": 32,
         "time_utc": 1790401538
       },
       "outdoor": {
@@ -2275,8 +2119,6 @@
         "temperature": 21.6,
         "humidity": 52,
         "pressure": 1023.9,
-        "co2": 435,
-        "noise": 34,
         "time_utc": 1790417871
       },
       "outdoor": {
@@ -2304,8 +2146,6 @@
         "temperature": 21.8,
         "humidity": 52,
         "pressure": 1024.3,
-        "co2": 408,
-        "noise": 32,
         "time_utc": 1790445685
       },
       "outdoor": {
@@ -2333,8 +2173,6 @@
         "temperature": 21.8,
         "humidity": 52,
         "pressure": 1025.4,
-        "co2": 412,
-        "noise": 32,
         "time_utc": 1790457155
       },
       "outdoor": {
@@ -2362,8 +2200,6 @@
         "temperature": 21.8,
         "humidity": 52,
         "pressure": 1025.4,
-        "co2": 421,
-        "noise": 32,
         "time_utc": 1790465628
       },
       "outdoor": {
@@ -2391,8 +2227,6 @@
         "temperature": 21.6,
         "humidity": 52,
         "pressure": 1025.4,
-        "co2": 426,
-        "noise": 32,
         "time_utc": 1790474702
       },
       "outdoor": {
@@ -2420,8 +2254,6 @@
         "temperature": 21.4,
         "humidity": 52,
         "pressure": 1025,
-        "co2": 418,
-        "noise": 32,
         "time_utc": 1790497405
       },
       "outdoor": {
@@ -2449,8 +2281,6 @@
         "temperature": 21.6,
         "humidity": 53,
         "pressure": 1022.4,
-        "co2": 398,
-        "noise": 32,
         "time_utc": 1790517997
       },
       "outdoor": {
@@ -2478,8 +2308,6 @@
         "temperature": 21.7,
         "humidity": 53,
         "pressure": 1023.4,
-        "co2": 424,
-        "noise": 32,
         "time_utc": 1790533728
       },
       "outdoor": {
@@ -2507,8 +2335,6 @@
         "temperature": 21.6,
         "humidity": 53,
         "pressure": 1024.7,
-        "co2": 405,
-        "noise": 32,
         "time_utc": 1790545210
       },
       "outdoor": {
@@ -2536,8 +2362,6 @@
         "temperature": 21.5,
         "humidity": 53,
         "pressure": 1023.6,
-        "co2": 432,
-        "noise": 32,
         "time_utc": 1790573636
       },
       "outdoor": {
@@ -2565,8 +2389,6 @@
         "temperature": 21.4,
         "humidity": 54,
         "pressure": 1022.9,
-        "co2": 427,
-        "noise": 32,
         "time_utc": 1790597242
       },
       "outdoor": {
@@ -2594,8 +2416,6 @@
         "temperature": 21.7,
         "humidity": 54,
         "pressure": 1024,
-        "co2": 421,
-        "noise": 32,
         "time_utc": 1790624461
       },
       "outdoor": {
@@ -2623,8 +2443,6 @@
         "temperature": 21.6,
         "humidity": 54,
         "pressure": 1025,
-        "co2": 418,
-        "noise": 32,
         "time_utc": 1790639584
       },
       "outdoor": {
@@ -2652,8 +2470,6 @@
         "temperature": 21.6,
         "humidity": 54,
         "pressure": 1025.1,
-        "co2": 418,
-        "noise": 32,
         "time_utc": 1790656515
       },
       "outdoor": {
@@ -2681,8 +2497,6 @@
         "temperature": 21.7,
         "humidity": 54,
         "pressure": 1025.4,
-        "co2": 414,
-        "noise": 32,
         "time_utc": 1790678885
       },
       "outdoor": {
@@ -2710,8 +2524,6 @@
         "temperature": 21.6,
         "humidity": 54,
         "pressure": 1025.4,
-        "co2": 434,
-        "noise": 32,
         "time_utc": 1790700064
       },
       "outdoor": {
@@ -2739,8 +2551,6 @@
         "temperature": 21.7,
         "humidity": 54,
         "pressure": 1026.6,
-        "co2": 420,
-        "noise": 32,
         "time_utc": 1790715798
       },
       "outdoor": {
@@ -2768,8 +2578,6 @@
         "temperature": 21.6,
         "humidity": 54,
         "pressure": 1026.6,
-        "co2": 420,
-        "noise": 32,
         "time_utc": 1790728500
       },
       "outdoor": {
@@ -2797,8 +2605,6 @@
         "temperature": 21.5,
         "humidity": 55,
         "pressure": 1026.6,
-        "co2": 449,
-        "noise": 32,
         "time_utc": 1790747852
       },
       "outdoor": {
@@ -2826,8 +2632,6 @@
         "temperature": 21.6,
         "humidity": 55,
         "pressure": 1025.9,
-        "co2": 407,
-        "noise": 32,
         "time_utc": 1790772066
       },
       "outdoor": {
@@ -2855,8 +2659,6 @@
         "temperature": 21.6,
         "humidity": 55,
         "pressure": 1025.8,
-        "co2": 439,
-        "noise": 32,
         "time_utc": 1790791444
       },
       "outdoor": {
@@ -2884,8 +2686,6 @@
         "temperature": 21.6,
         "humidity": 55,
         "pressure": 1026.1,
-        "co2": 404,
-        "noise": 32,
         "time_utc": 1790807181
       },
       "outdoor": {
@@ -2913,8 +2713,6 @@
         "temperature": 21.5,
         "humidity": 55,
         "pressure": 1025.8,
-        "co2": 439,
-        "noise": 32,
         "time_utc": 1790817457
       },
       "outdoor": {
@@ -2942,8 +2740,6 @@
         "temperature": 21.4,
         "humidity": 55,
         "pressure": 1026.6,
-        "co2": 426,
-        "noise": 32,
         "time_utc": 1790839230
       },
       "outdoor": {
@@ -2971,8 +2767,6 @@
         "temperature": 21.3,
         "humidity": 55,
         "pressure": 1026,
-        "co2": 413,
-        "noise": 32,
         "time_utc": 1790865252
       },
       "outdoor": {
@@ -3000,8 +2794,6 @@
         "temperature": 21.4,
         "humidity": 55,
         "pressure": 1027.8,
-        "co2": 420,
-        "noise": 32,
         "time_utc": 1790884599
       },
       "outdoor": {
@@ -3029,8 +2821,6 @@
         "temperature": 21.3,
         "humidity": 56,
         "pressure": 1028.1,
-        "co2": 411,
-        "noise": 32,
         "time_utc": 1790897302
       },
       "outdoor": {
@@ -3058,8 +2848,6 @@
         "temperature": 21.3,
         "humidity": 55,
         "pressure": 1028.2,
-        "co2": 422,
-        "noise": 32,
         "time_utc": 1790908796
       },
       "outdoor": {
@@ -3087,8 +2875,6 @@
         "temperature": 21.1,
         "humidity": 55,
         "pressure": 1030.2,
-        "co2": 420,
-        "noise": 32,
         "time_utc": 1790931780
       },
       "outdoor": {
@@ -3116,8 +2902,6 @@
         "temperature": 21.3,
         "humidity": 56,
         "pressure": 1029.2,
-        "co2": 412,
-        "noise": 32,
         "time_utc": 1790956006
       },
       "outdoor": {
@@ -3145,8 +2929,6 @@
         "temperature": 21.1,
         "humidity": 58,
         "pressure": 1030.3,
-        "co2": 635,
-        "noise": 34,
         "time_utc": 1790971374
       },
       "outdoor": {
@@ -3174,8 +2956,6 @@
         "temperature": 21.6,
         "humidity": 58,
         "pressure": 1030.9,
-        "co2": 853,
-        "noise": 32,
         "time_utc": 1790984687
       },
       "outdoor": {
@@ -3203,8 +2983,6 @@
         "temperature": 21.6,
         "humidity": 58,
         "pressure": 1030.3,
-        "co2": 836,
-        "noise": 32,
         "time_utc": 1790994370
       },
       "outdoor": {
@@ -3232,8 +3010,6 @@
         "temperature": 21.1,
         "humidity": 59,
         "pressure": 1031.3,
-        "co2": 460,
-        "noise": 41,
         "time_utc": 1791016149
       },
       "outdoor": {
@@ -3261,8 +3037,6 @@
         "temperature": 21.6,
         "humidity": 57,
         "pressure": 1029.2,
-        "co2": 535,
-        "noise": 38,
         "time_utc": 1791035508
       },
       "outdoor": {
@@ -3290,8 +3064,6 @@
         "temperature": 21.2,
         "humidity": 55,
         "pressure": 1029.4,
-        "co2": 666,
-        "noise": 45,
         "time_utc": 1791049633
       },
       "outdoor": {
@@ -3319,8 +3091,6 @@
         "temperature": 21.7,
         "humidity": 57,
         "pressure": 1030.3,
-        "co2": 708,
-        "noise": 46,
         "time_utc": 1791058124
       },
       "outdoor": {
@@ -3348,8 +3118,6 @@
         "temperature": 21.8,
         "humidity": 56,
         "pressure": 1030,
-        "co2": 732,
-        "noise": 32,
         "time_utc": 1791069120
       },
       "outdoor": {
@@ -3377,8 +3145,6 @@
         "temperature": 21.6,
         "humidity": 56,
         "pressure": 1029.2,
-        "co2": 729,
-        "noise": 32,
         "time_utc": 1791081426
       },
       "outdoor": {
@@ -3406,8 +3172,6 @@
         "temperature": 20.6,
         "humidity": 56,
         "pressure": 1029.2,
-        "co2": 443,
-        "noise": 37,
         "time_utc": 1791103799
       },
       "outdoor": {
@@ -3435,8 +3199,6 @@
         "temperature": 21.2,
         "humidity": 55,
         "pressure": 1026,
-        "co2": 472,
-        "noise": 32,
         "time_utc": 1791123752
       },
       "outdoor": {
@@ -3464,8 +3226,6 @@
         "temperature": 21,
         "humidity": 56,
         "pressure": 1026.8,
-        "co2": 455,
-        "noise": 32,
         "time_utc": 1791137667
       },
       "outdoor": {
@@ -3493,8 +3253,6 @@
         "temperature": 21,
         "humidity": 56,
         "pressure": 1026.7,
-        "co2": 451,
-        "noise": 32,
         "time_utc": 1791150009
       },
       "outdoor": {
@@ -3522,8 +3280,6 @@
         "temperature": 20.9,
         "humidity": 56,
         "pressure": 1026.1,
-        "co2": 441,
-        "noise": 32,
         "time_utc": 1791158995
       },
       "outdoor": {
@@ -3551,8 +3307,6 @@
         "temperature": 20.8,
         "humidity": 56,
         "pressure": 1024.7,
-        "co2": 437,
-        "noise": 32,
         "time_utc": 1791179713
       },
       "outdoor": {
@@ -3580,8 +3334,6 @@
         "temperature": 20.8,
         "humidity": 56,
         "pressure": 1023,
-        "co2": 431,
-        "noise": 32,
         "time_utc": 1791205663
       },
       "outdoor": {
@@ -3609,8 +3361,6 @@
         "temperature": 20.8,
         "humidity": 56,
         "pressure": 1023.9,
-        "co2": 422,
-        "noise": 32,
         "time_utc": 1791234684
       },
       "outdoor": {
@@ -3638,8 +3388,6 @@
         "temperature": 20.8,
         "humidity": 56,
         "pressure": 1022.4,
-        "co2": 428,
-        "noise": 32,
         "time_utc": 1791251023
       },
       "outdoor": {
@@ -3667,8 +3415,6 @@
         "temperature": 20.7,
         "humidity": 56,
         "pressure": 1022.3,
-        "co2": 458,
-        "noise": 32,
         "time_utc": 1791274018
       },
       "outdoor": {
@@ -3696,8 +3442,6 @@
         "temperature": 20.6,
         "humidity": 56,
         "pressure": 1019,
-        "co2": 426,
-        "noise": 32,
         "time_utc": 1791300632
       },
       "outdoor": {
@@ -3725,8 +3469,6 @@
         "temperature": 20.6,
         "humidity": 56,
         "pressure": 1020.2,
-        "co2": 416,
-        "noise": 32,
         "time_utc": 1791318106
       },
       "outdoor": {
@@ -3754,8 +3496,6 @@
         "temperature": 20.6,
         "humidity": 56,
         "pressure": 1020.4,
-        "co2": 428,
-        "noise": 32,
         "time_utc": 1791330839
       },
       "outdoor": {
@@ -3783,8 +3523,6 @@
         "temperature": 20.4,
         "humidity": 56,
         "pressure": 1019.1,
-        "co2": 416,
-        "noise": 32,
         "time_utc": 1791341128
       },
       "outdoor": {
@@ -3812,8 +3550,6 @@
         "temperature": 20.2,
         "humidity": 56,
         "pressure": 1019.2,
-        "co2": 425,
-        "noise": 32,
         "time_utc": 1791364795
       },
       "outdoor": {
@@ -3841,8 +3577,6 @@
         "temperature": 19.9,
         "humidity": 56,
         "pressure": 1015.7,
-        "co2": 420,
-        "noise": 32,
         "time_utc": 1791390846
       },
       "outdoor": {
@@ -3870,8 +3604,6 @@
         "temperature": 19.8,
         "humidity": 57,
         "pressure": 1014.2,
-        "co2": 418,
-        "noise": 32,
         "time_utc": 1791409021
       },
       "outdoor": {
@@ -3899,8 +3631,6 @@
         "temperature": 19.7,
         "humidity": 57,
         "pressure": 1012.2,
-        "co2": 420,
-        "noise": 32,
         "time_utc": 1791422289
       },
       "outdoor": {
@@ -3928,8 +3658,6 @@
         "temperature": 19.5,
         "humidity": 57,
         "pressure": 1009.8,
-        "co2": 435,
-        "noise": 32,
         "time_utc": 1791444460
       },
       "outdoor": {
@@ -3957,8 +3685,6 @@
         "temperature": 19.3,
         "humidity": 58,
         "pressure": 1011.1,
-        "co2": 421,
-        "noise": 32,
         "time_utc": 1791471196
       },
       "outdoor": {
@@ -3986,8 +3712,6 @@
         "temperature": 19.3,
         "humidity": 58,
         "pressure": 1013.6,
-        "co2": 403,
-        "noise": 32,
         "time_utc": 1791491188
       },
       "outdoor": {
@@ -4015,8 +3739,6 @@
         "temperature": 19.1,
         "humidity": 58,
         "pressure": 1014,
-        "co2": 405,
-        "noise": 32,
         "time_utc": 1791505897
       },
       "outdoor": {
@@ -4044,8 +3766,6 @@
         "temperature": 18.8,
         "humidity": 58,
         "pressure": 1017.2,
-        "co2": 423,
-        "noise": 32,
         "time_utc": 1791528314
       },
       "outdoor": {
@@ -4073,8 +3793,6 @@
         "temperature": 18.8,
         "humidity": 58,
         "pressure": 1016,
-        "co2": 395,
-        "noise": 32,
         "time_utc": 1791554064
       },
       "outdoor": {
@@ -4102,8 +3820,6 @@
         "temperature": 18.8,
         "humidity": 58,
         "pressure": 1016.4,
-        "co2": 404,
-        "noise": 32,
         "time_utc": 1791572843
       },
       "outdoor": {
@@ -4131,8 +3847,6 @@
         "temperature": 18.7,
         "humidity": 58,
         "pressure": 1016.6,
-        "co2": 396,
-        "noise": 32,
         "time_utc": 1791587990
       },
       "outdoor": {
@@ -4160,8 +3874,6 @@
         "temperature": 18.6,
         "humidity": 58,
         "pressure": 1014.9,
-        "co2": 391,
-        "noise": 32,
         "time_utc": 1791599198
       },
       "outdoor": {
@@ -4189,8 +3901,6 @@
         "temperature": 18.4,
         "humidity": 58,
         "pressure": 1014.9,
-        "co2": 391,
-        "noise": 32,
         "time_utc": 1791621611
       },
       "outdoor": {
@@ -4218,8 +3928,6 @@
         "temperature": 18.7,
         "humidity": 58,
         "pressure": 1010.4,
-        "co2": 385,
-        "noise": 32,
         "time_utc": 1791643421
       },
       "outdoor": {
@@ -4247,8 +3955,6 @@
         "temperature": 18.6,
         "humidity": 58,
         "pressure": 1010.8,
-        "co2": 389,
-        "noise": 32,
         "time_utc": 1791658567
       },
       "outdoor": {
@@ -4276,8 +3982,6 @@
         "temperature": 18.5,
         "humidity": 58,
         "pressure": 1011.2,
-        "co2": 392,
-        "noise": 32,
         "time_utc": 1791670078
       },
       "outdoor": {
@@ -4305,8 +4009,6 @@
         "temperature": 18.4,
         "humidity": 57,
         "pressure": 1010.9,
-        "co2": 399,
-        "noise": 32,
         "time_utc": 1791680378
       },
       "outdoor": {
@@ -4334,8 +4036,6 @@
         "temperature": 18,
         "humidity": 54,
         "pressure": 1011.5,
-        "co2": 368,
-        "noise": 32,
         "time_utc": 1791703401
       },
       "outdoor": {
@@ -4363,8 +4063,6 @@
         "temperature": 18.1,
         "humidity": 55,
         "pressure": 1010.4,
-        "co2": 361,
-        "noise": 32,
         "time_utc": 1791727635
       },
       "outdoor": {
@@ -4392,8 +4090,6 @@
         "temperature": 18.2,
         "humidity": 55,
         "pressure": 1012.2,
-        "co2": 378,
-        "noise": 32,
         "time_utc": 1791745204
       },
       "outdoor": {
@@ -4421,8 +4117,6 @@
         "temperature": 18.1,
         "humidity": 56,
         "pressure": 1012.8,
-        "co2": 382,
-        "noise": 32,
         "time_utc": 1791759137
       },
       "outdoor": {
@@ -4450,8 +4144,6 @@
         "temperature": 18,
         "humidity": 55,
         "pressure": 1013.1,
-        "co2": 388,
-        "noise": 32,
         "time_utc": 1791770645
       },
       "outdoor": {
@@ -4479,8 +4171,6 @@
         "temperature": 17.8,
         "humidity": 55,
         "pressure": 1016.7,
-        "co2": 381,
-        "noise": 32,
         "time_utc": 1791797302
       },
       "outdoor": {
@@ -4508,8 +4198,6 @@
         "temperature": 17.8,
         "humidity": 55,
         "pressure": 1017.1,
-        "co2": 375,
-        "noise": 32,
         "time_utc": 1791799119
       },
       "outdoor": {
@@ -4537,8 +4225,6 @@
         "temperature": 17.8,
         "humidity": 55,
         "pressure": 1017.1,
-        "co2": 375,
-        "noise": 32,
         "time_utc": 1791799119
       },
       "outdoor": {
@@ -4566,8 +4252,6 @@
         "temperature": 18,
         "humidity": 55,
         "pressure": 1017.5,
-        "co2": 366,
-        "noise": 33,
         "time_utc": 1791811841
       },
       "outdoor": {
@@ -4595,8 +4279,6 @@
         "temperature": 18,
         "humidity": 55,
         "pressure": 1017.6,
-        "co2": 368,
-        "noise": 32,
         "time_utc": 1791813659
       },
       "outdoor": {
@@ -4624,8 +4306,6 @@
         "temperature": 20.1,
         "humidity": 54,
         "pressure": 1021.5,
-        "co2": 397,
-        "noise": 33,
         "time_utc": 1791831835
       },
       "outdoor": {
@@ -4653,8 +4333,6 @@
         "temperature": 18.9,
         "humidity": 54,
         "pressure": 1024.2,
-        "co2": 384,
-        "noise": 32,
         "time_utc": 1791854858
       },
       "outdoor": {

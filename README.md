@@ -148,8 +148,10 @@ Sources: [MeteoSwiss forecasts](https://open-meteo.com/en/docs/meteoswiss-api),
 
 ## GitHub Actions
 
-The existing workflow fetches observations every 30 minutes and refreshes the
-forecast every two hours. It runs `generate_forecast.py` with the checked-in
+The workflow requests observations every 30 minutes, away from the top of the hour.
+GitHub can delay scheduled runs. Each run refreshes the forecast if it is at least
+two hours old. CO₂ and noise readings are excluded from the website and its JSON.
+It runs `generate_forecast.py` with the checked-in
 `models/` artifacts. Linux uses the small `xgboost-cpu` package, with no CUDA packages.
 Only local retraining needs scikit-learn. The four model files total 1.41 MiB.
 A clean local runtime loaded the models and generated 113 hours in 0.3 seconds
@@ -162,7 +164,7 @@ repository Actions secrets. The workflow's existing publishing behaviour is unch
 ## Checks
 
 ```bash
-python -m unittest test_weather_model test_website_history
+python -m unittest test_weather_model test_website_history test_update_workflow
 python test_station_history.py
 node test_ui.cjs
 ```

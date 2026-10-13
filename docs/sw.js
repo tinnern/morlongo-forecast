@@ -1,4 +1,4 @@
-const CACHE_NAME = 'morlongo-weather-v3';
+const CACHE_NAME = 'morlongo-weather-v4';
 const STATIC_ASSETS = ['./', './index.html', './weather.css', './weather.js', './icon.svg', './manifest.json'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS)).then(() => self.skipWaiting()));

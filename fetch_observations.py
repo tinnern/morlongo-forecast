@@ -107,8 +107,6 @@ def extract_observation(station):
         "temperature": dashboard.get("Temperature"),
         "humidity": dashboard.get("Humidity"),
         "pressure": dashboard.get("Pressure"),
-        "co2": dashboard.get("CO2"),
-        "noise": dashboard.get("Noise"),
         "time_utc": dashboard.get("time_utc")
     }
 
@@ -185,6 +183,11 @@ def save_history(history, current_obs):
 
     # Add current observation
     recent.append(current_obs)
+
+    # Remove private indoor readings from retained snapshots as well as new ones.
+    for obs in recent:
+        for field in ("co2", "noise"):
+            obs.get("indoor", {}).pop(field, None)
 
     # Sort by time
     recent.sort(key=lambda x: x["time"])

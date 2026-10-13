@@ -116,7 +116,7 @@ if (typeof document !== 'undefined') {
         $('forecast-title').textContent = range === 24 ? 'The next 24 hours' : 'Full forecast';
         const sensors = [['Outdoor', outdoor], ['Wind & gusts', wind], ['Rain gauge', rain], ['Indoor / pressure', current.indoor || {}]];
         $('sensor-status').innerHTML = sensors.map(([name, sensor]) => `<p><strong>${name}</strong><br>${freshness(sensorTime(sensor))}</p>`).join('')
-            + `<p><strong>Indoor measurements</strong><br>${number(current.indoor?.temperature, 1)}°C · ${number(current.indoor?.humidity)}% humidity<br>CO₂ ${number(current.indoor?.co2)} ppm · noise ${number(current.indoor?.noise)} dB</p>`;
+            + `<p><strong>Indoor measurements</strong><br>${number(current.indoor?.temperature, 1)}°C · ${number(current.indoor?.humidity)}% humidity</p>`;
     }
     const line = (label, data, color, dash = [], extra = {}) => ({label, data, borderColor: color, backgroundColor: color, borderDash: dash, borderWidth: 1.8, pointRadius: 0, pointHitRadius: 12, spanGaps: false, tension: 0.12, ...extra});
     const nowMarker = {id:'nowMarker', beforeDatasetsDraw(chart) {
