@@ -1,35 +1,35 @@
 {
   "meta": {
     "station_name": "Morlongo 17 (Weather Station)",
-    "last_update": "2026-10-15T02:57:47.594266+02:00",
+    "last_update": "2026-10-15T07:56:18.808148+02:00",
     "history_days": 30,
-    "observation_count": 159
+    "observation_count": 160
   },
   "current": {
-    "time": "2026-10-15T02:57:47.594266+02:00",
+    "time": "2026-10-15T07:56:18.808148+02:00",
     "station_name": "Morlongo 17 (Weather Station)",
     "indoor": {
-      "temperature": 20.4,
+      "temperature": 20.7,
       "humidity": 55,
-      "pressure": 1027.9,
-      "time_utc": 1792025488
+      "pressure": 1027,
+      "time_utc": 1792043547
     },
     "outdoor": {
-      "temperature": 12.9,
-      "humidity": 80,
-      "time_utc": 1792025465
+      "temperature": 11.1,
+      "humidity": 82,
+      "time_utc": 1792043512
     },
     "rain": {
       "rain_1h": 0,
       "rain_24h": 0,
-      "time_utc": 1792024882
+      "time_utc": 1792043121
     },
     "wind": {
       "wind_strength": 2,
-      "wind_angle": 51,
-      "gust_strength": 5,
-      "gust_angle": 108,
-      "time_utc": 1792025484
+      "wind_angle": 56,
+      "gust_strength": 4,
+      "gust_angle": 67,
+      "time_utc": 1792043544
     }
   },
   "observations": [
@@ -4324,6 +4324,33 @@
         "gust_strength": 5,
         "gust_angle": 108,
         "time_utc": 1792025484
+      }
+    },
+    {
+      "time": "2026-10-15T07:56:18.808148+02:00",
+      "station_name": "Morlongo 17 (Weather Station)",
+      "indoor": {
+        "temperature": 20.7,
+        "humidity": 55,
+        "pressure": 1027,
+        "time_utc": 1792043547
+      },
+      "outdoor": {
+        "temperature": 11.1,
+        "humidity": 82,
+        "time_utc": 1792043512
+      },
+      "rain": {
+        "rain_1h": 0,
+        "rain_24h": 0,
+        "time_utc": 1792043121
+      },
+      "wind": {
+        "wind_strength": 2,
+        "wind_angle": 56,
+        "gust_strength": 4,
+        "gust_angle": 67,
+        "time_utc": 1792043544
       }
     }
   ]
