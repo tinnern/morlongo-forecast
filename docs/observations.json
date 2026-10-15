@@ -1,35 +1,35 @@
 {
   "meta": {
     "station_name": "Morlongo 17 (Weather Station)",
-    "last_update": "2026-10-15T00:42:52.410866+02:00",
+    "last_update": "2026-10-15T02:57:47.594266+02:00",
     "history_days": 30,
-    "observation_count": 158
+    "observation_count": 159
   },
   "current": {
-    "time": "2026-10-15T00:42:52.410866+02:00",
+    "time": "2026-10-15T02:57:47.594266+02:00",
     "station_name": "Morlongo 17 (Weather Station)",
     "indoor": {
-      "temperature": 20.7,
-      "humidity": 56,
-      "pressure": 1029,
-      "time_utc": 1792017397
+      "temperature": 20.4,
+      "humidity": 55,
+      "pressure": 1027.9,
+      "time_utc": 1792025488
     },
     "outdoor": {
-      "temperature": 13.1,
-      "humidity": 83,
-      "time_utc": 1792017365
+      "temperature": 12.9,
+      "humidity": 80,
+      "time_utc": 1792025465
     },
     "rain": {
       "rain_1h": 0,
       "rain_24h": 0,
-      "time_utc": 1792016288
+      "time_utc": 1792024882
     },
     "wind": {
       "wind_strength": 2,
-      "wind_angle": 64,
+      "wind_angle": 51,
       "gust_strength": 5,
-      "gust_angle": 62,
-      "time_utc": 1792017397
+      "gust_angle": 108,
+      "time_utc": 1792025484
     }
   },
   "observations": [
@@ -4297,6 +4297,33 @@
         "gust_strength": 5,
         "gust_angle": 62,
         "time_utc": 1792017397
+      }
+    },
+    {
+      "time": "2026-10-15T02:57:47.594266+02:00",
+      "station_name": "Morlongo 17 (Weather Station)",
+      "indoor": {
+        "temperature": 20.4,
+        "humidity": 55,
+        "pressure": 1027.9,
+        "time_utc": 1792025488
+      },
+      "outdoor": {
+        "temperature": 12.9,
+        "humidity": 80,
+        "time_utc": 1792025465
+      },
+      "rain": {
+        "rain_1h": 0,
+        "rain_24h": 0,
+        "time_utc": 1792024882
+      },
+      "wind": {
+        "wind_strength": 2,
+        "wind_angle": 51,
+        "gust_strength": 5,
+        "gust_angle": 108,
+        "time_utc": 1792025484
       }
     }
   ]
