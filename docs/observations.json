@@ -1,35 +1,35 @@
 {
   "meta": {
     "station_name": "Morlongo 17 (Weather Station)",
-    "last_update": "2026-10-24T18:04:17.388981+02:00",
+    "last_update": "2026-10-24T20:49:54.886385+02:00",
     "history_days": 30,
-    "observation_count": 160
+    "observation_count": 161
   },
   "current": {
-    "time": "2026-10-24T18:04:17.388981+02:00",
+    "time": "2026-10-24T20:49:54.886385+02:00",
     "station_name": "Morlongo 17 (Weather Station)",
     "indoor": {
-      "temperature": 19.9,
+      "temperature": 20.5,
       "humidity": 45,
-      "pressure": 1016.7,
-      "time_utc": 1792857438
+      "pressure": 1018.5,
+      "time_utc": 1792867732
     },
     "outdoor": {
-      "temperature": 12.1,
-      "humidity": 51,
-      "time_utc": 1792857401
+      "temperature": 9.7,
+      "humidity": 56,
+      "time_utc": 1792867700
     },
     "rain": {
       "rain_1h": 0,
       "rain_24h": 0,
-      "time_utc": 1792857433
+      "time_utc": 1792867725
     },
     "wind": {
       "wind_strength": 2,
-      "wind_angle": 42,
-      "gust_strength": 5,
-      "gust_angle": 77,
-      "time_utc": 1792857433
+      "wind_angle": 305,
+      "gust_strength": 6,
+      "gust_angle": 287,
+      "time_utc": 1792866860
     }
   },
   "observations": [
@@ -4351,6 +4351,33 @@
         "gust_strength": 5,
         "gust_angle": 77,
         "time_utc": 1792857433
+      }
+    },
+    {
+      "time": "2026-10-24T20:49:54.886385+02:00",
+      "station_name": "Morlongo 17 (Weather Station)",
+      "indoor": {
+        "temperature": 20.5,
+        "humidity": 45,
+        "pressure": 1018.5,
+        "time_utc": 1792867732
+      },
+      "outdoor": {
+        "temperature": 9.7,
+        "humidity": 56,
+        "time_utc": 1792867700
+      },
+      "rain": {
+        "rain_1h": 0,
+        "rain_24h": 0,
+        "time_utc": 1792867725
+      },
+      "wind": {
+        "wind_strength": 2,
+        "wind_angle": 305,
+        "gust_strength": 6,
+        "gust_angle": 287,
+        "time_utc": 1792866860
       }
     }
   ]
