@@ -3,63 +3,11 @@
     "location": "Morlongo",
     "lat": 46.021245,
     "lon": 8.239861,
-    "generated_at": "2026-10-25T23:05:59.790680+01:00",
+    "generated_at": "2026-10-26T01:26:32.094812+01:00",
     "model": "XGBoost station calibration / MeteoSwiss ICON-CH2",
-    "forecast_hours": 116
+    "forecast_hours": 114
   },
   "hourly": [
-    {
-      "time": "2026-10-26T00:00:00+01:00",
-      "raw": {
-        "temperature": 10.7,
-        "apparent_temperature": 6.5,
-        "humidity": 53.0,
-        "precipitation": 0.0,
-        "precipitation_probability": 0.0,
-        "wind_speed": 15.5,
-        "wind_gusts": 33.8,
-        "wind_direction": 282.0,
-        "cloud_cover": 0.0,
-        "pressure": 1016.8,
-        "weather_code": 0.0,
-        "vpd": 0.61,
-        "et0": 0.06,
-        "is_day": 0.0
-      },
-      "debiased": {
-        "temperature": 11.6,
-        "humidity": 58.4,
-        "wind_speed": 3.1,
-        "gust_speed": 11.2,
-        "rain": 0.0
-      }
-    },
-    {
-      "time": "2026-10-26T01:00:00+01:00",
-      "raw": {
-        "temperature": 10.7,
-        "apparent_temperature": 6.2,
-        "humidity": 44.0,
-        "precipitation": 0.0,
-        "precipitation_probability": 0.0,
-        "wind_speed": 15.6,
-        "wind_gusts": 35.3,
-        "wind_direction": 285.0,
-        "cloud_cover": 0.0,
-        "pressure": 1017.0,
-        "weather_code": 0.0,
-        "vpd": 0.72,
-        "et0": 0.08,
-        "is_day": 0.0
-      },
-      "debiased": {
-        "temperature": 11.7,
-        "humidity": 49.7,
-        "wind_speed": 3.2,
-        "gust_speed": 11.9,
-        "rain": 0.0
-      }
-    },
     {
       "time": "2026-10-26T02:00:00+01:00",
       "raw": {
@@ -651,8 +599,8 @@
         "is_day": 0.0
       },
       "debiased": {
-        "temperature": 8.7,
-        "humidity": 75.8,
+        "temperature": 8.8,
+        "humidity": 74.8,
         "wind_speed": 2.3,
         "gust_speed": 7.1,
         "rain": 0.0
@@ -678,9 +626,9 @@
       },
       "debiased": {
         "temperature": 8.8,
-        "humidity": 75.9,
+        "humidity": 74.9,
         "wind_speed": 2.4,
-        "gust_speed": 7.7,
+        "gust_speed": 7.8,
         "rain": 0.0
       }
     },
