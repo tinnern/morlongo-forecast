@@ -3,115 +3,11 @@
     "location": "Morlongo",
     "lat": 46.021245,
     "lon": 8.239861,
-    "generated_at": "2026-11-03T22:06:36.945561+01:00",
+    "generated_at": "2026-11-04T02:26:46.538410+01:00",
     "model": "XGBoost station calibration / MeteoSwiss ICON-CH2",
-    "forecast_hours": 117
+    "forecast_hours": 113
   },
   "hourly": [
-    {
-      "time": "2026-11-03T23:00:00+01:00",
-      "raw": {
-        "temperature": 8.4,
-        "apparent_temperature": 6.4,
-        "humidity": 71.0,
-        "precipitation": 0.0,
-        "precipitation_probability": 0.0,
-        "wind_speed": 3.4,
-        "wind_gusts": 11.2,
-        "wind_direction": 302.0,
-        "cloud_cover": 91.0,
-        "pressure": 1022.7,
-        "weather_code": 3.0,
-        "vpd": 0.32,
-        "et0": 0.0,
-        "is_day": 0.0
-      },
-      "debiased": {
-        "temperature": 8.0,
-        "humidity": 72.5,
-        "wind_speed": 2.3,
-        "gust_speed": 7.6,
-        "rain": 0.0
-      }
-    },
-    {
-      "time": "2026-11-04T00:00:00+01:00",
-      "raw": {
-        "temperature": 7.7,
-        "apparent_temperature": 5.3,
-        "humidity": 73.0,
-        "precipitation": 0.0,
-        "precipitation_probability": 0.0,
-        "wind_speed": 5.6,
-        "wind_gusts": 11.2,
-        "wind_direction": 285.0,
-        "cloud_cover": 87.0,
-        "pressure": 1023.3,
-        "weather_code": 3.0,
-        "vpd": 0.29,
-        "et0": 0.01,
-        "is_day": 0.0
-      },
-      "debiased": {
-        "temperature": 7.4,
-        "humidity": 74.0,
-        "wind_speed": 2.3,
-        "gust_speed": 7.6,
-        "rain": 0.0
-      }
-    },
-    {
-      "time": "2026-11-04T01:00:00+01:00",
-      "raw": {
-        "temperature": 7.7,
-        "apparent_temperature": 5.3,
-        "humidity": 75.0,
-        "precipitation": 0.0,
-        "precipitation_probability": 19.0,
-        "wind_speed": 5.8,
-        "wind_gusts": 15.1,
-        "wind_direction": 292.0,
-        "cloud_cover": 94.0,
-        "pressure": 1023.8,
-        "weather_code": 3.0,
-        "vpd": 0.26,
-        "et0": 0.01,
-        "is_day": 0.0
-      },
-      "debiased": {
-        "temperature": 7.2,
-        "humidity": 75.4,
-        "wind_speed": 2.3,
-        "gust_speed": 7.7,
-        "rain": 0.0
-      }
-    },
-    {
-      "time": "2026-11-04T02:00:00+01:00",
-      "raw": {
-        "temperature": 7.7,
-        "apparent_temperature": 5.9,
-        "humidity": 77.0,
-        "precipitation": 0.0,
-        "precipitation_probability": 19.0,
-        "wind_speed": 3.1,
-        "wind_gusts": 11.9,
-        "wind_direction": 315.0,
-        "cloud_cover": 100.0,
-        "pressure": 1023.9,
-        "weather_code": 3.0,
-        "vpd": 0.24,
-        "et0": 0.0,
-        "is_day": 0.0
-      },
-      "debiased": {
-        "temperature": 7.1,
-        "humidity": 76.9,
-        "wind_speed": 2.3,
-        "gust_speed": 7.4,
-        "rain": 0.0
-      }
-    },
     {
       "time": "2026-11-04T03:00:00+01:00",
       "raw": {
@@ -651,8 +547,8 @@
         "is_day": 0.0
       },
       "debiased": {
-        "temperature": 6.7,
-        "humidity": 85.0,
+        "temperature": 6.8,
+        "humidity": 84.9,
         "wind_speed": 2.5,
         "gust_speed": 7.7,
         "rain": 0.2
@@ -677,8 +573,8 @@
         "is_day": 0.0
       },
       "debiased": {
-        "temperature": 6.6,
-        "humidity": 83.1,
+        "temperature": 6.7,
+        "humidity": 83.0,
         "wind_speed": 2.7,
         "gust_speed": 8.1,
         "rain": 0.4
@@ -729,7 +625,7 @@
         "is_day": 0.0
       },
       "debiased": {
-        "temperature": 6.3,
+        "temperature": 6.4,
         "humidity": 82.2,
         "wind_speed": 2.5,
         "gust_speed": 7.7,
@@ -1275,7 +1171,7 @@
         "is_day": 0.0
       },
       "debiased": {
-        "temperature": 6.2,
+        "temperature": 6.3,
         "humidity": 79.3,
         "wind_speed": 2.3,
         "gust_speed": 7.2,
@@ -1301,7 +1197,7 @@
         "is_day": 0.0
       },
       "debiased": {
-        "temperature": 6.3,
+        "temperature": 6.4,
         "humidity": 80.2,
         "wind_speed": 2.3,
         "gust_speed": 7.5,
@@ -1328,7 +1224,7 @@
       },
       "debiased": {
         "temperature": 7.0,
-        "humidity": 78.4,
+        "humidity": 78.5,
         "wind_speed": 2.3,
         "gust_speed": 6.6,
         "rain": 0.0
@@ -1353,7 +1249,7 @@
         "is_day": 0.0
       },
       "debiased": {
-        "temperature": 6.5,
+        "temperature": 6.6,
         "humidity": 80.0,
         "wind_speed": 2.3,
         "gust_speed": 6.6,
@@ -2524,7 +2420,7 @@
       },
       "debiased": {
         "temperature": 5.9,
-        "humidity": 81.9,
+        "humidity": 81.8,
         "wind_speed": 2.2,
         "gust_speed": 5.7,
         "rain": 0.0
